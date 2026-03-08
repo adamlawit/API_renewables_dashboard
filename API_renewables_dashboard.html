@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EIA Renewable Energy Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#f5f2eb; --surface:#fff; --border:#e0d9cc; --ink:#1a1a18;
+  --muted:#8a857a; --solar:#e8a020; --wind:#2a7d4f; --hydro:#2060b0;
+  --gas:#e05020; --coal:#1a1a18; --nuclear:#9040c0; --accent:#2a7d4f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-weight:300;min-height:100vh}
+
+.app-header{background:var(--ink);color:#fff;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.app-header h1{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;line-height:1}
+.app-header h1 span{color:var(--wind)}
+.app-header p{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#888;margin-top:4px}
+.live-badge{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:#aaa}
+.dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.api-bar{background:#fff;border-bottom:2px solid var(--ink);padding:10px 48px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.api-bar label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.api-bar input{flex:1;min-width:200px;max-width:340px;border:1.5px solid var(--border);border-radius:4px;padding:6px 10px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink);outline:none;transition:border-color .2s}
+.api-bar input:focus{border-color:var(--accent)}
+.load-btn{background:var(--ink);color:#fff;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.73rem;letter-spacing:.04em;padding:7px 18px;border-radius:4px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.load-btn:hover{background:var(--accent)}
+.load-btn:disabled{opacity:.4;cursor:not-allowed}
+.api-bar a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);text-decoration:none}
+.api-bar a:hover{text-decoration:underline}
+
+/* REGION SELECTOR */
+.region-bar{background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 48px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.region-group{display:flex;flex-direction:column;gap:5px;min-width:0}
+.region-group-label{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.region-pills{display:flex;flex-wrap:wrap;gap:4px}
+.region-pills.scrollable{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.region-pills.scrollable::-webkit-scrollbar{height:3px}
+.region-pills.scrollable::-webkit-scrollbar-track{background:transparent}
+.region-pills.scrollable::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.rpill{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 11px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap;flex-shrink:0}
+.rpill:hover:not(.active){border-color:var(--ink);color:var(--ink);background:var(--bg)}
+.rpill.active.t-national{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rpill.active.t-state{background:#1a6bb0;color:#fff;border-color:#1a6bb0}
+.rpill.active.t-rto{background:#7030b0;color:#fff;border-color:#7030b0}
+.rpill.active.t-region{background:#2a7d4f;color:#fff;border-color:#2a7d4f}
+.region-info-icon{font-size:.65rem;color:var(--muted);cursor:default;position:relative;line-height:1;padding:2px;user-select:none}
+.region-info-icon:hover{color:var(--ink)}
+.region-info-popup{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.6rem;white-space:nowrap;padding:6px 10px;border-radius:5px;z-index:100;pointer-events:none;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.region-info-popup::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
+.region-info-icon:hover .region-info-popup{display:block}
+.region-vdiv{width:1px;background:var(--border);align-self:stretch;margin:0 2px}
+.region-note{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);padding:5px 10px;background:var(--bg);border-radius:4px;border:1px solid var(--border);align-self:center;white-space:nowrap}
+
+.app-main{max-width:1300px;margin:0 auto;padding:28px 48px 60px}
+
+.placeholder{text-align:center;padding:80px 20px}
+.placeholder .icon{font-size:2.6rem;display:block;margin-bottom:14px}
+.placeholder h2{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.placeholder p{color:var(--muted);font-size:.86rem;max-width:400px;margin:0 auto;line-height:1.65}
+
+.error-box{background:#fff3f3;border:1.5px solid #f0a0a0;border-radius:6px;padding:12px 16px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:.71rem;color:#c04040;line-height:1.6;white-space:pre-wrap}
+
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.kpi-row-divider{grid-column:1/-1;height:0;border-top:1.5px solid var(--border)}
+.kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
+.kpi:last-child{border-right:none}
+.kpi.visible{opacity:1;transform:translateY(0)}
+.kpi-label{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.kpi-val{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;line-height:1;margin-bottom:3px;display:flex;align-items:baseline;gap:5px}
+.kpi-unit{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;color:inherit;opacity:0.75}
+.kpi-val.solar{color:var(--solar)} .kpi-val.wind{color:var(--wind)} .kpi-val.hydro{color:var(--hydro)}
+.kpi-sub{font-size:.75rem;color:var(--muted)}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.tabs{display:flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
+.tab-btn{font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.03em;padding:7px 16px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:background .15s,color .15s;white-space:nowrap}
+.tab-btn:not(:last-child){border-right:1px solid var(--border)}
+.tab-btn.active{background:var(--ink);color:#fff}
+.tab-btn:hover:not(.active){background:var(--bg);color:var(--ink)}
+.ctrl-group{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--muted)}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:.64rem;padding:5px 12px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s}
+.pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.sep{width:1px;height:22px;background:var(--border);margin:0 4px}
+.freq-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);white-space:nowrap;text-align:right}
+
+.range-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.range-bar span{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);white-space:nowrap}
+.range-win{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;background:var(--surface)}
+.range-win-arrow{font-size:.85rem;padding:4px 9px;background:none;border:none;border-right:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:'IBM Plex Mono',monospace;transition:background .12s,color .12s;line-height:1}
+.range-win-arrow:last-child{border-right:none;border-left:1.5px solid var(--border)}
+.range-win-arrow:hover{background:var(--accent);color:#fff}
+.range-win-sep{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);padding:0 6px;white-space:nowrap;border-right:1.5px solid var(--border)}
+.range-win input[type=date]{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 8px;border:none;color:var(--ink);outline:none;background:transparent;min-width:0}
+.range-win input[type=date]:focus{background:#f0ece0}
+.apply-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 12px;border:1.5px solid var(--ink);border-radius:4px;background:var(--ink);color:#fff;cursor:pointer}
+.apply-btn:hover{opacity:.8}
+.quick-btns{display:flex;gap:4px}.qr-arrow{min-width:28px;font-size:.85rem;padding:3px 8px!important}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:3px 9px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
+.qr.active{background:var(--solar);color:#fff;border-color:var(--solar)}
+.qr:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+
+.info-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#7a5500;background:#fffbee;border:1px solid #e8c840;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.55}
+
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
+.card.visible{opacity:1;transform:translateY(0)}
+.card-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:.57rem;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:3px}
+.cbox{position:relative;height:270px} .cbox.sm{height:220px} .cbox.tall{height:320px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.mb{margin-bottom:16px}
+
+.spinner-overlay{position:fixed;inset:0;background:rgba(245,242,235,.92);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.ring{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner-overlay p{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)}
+
+.app-footer{text-align:center;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);border-top:1px solid var(--border)}
+
+@media(max-width:900px){
+  .app-header,.api-bar,.region-bar,.app-main{padding-left:16px;padding-right:16px}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(2),.kpi:nth-child(4){border-right:none}
+  .kpi:nth-child(1),.kpi:nth-child(2){border-bottom:1.5px solid var(--border)}
+  .grid2{grid-template-columns:1fr}
+  .toolbar{flex-direction:column;align-items:flex-start}
+  .region-vdiv{display:none}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+// ─── REGION DEFINITIONS ───────────────────────────────────────────────────────
+// National + states  →  monthly,  electric-power-operational-data,  facet: location
+// RTOs               →  hourly,   rto/fuel-type-data,               facet: respondent
+const NATIONAL = [
+  { id:"US", label:"United States", type:"national" },
+];
+const STATES = [
+  { id:"AL", label:"Alabama",        type:"state" },
+  { id:"AK", label:"Alaska",         type:"state" },
+  { id:"AZ", label:"Arizona",        type:"state" },
+  { id:"AR", label:"Arkansas",       type:"state" },
+  { id:"CA", label:"California",     type:"state" },
+  { id:"CO", label:"Colorado",       type:"state" },
+  { id:"CT", label:"Connecticut",    type:"state" },
+  { id:"DE", label:"Delaware",       type:"state" },
+  { id:"FL", label:"Florida",        type:"state" },
+  { id:"GA", label:"Georgia",        type:"state" },
+  { id:"HI", label:"Hawaii",         type:"state" },
+  { id:"ID", label:"Idaho",          type:"state" },
+  { id:"IL", label:"Illinois",       type:"state" },
+  { id:"IN", label:"Indiana",        type:"state" },
+  { id:"IA", label:"Iowa",           type:"state" },
+  { id:"KS", label:"Kansas",         type:"state" },
+  { id:"KY", label:"Kentucky",       type:"state" },
+  { id:"LA", label:"Louisiana",      type:"state" },
+  { id:"ME", label:"Maine",          type:"state" },
+  { id:"MD", label:"Maryland",       type:"state" },
+  { id:"MA", label:"Massachusetts",  type:"state" },
+  { id:"MI", label:"Michigan",       type:"state" },
+  { id:"MN", label:"Minnesota",      type:"state" },
+  { id:"MS", label:"Mississippi",    type:"state" },
+  { id:"MO", label:"Missouri",       type:"state" },
+  { id:"MT", label:"Montana",        type:"state" },
+  { id:"NE", label:"Nebraska",       type:"state" },
+  { id:"NV", label:"Nevada",         type:"state" },
+  { id:"NH", label:"New Hampshire",  type:"state" },
+  { id:"NJ", label:"New Jersey",     type:"state" },
+  { id:"NM", label:"New Mexico",     type:"state" },
+  { id:"NY", label:"New York",       type:"state" },
+  { id:"NC", label:"N. Carolina",    type:"state" },
+  { id:"ND", label:"N. Dakota",      type:"state" },
+  { id:"OH", label:"Ohio",           type:"state" },
+  { id:"OK", label:"Oklahoma",       type:"state" },
+  { id:"OR", label:"Oregon",         type:"state" },
+  { id:"PA", label:"Pennsylvania",   type:"state" },
+  { id:"RI", label:"Rhode Island",   type:"state" },
+  { id:"SC", label:"S. Carolina",    type:"state" },
+  { id:"SD", label:"S. Dakota",      type:"state" },
+  { id:"TN", label:"Tennessee",      type:"state" },
+  { id:"TX", label:"Texas",          type:"state" },
+  { id:"UT", label:"Utah",           type:"state" },
+  { id:"VT", label:"Vermont",        type:"state" },
+  { id:"VA", label:"Virginia",       type:"state" },
+  { id:"WA", label:"Washington",     type:"state" },
+  { id:"WV", label:"W. Virginia",    type:"state" },
+  { id:"WI", label:"Wisconsin",      type:"state" },
+  { id:"WY", label:"Wyoming",        type:"state" },
+];
+const RTOS = [
+  { id:"CISO", label:"CAISO",     fullName:"California ISO",                        type:"rto", tz:"America/Los_Angeles" },
+  { id:"NYIS", label:"NYISO",     fullName:"New York ISO",                          type:"rto", tz:"America/New_York"    },
+  { id:"MISO", label:"MISO",      fullName:"Midcontinent ISO",                      type:"rto", tz:"America/Chicago"     },
+  { id:"PJM",  label:"PJM",       fullName:"PJM Interconnection",                   type:"rto", tz:"America/New_York"    },
+  { id:"ISNE", label:"ISO-NE",    fullName:"ISO New England",                       type:"rto", tz:"America/New_York"    },
+  { id:"SWPP", label:"SPP",       fullName:"Southwest Power Pool",                  type:"rto", tz:"America/Chicago"     },
+  { id:"ERCO", label:"ERCOT",     fullName:"Electric Reliability Council of Texas", type:"rto", tz:"America/Chicago"     },
+  { id:"NW",   label:"NW",        fullName:"Northwest",                             type:"rto", tz:"America/Los_Angeles" },
+  { id:"SE",   label:"Southeast", fullName:"Southeast",                             type:"rto", tz:"America/New_York"    },
+];
+
+// ─── US CENSUS REGIONS (multi-state monthly aggregates) ──────────────────────
+const STATE_NAMES = {
+  AK:"Alaska", AL:"Alabama", AR:"Arkansas", AZ:"Arizona", CA:"California",
+  CO:"Colorado", CT:"Connecticut", DC:"Washington D.C.", DE:"Delaware", FL:"Florida",
+  GA:"Georgia", HI:"Hawaii", IA:"Iowa", ID:"Idaho", IL:"Illinois",
+  IN:"Indiana", KS:"Kansas", KY:"Kentucky", LA:"Louisiana", MA:"Massachusetts",
+  MD:"Maryland", ME:"Maine", MI:"Michigan", MN:"Minnesota", MO:"Missouri",
+  MS:"Mississippi", MT:"Montana", NC:"North Carolina", ND:"North Dakota", NE:"Nebraska",
+  NH:"New Hampshire", NJ:"New Jersey", NM:"New Mexico", NV:"Nevada", NY:"New York",
+  OH:"Ohio", OK:"Oklahoma", OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island",
+  SC:"South Carolina", SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah",
+  VA:"Virginia", VT:"Vermont", WA:"Washington", WI:"Wisconsin", WV:"West Virginia",
+  WY:"Wyoming",
+};
+const US_REGIONS = [
+  { id:"REG_NE", label:"Northeast",   type:"region",
+    states:["CT","ME","MA","NH","RI","VT","NJ","NY"],
+    note:"CT, ME, MA, NH, RI, VT, NJ, NY" },
+  { id:"REG_MA", label:"Mid-Atlantic", type:"region",
+    states:["DE","MD","PA","VA","WV","DC"],
+    note:"DE, MD, PA, VA, WV, DC" },
+  { id:"REG_SE", label:"Southeast",   type:"region",
+    states:["NC","SC","GA","FL","AL","MS","TN","KY","AR","LA"],
+    note:"NC, SC, GA, FL, AL, MS, TN, KY, AR, LA" },
+  { id:"REG_MW", label:"Midwest",     type:"region",
+    states:["IL","IN","MI","OH","WI","IA","KS","MN","MO","NE","ND","SD"],
+    note:"IL, IN, MI, OH, WI, IA, KS, MN, MO, NE, ND, SD" },
+  { id:"REG_SW", label:"Southwest",   type:"region",
+    states:["AZ","NM","OK","TX"],
+    note:"AZ, NM, OK, TX" },
+  { id:"REG_W",  label:"West",        type:"region",
+    states:["AK","CA","CO","HI","ID","MT","NV","OR","UT","WA","WY"],
+    note:"AK, CA, CO, HI, ID, MT, NV, OR, UT, WA, WY" },
+];
+
+// ─── FUEL DEFINITIONS ─────────────────────────────────────────────────────────
+const MONTHLY_FUELS = {
+  SUN:{ label:"Solar",   color:"#e8a020" },
+  WND:{ label:"Wind",    color:"#2a7d4f" },
+  HYC:{ label:"Hydro",  color:"#2060b0" },
+  NG: { label:"Gas",    color:"#e05020" },
+  COW:{ label:"Coal",   color:"#1a1a18" },
+  NUC:{ label:"Nuclear",color:"#9040c0" },
+};
+const HOURLY_FUELS = {
+  SUN:    { label:"Solar",             color:"#e8a020" },
+  WND:    { label:"Wind",              color:"#2a7d4f" },
+  WAT:    { label:"Hydro",             color:"#2060b0" },
+  NG:     { label:"Gas",               color:"#e05020" },
+  COL:    { label:"Coal",              color:"#1a1a18" },
+  NUC:    { label:"Nuclear",           color:"#9040c0" },
+  BAT_DIS:{ label:"Battery Discharge", color:"#40b0a0" },
+  BAT_CHG:{ label:"Battery Charging",  color:"#b04080" },
+};
+const RENEW_M = ["SUN","WND","HYC"];
+const RENEW_H = ["SUN","WND","WAT","BAT_DIS","BAT_CHG"];
+const UNIT_DIV = { MWh:1, GWh:1000, TWh:1000000 };
+
+// ─── DATE HELPERS ─────────────────────────────────────────────────────────────
+const toMonthStr = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+const toHourStr  = d => d.toISOString().slice(0,13);
+const daysBack   = n => { const d=new Date(); d.setDate(d.getDate()-n); return d; };
+const monthsBack = n => { const d=new Date(); d.setMonth(d.getMonth()-n); return d; };
+// Convert a JS Date to "YYYY-MM-DDTHH" in a given IANA timezone (matches how period keys are stored)
+function dateToTzHourStr(date, tz) {
+  if (!tz) return date.toISOString().slice(0,13);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: tz, year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", hour12:false,
+  }).formatToParts(date);
+  const get = t => parts.find(p=>p.type===t)?.value ?? "00";
+  const hr = get("hour") === "24" ? "00" : get("hour");
+  return `${get("year")}-${get("month")}-${get("day")}T${hr}`;
+}
+
+// ─── EIA API ──────────────────────────────────────────────────────────────────
+async function eiaFetch(endpoint, key, params) {
+  const url = `https://api.eia.gov/v2${endpoint}?api_key=${encodeURIComponent(key)}&${params.join("&")}`;
+  const r = await fetch(url);
+  const j = await r.json();
+  if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status} — check your API key`);
+  if (!j?.response?.data) throw new Error("Unexpected EIA API response.");
+  return j.response.data;
+}
+
+async function fetchMonthlyRegion(key, locationId) {
+  const start = toMonthStr(monthsBack(36));
+  const rows = await eiaFetch("/electricity/electric-power-operational-data/data/", key, [
+    "frequency=monthly","data[0]=generation",
+    `facets[location][]=${locationId}`,
+    "facets[sectorid][]=99",  // 99 = all sectors combined, avoids duplicate periods
+    "facets[fueltypeid][]=SUN","facets[fueltypeid][]=WND","facets[fueltypeid][]=HYC",
+    "facets[fueltypeid][]=NG","facets[fueltypeid][]=COW","facets[fueltypeid][]=NUC",
+    `start=${start}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
+  ]);
+  const periods = [...new Set(rows.map(r => r.period))].sort();
+  console.log(`[EIA] ${locationId} monthly periods (${periods.length}):`, periods[0], "→", periods[periods.length-1]);
+  return rows;
+}
+
+async function fetchMonthlyMulti(key, stateIds) {
+  // Fetch all states in parallel and merge rows
+  const results = await Promise.all(stateIds.map(id => fetchMonthlyRegion(key, id)));
+  return results.flat();
+}
+
+async function fetchHourlyRTO(key, respondentId) {
+  // Start 8 days back (UTC) to ensure we capture the full 7-day window regardless of timezone offset.
+  // End = tomorrow UTC so today's hours are never cut off.
+  const start = toHourStr(daysBack(8));
+  const end   = toHourStr(new Date(Date.now() + 24*3600000)); // tomorrow UTC
+  const rows = await eiaFetch("/electricity/rto/fuel-type-data/data/", key, [
+    "frequency=hourly","data[0]=value",
+    `facets[respondent][]=${respondentId}`,
+    `start=${start}`,`end=${end}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
+  ]);
+  // Log raw fueltype keys so we can verify battery handling per RTO
+  const keys = [...new Set(rows.map(r => r.fueltype))].sort();
+  console.log(`[EIA] ${respondentId} raw fueltype keys:`, keys);
+  console.log(`[EIA] ${respondentId} period range: ${rows[0]?.period} → ${rows[rows.length-1]?.period}`);
+  return rows;
+}
+
+// ─── UTC → RTO-timezone conversion ───────────────────────────────────────────
+// EIA hourly periods are "YYYY-MM-DDTHH" in UTC.
+// Convert to the RTO's own local timezone so solar/wind patterns are correct.
+function utcPeriodToTz(p, tz) {
+  const d = new Date((p.length === 13 ? p : p) + ":00:00Z");
+  if (isNaN(d)) return p;
+  // Use Intl to extract the wall-clock time in the target timezone
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: tz,
+    year:"numeric", month:"2-digit", day:"2-digit",
+    hour:"2-digit", hour12:false,
+  }).formatToParts(d);
+  const get = t => parts.find(p=>p.type===t)?.value ?? "00";
+  const hr = get("hour") === "24" ? "00" : get("hour"); // midnight edge case
+  return `${get("year")}-${get("month")}-${get("day")}T${hr}`;
+}
+function fmtTzPeriod(p, tz) {
+  // p is already in the RTO's local time as "YYYY-MM-DDTHH"
+  // Parse it as a naive local datetime for display (no re-conversion needed)
+  const [datePart, hrPart] = p.split("T");
+  if (!hrPart) return p;
+  const [yr, mo, dy] = datePart.split("-");
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${monthNames[parseInt(mo,10)-1]} ${parseInt(dy,10)}, ${hrPart}:00`;
+}
+
+// ─── DATA GROUPING ────────────────────────────────────────────────────────────
+function groupMonthly(rows) {
+  const byP = {};
+  rows.forEach(r => {
+    if (!byP[r.period]) byP[r.period] = {};
+    byP[r.period][r.fueltypeid] = parseFloat(r.generation)||0;
+  });
+  return { byP, periods: Object.keys(byP).sort() };
+}
+function groupHourly(rows, tz) {
+  const byP = {};
+  // Track which fuel keys this RTO actually returned
+  const rawKeys = new Set();
+  rows.forEach(r => {
+    const tzKey = utcPeriodToTz(r.period, tz);
+    if (!byP[tzKey]) byP[tzKey] = {};
+    const v = parseFloat(r.value)||0;
+    const k = r.fueltype;
+    rawKeys.add(k);
+    byP[tzKey][k] = (byP[tzKey][k]||0) + v;
+  });
+
+  // Determine if this RTO has a dedicated BAT key or uses OTH for storage
+  const hasBATKey = rawKeys.has("BAT");
+
+  Object.values(byP).forEach(d => {
+    if (hasBATKey) {
+      // RTO reports battery separately — split BAT into discharge / charge
+      const rawBat = d.BAT || 0;
+      d.BAT_DIS = rawBat > 0 ? rawBat : 0;
+      d.BAT_CHG = rawBat < 0 ? Math.abs(rawBat) : 0;
+      delete d.BAT;
+      // OTH is true other generation here
+    } else {
+      // No BAT key — OTH contains battery storage mixed with true other.
+      // EIA CAISO convention: OTH can be positive (battery discharging or true other)
+      // or negative (battery charging). We cannot separate battery from true other
+      // when both are positive, so we reclassify OTH entirely as BAT_DIS/BAT_CHG/OTH:
+      const rawOth = d.OTH || 0;
+      if (rawOth > 0) {
+        // Positive OTH for CAISO is battery discharge; keep as BAT_DIS
+        d.BAT_DIS = (d.BAT_DIS || 0) + rawOth;
+        d.OTH = 0;
+      } else if (rawOth < 0) {
+        // Negative OTH = battery charging
+        d.BAT_CHG = (d.BAT_CHG || 0) + Math.abs(rawOth);
+        d.OTH = 0;
+      }
+      d.BAT_DIS = d.BAT_DIS || 0;
+      d.BAT_CHG = d.BAT_CHG || 0;
+    }
+    if (d.SUN) d.SUN = Math.max(0, d.SUN);
+    if (d.WND) d.WND = Math.max(0, d.WND);
+  });
+  return { byP, periods: Object.keys(byP).sort(), hasBATKey };
+}
+
+// ─── UNIT HELPERS ─────────────────────────────────────────────────────────────
+function toU(mwh, unit) { return mwh / UNIT_DIV[unit]; }
+function fmtKPI(mwh, unit) {
+  const v = toU(mwh, unit);
+  // Never re-scale — just format the number in the selected unit
+  return v >= 1000 ? v.toLocaleString(undefined,{maximumFractionDigits:1}) : v.toFixed(2);
+}
+function fmtKPIUnit(_mwh, unit) {
+  // Always return exactly what the user selected — no silent promotion
+  return unit;
+}
+
+// ─── CHART DEFAULTS ───────────────────────────────────────────────────────────
+const CD = {
+  font:{ family:"'IBM Plex Mono',monospace", size:9 },
+  grid:"#e8e3da", tick:"#8a857a",
+  tip:{ backgroundColor:"#1a1a18", titleColor:"#fff", bodyColor:"#aaa", borderColor:"#333", borderWidth:1 },
+};
+const mkY = (unit, stacked=false) => ({
+  min:0, stacked:stacked||undefined,
+  ticks:{ color:CD.tick, font:CD.font, callback:v=>`${v<10?v.toFixed(2):v.toFixed(1)} ${unit}` },
+  grid:{ color:CD.grid },
+});
+const mkX = (tz=null) => ({
+  ticks:{color:CD.tick,font:CD.font,maxTicksLimit:14,
+    callback: tz ? function(val){ return fmtTzPeriod(this.getLabelForValue(val), tz); } : undefined
+  },
+  grid:{color:CD.grid}
+});
+
+// ─── useChart ────────────────────────────────────────────────────────────────
+function useChart(canvasRef, config) {
+  const chartRef = useRef(null);
+  useEffect(() => {
+    if (!canvasRef.current || !config) return;
+    if (chartRef.current) chartRef.current.destroy();
+    chartRef.current = new Chart(canvasRef.current.getContext("2d"), config);
+    return () => { chartRef.current?.destroy(); chartRef.current = null; };
+  }, [config]);
+}
+
+// ─── InteractiveChartCard — clickable legend to show/hide series ──────────────
+function InteractiveChartCard({ title, tag, config, height="270px", delay=0, visible }) {
+  const canvasRef = useRef(null);
+  const chartRef  = useRef(null);
+  const [hidden, setHidden] = useState({});
+
+  // Build or rebuild chart whenever config changes
+  useEffect(() => {
+    if (!canvasRef.current || !config) return;
+    if (chartRef.current) chartRef.current.destroy();
+    // Apply hidden state to datasets
+    const cfg = JSON.parse(JSON.stringify(config));
+    cfg.data.datasets.forEach((ds, i) => { ds.hidden = !!hidden[i]; });
+    cfg.options.plugins.legend = { display: false }; // suppress built-in legend
+    chartRef.current = new Chart(canvasRef.current.getContext("2d"), cfg);
+    return () => { chartRef.current?.destroy(); chartRef.current = null; };
+  }, [config, hidden]);
+
+  const toggle = (i) => {
+    setHidden(h => ({ ...h, [i]: !h[i] }));
+  };
+
+  const datasets = config?.data?.datasets || [];
+
+  return (
+    <div className={`card${visible?" visible":""}`} style={{transitionDelay:`${delay}ms`}}>
+      <div className="card-title">{title}{tag&&<span className="tag">{tag}</span>}</div>
+      <div className="cbox" style={{height}}><canvas ref={canvasRef}/></div>
+      <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginTop:"10px"}}>
+        {datasets.map((ds,i)=>(
+          <button key={i} onClick={()=>toggle(i)} style={{
+            display:"flex",alignItems:"center",gap:"5px",
+            fontFamily:"'IBM Plex Mono',monospace",fontSize:".6rem",
+            padding:"3px 8px",borderRadius:"3px",cursor:"pointer",
+            border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,
+            background: hidden[i] ? "transparent" : (ds.borderColor||ds.backgroundColor||"#aaa")+"22",
+            color: hidden[i] ? "#aaa" : (ds.borderColor||"#333"),
+            opacity: hidden[i] ? 0.45 : 1,
+            transition:"all .15s",
+          }}>
+            <span style={{
+              width:"8px",height:"8px",borderRadius:"50%",flexShrink:0,
+              background: hidden[i] ? "transparent" : (ds.borderColor||ds.backgroundColor||"#aaa"),
+              border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,
+            }}/>
+            {ds.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── ChartCard — standard non-interactive ─────────────────────────────────────
+function ChartCard({ title, tag, config, height="270px", delay=0, visible }) {
+  const ref = useRef(null);
+  useChart(ref, config);
+  return (
+    <div className={`card${visible?" visible":""}`} style={{transitionDelay:`${delay}ms`}}>
+      <div className="card-title">{title}{tag&&<span className="tag">{tag}</span>}</div>
+      <div className="cbox" style={{height}}><canvas ref={ref}/></div>
+    </div>
+  );
+}
+
+// ─── Chart config builders ────────────────────────────────────────────────────
+const tipTitle = (tz) => tz
+  ? (items) => fmtTzPeriod(items[0].label, tz)
+  : undefined;
+
+// renewLineConfig shows only the clean-energy sources (solar, wind, hydro, battery)
+function renewLineConfig(pp,byP,hourly,unit,tz) {
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  const rk=hourly?RENEW_H:RENEW_M;
+  return {type:"line",data:{labels:pp,datasets:rk.filter(f=>fm[f]).map(f=>({
+    label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
+    borderColor:fm[f].color,backgroundColor:fm[f].color+"18",
+    borderWidth:2,tension:0.3,fill:true,
+    pointRadius:pp.length<=72?2:0,pointHoverRadius:5,
+  }))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{display:false},
+      tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
+    scales:{x:mkX(tz),y:mkY(unit)}}};
+}
+function allLineConfig(pp,byP,hourly,unit,tz) {
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  const rk=new Set(hourly?RENEW_H:RENEW_M);
+  const fuelDatasets = Object.entries(fm).map(([f,m])=>({
+    label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
+    borderColor:m.color,backgroundColor:"transparent",
+    borderWidth:2,tension:0.3,fill:false,
+    hidden:!rk.has(f),
+    pointRadius:pp.length<=72?2:0,
+  }));
+  const totalDataset = {
+    label:"Total Generation",
+    data:pp.map(p=>toU(Object.values(byP[p]||{}).filter(v=>v>0).reduce((s,v)=>s+v,0),unit)),
+    borderColor:"#1a1a18",backgroundColor:"transparent",
+    borderWidth:2,borderDash:[6,3],tension:0.3,fill:false,
+    hidden:false,
+    pointRadius:0,
+  };
+  return {type:"line",data:{labels:pp,datasets:[...fuelDatasets, totalDataset]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{display:false},
+        tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
+      scales:{x:mkX(tz),y:mkY(unit)}}};
+}
+function stackedConfig(pp,byP,hourly,unit,tz) {
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  return {type:"bar",data:{labels:pp,datasets:Object.entries(fm).map(([f,m])=>({
+    label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
+    backgroundColor:m.color+"cc",borderColor:m.color,borderWidth:0,stack:"s",
+  }))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},
+      tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
+    scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};
+}
+function pctConfig(pp,byP,hourly,tz) {
+  const rk=hourly?RENEW_H:RENEW_M;
+  const data=pp.map(p=>{const d=byP[p]||{};const tot=Object.values(d).reduce((s,v)=>s+v,0);return tot>0?rk.reduce((s,f)=>s+(d[f]||0),0)/tot*100:0;});
+  return {type:"line",data:{labels:pp,datasets:[{label:"Renewables %",data,borderColor:"#2a7d4f",backgroundColor:"#2a7d4f22",fill:true,tension:0.3,borderWidth:2,pointRadius:pp.length<=72?2:0}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` Renewables: ${c.parsed.y.toFixed(1)}%`}}},
+      scales:{x:mkX(tz),y:{min:0,max:100,ticks:{color:CD.tick,font:CD.font,callback:v=>v+"%"},grid:{color:CD.grid}}}}};
+}
+// Sum all filtered periods so pie/donut reflect the selected date range
+function sumPeriods(pp,byP) {
+  const totals={};
+  pp.forEach(p=>{ const d=byP[p]||{}; Object.entries(d).forEach(([k,v])=>{ totals[k]=(totals[k]||0)+v; }); });
+  return totals;
+}
+function donutConfig(pp,byP,hourly,unit) {
+  if(!pp.length)return null;
+  const d=sumPeriods(pp,byP);
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  const items=Object.entries(fm).filter(([f])=>(d[f]||0)>0);
+  const total=items.reduce((s,[f])=>s+(d[f]||0),0);
+  return {type:"doughnut",data:{labels:items.map(([,v])=>v.label),datasets:[{data:items.map(([f])=>toU(d[f]||0,unit)),backgroundColor:items.map(([,v])=>v.color),borderColor:"#fff",borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:"60%",
+      plugins:{
+        legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10,
+          generateLabels(chart) {
+            const ds=chart.data.datasets[0];
+            return chart.data.labels.map((label,i)=>{
+              const val=ds.data[i];
+              const pct=total>0?(d[items[i][0]]||0)/total*100:0;
+              return {text:`${label}  ${pct.toFixed(1)}%`,fillStyle:ds.backgroundColor[i],strokeStyle:"#fff",lineWidth:0,hidden:false,index:i};
+            });
+          }
+        }},
+        tooltip:{...CD.tip,callbacks:{label:c=>{
+          const pct=total>0?(d[items[c.dataIndex][0]]||0)/total*100:0;
+          return ` ${c.label}: ${c.parsed.toFixed(2)} ${unit} (${pct.toFixed(1)}%)`;
+        }}}}}};
+}
+
+// ─── Fuel source rank (horizontal bar) ────────────────────────────────────
+function rankConfig(pp,byP,hourly,unit) {
+  if(!pp.length)return null;
+  const d=sumPeriods(pp,byP);
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  const items=Object.entries(fm)
+    .map(([f,m])=>({label:m.label,color:m.color,val:toU(d[f]||0,unit)}))
+    .filter(x=>x.val>0)
+    .sort((a,b)=>b.val-a.val);
+  return {type:"bar",
+    data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.val),backgroundColor:items.map(x=>x.color+"cc"),borderColor:items.map(x=>x.color),borderWidth:1.5,borderRadius:3}]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x.toFixed(2)} ${unit}`}}},
+      scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>`${v.toFixed(1)} ${unit}`},grid:{color:CD.grid}},
+        y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};
+}
+
+// ─── Renewable generation by source (stacked bar) ────────────────────────
+function renewBarConfig(pp,byP,hourly,unit,tz) {
+  if(!pp.length)return null;
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS, rk=hourly?RENEW_H:RENEW_M;
+  return {type:"bar",
+    data:{labels:pp,datasets:rk.map(f=>({
+      label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
+      backgroundColor:fm[f].color+"bb",borderColor:fm[f].color,borderWidth:0,stack:"s",
+    }))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},
+        tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
+      scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};
+}
+
+function groupPieConfig(pp,byP,hourly,unit) {
+  if(!pp.length)return null;
+  const d=sumPeriods(pp,byP);
+  const rk=hourly?RENEW_H:RENEW_M, fossils=hourly?["NG","COL"]:["NG","COW"];
+  const renew=rk.reduce((s,f)=>s+(d[f]||0),0);
+  const fossil=fossils.reduce((s,f)=>s+(d[f]||0),0);
+  const nuc=d.NUC||0;
+  return {type:"pie",data:{labels:["Renewables","Fossil Fuels","Nuclear"],
+    datasets:[{data:[toU(renew,unit),toU(fossil,unit),toU(nuc,unit)],
+      backgroundColor:["#2a7d4f","#e05020","#9040c0"],borderColor:"#fff",borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10}},
+        tooltip:{...CD.tip,callbacks:{label:c=>` ${c.label}: ${c.parsed.toFixed(2)} ${unit}`}}}}};
+}
+
+// ─── Generation change indicator (MoM or HoH % change per fuel) ───────────────
+function genChangeConfig(pp,byP,hourly,unit) {
+  if(pp.length<2)return null;
+  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
+  // Compare first half vs second half of the selected window
+  const mid=Math.floor(pp.length/2);
+  const firstHalf=pp.slice(0,mid), secondHalf=pp.slice(mid);
+  const sumH=(periods)=>{const t={};periods.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;};
+  const s1=sumH(firstHalf), s2=sumH(secondHalf);
+  const ORDER_M = ["SUN","WND","HYC","NUC","COW","NG"];
+  const ORDER_H = ["SUN","WND","WAT","NUC","COL","NG"];
+  const ORDER = hourly ? ORDER_H : ORDER_M;
+  const items = ORDER.map(f => {
+    const m = fm[f]; if (!m) return null;
+    const v1=s1[f]||0, v2=s2[f]||0;
+    const pct = v1>0 ? ((v2-v1)/v1*100) : null;
+    return pct !== null ? {label:m.label, color:m.color, pct} : null;
+  }).filter(Boolean);
+  const label=hourly?"vs prior half-window":"vs prior half-window";
+  return {type:"bar",
+    data:{labels:items.map(x=>x.label),
+      datasets:[{data:items.map(x=>x.pct),
+        backgroundColor:items.map(x=>x.pct>=0?"#2a7d4f44":"#e0502044"),
+        borderColor:items.map(x=>x.pct>=0?"#2a7d4f":"#e05020"),
+        borderWidth:1.5,borderRadius:3}]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x>0?"+":""}${c.parsed.x.toFixed(1)}%`}}},
+      scales:{
+        x:{ticks:{color:CD.tick,font:CD.font,callback:v=>(v>0?"+":"")+v.toFixed(0)+"%"},
+           grid:{color:CD.grid}},
+        y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};
+}
+
+// ─── Tab panels ───────────────────────────────────────────────────────────────
+function OverviewTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
+  return <div>
+    <div className="mb"><InteractiveChartCard title="Renewables — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={renewLineConfig(pp,byP,hourly,unit,tz)} height="270px" delay={0} visible={visible}/></div>
+    <div className="grid2">
+      <ChartCard title="Renewables vs Fossil vs Nuclear" tag="% Share" config={groupPieConfig(pp,byP,hourly,unit)} height="230px" delay={80} visible={visible}/>
+      <ChartCard title="Renewable Generation by Source" tag={`${freqLabel} · ${unit}`} config={renewBarConfig(pp,byP,hourly,unit,tz)} height="230px" delay={160} visible={visible}/>
+    </div>
+  </div>;
+}
+function TrendTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
+  return <div>
+    <div className="mb"><InteractiveChartCard title="All Fuels — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={allLineConfig(pp,byP,hourly,unit,tz)} height="320px" delay={0} visible={visible}/></div>
+    <div className="grid2">
+      <ChartCard title="Renewables % of Total" tag="% Share" config={pctConfig(pp,byP,hourly,tz)} height="220px" delay={80} visible={visible}/>
+      <ChartCard title="Fuel Source Ranking" tag={`Total · ${unit}`} config={rankConfig(pp,byP,hourly,unit)} height="220px" delay={160} visible={visible}/>
+    </div>
+  </div>;
+}
+function MixTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
+  return <div>
+    <div className="grid2">
+      <ChartCard title="Energy Mix" tag="Selected Range" config={donutConfig(pp,byP,hourly,unit)} height="260px" delay={0} visible={visible}/>
+      <ChartCard title="Generation Change" tag="First vs Second Half of Window" config={genChangeConfig(pp,byP,hourly,unit)} height="260px" delay={80} visible={visible}/>
+    </div>
+    <div className="mb" style={{marginTop:"16px"}}>
+      <ChartCard title="Stacked Generation Mix" tag={`${freqLabel} · ${unit}`} config={stackedConfig(pp,byP,hourly,unit,tz)} height="270px" delay={160} visible={visible}/>
+    </div>
+  </div>;
+}
+
+// ─── Region Selector ─────────────────────────────────────────────────────────
+function RegionBar({selected, onChange, hasData}) {
+  const note = selected.type==="rto"
+    ? `${selected.fullName} · Hourly`
+    : selected.type==="region" ? `${selected.label} · Monthly · ${selected.note}`
+    : selected.type==="state" ? `${selected.label} · Monthly`
+    : "United States · Monthly";
+  return (
+    <div className="region-bar">
+      <div className="region-group">
+        <div className="region-group-label">National</div>
+        <div className="region-pills">
+          {NATIONAL.map(r=>(
+            <button key={r.id} className={`rpill t-national${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
+          ))}
+        </div>
+      </div>
+      <div className="region-vdiv"/>
+      <div className="region-group" style={{width:"350px",flexShrink:0}}>
+        <div className="region-group-label">US Regions · Monthly</div>
+        <div className="region-pills scrollable">
+          {US_REGIONS.map(r=>(
+            <button key={r.id} className={`rpill t-region${selected.id===r.id?" active":""}`}
+              onClick={()=>onChange(r)}>{r.label}</button>
+          ))}
+        </div>
+      </div>
+      <div className="region-vdiv"/>
+      <div className="region-group" style={{flex:1,minWidth:0}}>
+        <div className="region-group-label">States · Monthly</div>
+        <div className="region-pills scrollable">
+          {STATES.map(r=>(
+            <button key={r.id} className={`rpill t-state${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
+          ))}
+        </div>
+      </div>
+      <div className="region-vdiv"/>
+      <div className="region-group" style={{width:"350px",flexShrink:0}}>
+        <div className="region-group-label">Grid Operators · Hourly</div>
+        <div className="region-pills scrollable">
+          {RTOS.map(r=>(
+            <button key={r.id} className={`rpill t-rto${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────────────────────
+function App() {
+  const [apiKey,    setApiKey   ] = useState("");
+  const [loading,   setLoading  ] = useState(false);
+  const [loadMsg,   setLoadMsg  ] = useState("Fetching data…");
+  const [error,     setError    ] = useState("");
+  const [hasData,   setHasData  ] = useState(false);
+  const [region,    setRegion   ] = useState(NATIONAL[0]);
+  const [data,      setData     ] = useState({byP:{},periods:[]});
+  const [activeTab, setActiveTab] = useState("overview");
+  const [unit,      setUnit     ] = useState("MWh");
+  const [fromDate,  setFromDate ] = useState(null);
+  const [toDate,    setToDate   ] = useState(null);
+  const [activeQ,   setActiveQ  ] = useState("1Y");
+  const [kpiVis,    setKpiVis   ] = useState(false);
+  const [tabVis,    setTabVis   ] = useState(false);
+
+  const hourly = region.type === "rto";
+  const freqLabel = hourly ? "Hourly" : "Monthly";
+  const quickList = hourly
+    ? [{label:"6H",hours:6},{label:"12H",hours:12},{label:"24H",hours:24},{label:"3D",hours:72},{label:"7D",hours:168}]
+    : [{label:"1M",same:true},{label:"2M",months:2},{label:"3M",months:3},{label:"6M",months:6},{label:"1Y",months:12},{label:"2Y",months:24},{label:"All",months:0}];
+
+  const filteredPeriods = useMemo(() => {
+    let pp = data.periods;
+    if (fromDate) pp = pp.filter(p => p >= fromDate);
+    if (toDate)   pp = pp.filter(p => p <= toDate);
+    return pp;
+  }, [data.periods, fromDate, toDate]);
+
+  // Anchor monthly range by indexing directly into the periods array — no date math, no off-by-one.
+  // periods[last - (N-1)] gives exactly N periods inclusive through the last available.
+  const anchorFrom = useCallback((months) => {
+    const all = data.periods;
+    if (!all.length) return null;
+    const idx = Math.max(0, all.length - months);
+    return all[idx];
+  }, [data.periods]);
+
+  // For hourly: anchor from the last available period in the fetched data.
+  // EIA lags real-time by 1-3h so "now" is always ahead of data — anchoring from
+  // the last period ensures all buttons show the most current available data.
+  // periods[last - (N-1)] gives exactly N periods ending at the latest available.
+  const anchorHourly = useCallback((hours) => {
+    const all = data.periods;
+    if (!all.length) return null;
+    return all[Math.max(0, all.length - hours)];
+  }, [data.periods]);
+
+  // Reset date range when region / data changes
+  useEffect(() => {
+    if (!data.periods.length) return;
+    if (hourly) {
+      setFromDate(anchorHourly(72));
+      setToDate(null);
+      setActiveQ("3D");
+    } else {
+      setFromDate(null);
+      setToDate(null);
+      setActiveQ("All");
+    }
+  }, [data]);
+
+  // Tab animation
+  useEffect(() => {
+    setTabVis(false);
+    const t = setTimeout(() => setTabVis(true), 60);
+    return () => clearTimeout(t);
+  }, [activeTab, unit, filteredPeriods.length, region.id]);
+
+  const applyQuick = useCallback((q) => {
+    setActiveQ(q.label);
+    if (hourly) {
+      setFromDate(q.hours ? anchorHourly(q.hours) : null);
+      setToDate(null);
+    } else if (q.same) {
+      setFromDate(data.periods[data.periods.length-1] || null);
+      setToDate(null);
+    } else {
+      setFromDate(q.months ? anchorFrom(q.months) : null);
+      setToDate(null);
+    }
+  }, [hourly, anchorFrom, anchorHourly, data.periods]);
+
+  // Shift the visible window left/right by its current width
+  const shiftWindow = useCallback((dir) => {
+    const all = data.periods;
+    if (!all.length) return;
+    const visStart = fromDate ? all.findIndex(p => p >= fromDate) : 0;
+    const visEnd   = toDate   ? all.findIndex(p => p >  toDate)  : all.length;
+    const end      = visEnd === -1 ? all.length : visEnd;
+    const windowSize = end - visStart;
+    if (windowSize <= 0) return;
+    if (dir === -1) {
+      // shift left
+      const newStart = Math.max(0, visStart - windowSize);
+      const newEnd   = newStart + windowSize;
+      setFromDate(all[newStart]);
+      setToDate(all[Math.min(newEnd - 1, all.length - 1)]);
+    } else {
+      // shift right
+      const newEnd   = Math.min(all.length, end + windowSize);
+      const newStart = newEnd - windowSize;
+      setFromDate(all[Math.max(newStart, 0)]);
+      setToDate(all[newEnd - 1]);
+    }
+    setActiveQ("");
+  }, [data.periods, fromDate, toDate]);
+
+  const loadRegion = useCallback(async (key, r) => {
+    const rto = r.type === "rto";
+    setLoadMsg(`Fetching ${rto?"hourly":"monthly"} data for ${r.label}…`);
+    setLoading(true); setError("");
+    try {
+      let rows, grouped;
+      if (rto) { rows = await fetchHourlyRTO(key, r.id); grouped = groupHourly(rows, r.tz || "UTC"); grouped.tz = r.tz || "UTC"; }
+      else if (r.type==="region") { rows = await fetchMonthlyMulti(key, r.states); grouped = groupMonthly(rows); grouped.tz = null; }
+      else      { rows = await fetchMonthlyRegion(key, r.id); grouped = groupMonthly(rows); grouped.tz = null; }
+      if (!rows.length) throw new Error(`No data returned for ${r.label}. This region may not report this data type, or your key may still be activating.`);
+      setData(grouped);
+      setHasData(true);
+      setKpiVis(false);
+      setTimeout(() => setKpiVis(true), 100);
+    } catch(e) {
+      setError("❌ "+e.message+"\n\nTip: New EIA keys can take 5–10 minutes to activate.");
+    } finally { setLoading(false); }
+  }, []);
+
+  const run = useCallback(async () => {
+    const key = apiKey.trim();
+    if (!key) { setError("⚠ Please paste your EIA API key first.\nGet a free key at: https://www.eia.gov/opendata/register.php"); return; }
+    await loadRegion(key, region);
+  }, [apiKey, region, loadRegion]);
+
+  const handleRegionChange = useCallback((r) => {
+    setRegion(r);
+    if (!hasData) return;
+    const key = apiKey.trim();
+    if (!key) return;
+    loadRegion(key, r);
+  }, [hasData, apiKey, loadRegion]);
+
+  // KPI values — summed over the filtered date range
+  const RENEW_KEYS = hourly ? ["SUN","WND","WAT","BAT_DIS"] : ["SUN","WND","HYC"];
+  const kpiTotals = useMemo(() => {
+    const t = { solar:0, wind:0, hydro:0, coal:0, gas:0, nuclear:0, total:0 };
+    filteredPeriods.forEach(p => {
+      const d = data.byP[p] || {};
+      t.solar   += d["SUN"] || 0;
+      t.wind    += d["WND"] || 0;
+      t.hydro   += d[hourly?"WAT":"HYC"] || 0;
+      t.coal    += d[hourly?"COL":"COW"] || 0;
+      t.gas     += d["NG"] || 0;
+      t.nuclear += d["NUC"] || 0;
+      t.total   += Object.values(d).filter(v=>v>0).reduce((s,v)=>s+v, 0);
+    });
+    return t;
+  }, [filteredPeriods, data.byP, hourly]);
+  const solar = kpiTotals.solar;
+  const wind  = kpiTotals.wind;
+  const hydro = kpiTotals.hydro;
+  const share = kpiTotals.total > 0 ? ((solar+wind+hydro)/kpiTotals.total*100).toFixed(1) : "—";
+  const rangeLabel = filteredPeriods.length > 1
+    ? `${filteredPeriods[0]} – ${filteredPeriods[filteredPeriods.length-1]}`
+    : (filteredPeriods[0] || "");
+
+  const fromInput = (() => {
+    const p = filteredPeriods[0] || "";
+    if (!p) return "";
+    return p.length === 7 ? p + "-01" : p.slice(0,10);
+  })();
+  const toInput = (() => {
+    const p = filteredPeriods[filteredPeriods.length-1] || "";
+    if (!p) return "";
+    return p.length === 7 ? p + "-01" : p.slice(0,10);
+  })();
+
+  return <>
+    {loading && <div className="spinner-overlay"><div className="ring"/><p>{loadMsg}</p></div>}
+
+    <header className="app-header">
+      <div>
+        <h1>EIA <span>Renewables</span> Dashboard</h1>
+        <p>Live data · U.S. Energy Information Administration (EIA) · API v2</p>
+      </div>
+      <div className="live-badge">
+        <div className="dot"/>
+        <span>{hasData?`${region.label} · ${freqLabel} · ${filteredPeriods[filteredPeriods.length-1]||""}`:"Awaiting data"}</span>
+      </div>
+    </header>
+
+    <div className="api-bar">
+      <label>EIA API KEY</label>
+      <input type="text" placeholder="Paste your free key here…" value={apiKey}
+        onChange={e=>setApiKey(e.target.value)} onKeyDown={e=>e.key==="Enter"&&run()}/>
+      <button className="load-btn" onClick={run} disabled={loading}>
+        {loading?"LOADING…":"LOAD DASHBOARD"}
+      </button>
+      <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key →</a>
+    </div>
+
+    <RegionBar selected={region} onChange={handleRegionChange} hasData={hasData}/>
+
+    <main className="app-main">
+      {error && <div className="error-box">{error}</div>}
+
+      {!hasData ? (
+        <div className="placeholder">
+          <span className="icon">🌿</span>
+          <h2>Select a region, then load your data</h2>
+          <p>Pick <strong>United States</strong>, a state (monthly), or a grid operator (hourly) above — then paste your EIA key and click <strong>Load Dashboard</strong>.</p>
+        </div>
+      ) : <>
+        {/* KPIs */}
+        <div className="kpi-row">
+          {[
+            {label:"Solar Generation",   value:fmtKPI(kpiTotals.solar,  unit), unit:fmtKPIUnit(kpiTotals.solar,  unit), cls:"solar", sub:rangeLabel},
+            {label:"Wind Generation",    value:fmtKPI(kpiTotals.wind,   unit), unit:fmtKPIUnit(kpiTotals.wind,   unit), cls:"wind",  sub:rangeLabel},
+            {label:"Hydro Generation",   value:fmtKPI(kpiTotals.hydro,  unit), unit:fmtKPIUnit(kpiTotals.hydro,  unit), cls:"hydro", sub:rangeLabel},
+            {label:"Renewables Share",   value:share,                          unit:share!=="—"?"%":null,               cls:"",      sub:"of total generation"},
+          ].map((k,i)=>(
+            <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${i*70}ms`}}>
+              <div className="kpi-label">{k.label}</div>
+              <div className={`kpi-val${k.cls?" "+k.cls:""}`}>
+                {k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}
+              </div>
+              <div className="kpi-sub">{k.sub}</div>
+            </div>
+          ))}
+          <div className="kpi-row-divider"/>
+          {[
+            {label:"Coal Generation",    value:fmtKPI(kpiTotals.coal,   unit), unit:fmtKPIUnit(kpiTotals.coal,   unit), cls:"", sub:rangeLabel},
+            {label:"Gas Generation",     value:fmtKPI(kpiTotals.gas,    unit), unit:fmtKPIUnit(kpiTotals.gas,    unit), cls:"", sub:rangeLabel},
+            {label:"Nuclear Generation", value:fmtKPI(kpiTotals.nuclear,unit), unit:fmtKPIUnit(kpiTotals.nuclear,unit), cls:"", sub:rangeLabel},
+            {label:"Total Generation",   value:fmtKPI(kpiTotals.total,  unit), unit:fmtKPIUnit(kpiTotals.total,  unit), cls:"", sub:rangeLabel},
+          ].map((k,i)=>(
+            <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${(i+4)*70}ms`}}>
+              <div className="kpi-label">{k.label}</div>
+              <div className={`kpi-val${k.cls?" "+k.cls:""}`}>
+                {k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}
+              </div>
+              <div className="kpi-sub">{k.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Toolbar */}
+        <div className="toolbar">
+          <div className="tabs">
+            {[["overview","Overview"],["trend","Trend"],["mix","Energy Mix"]].map(([t,l])=>(
+              <button key={t} className={`tab-btn${activeTab===t?" active":""}`} onClick={()=>setActiveTab(t)}>{l}</button>
+            ))}
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:"10px",flexWrap:"wrap"}}>
+            <span className="freq-badge">{region.label} · {hourly?"Hourly":"Monthly"}</span>
+            <div className="sep"/>
+            <div className="ctrl-group">
+              <span>Units:</span>
+              {["MWh","GWh","TWh"].map(u=>(
+                <button key={u} className={`pill${unit===u?" active":""}`} onClick={()=>setUnit(u)}>{u}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Date range */}
+        <div className="range-bar">
+          <div className="range-win">
+            <button className="range-win-arrow" onClick={()=>shiftWindow(-1)} title="Shift window earlier">&#8592;</button>
+            <input type="date" value={fromInput}
+              onChange={e=>setFromDate(e.target.value?(hourly?e.target.value+"T00":e.target.value.slice(0,7)):null)}/>
+            <span className="range-win-sep">to</span>
+            <input type="date" value={toInput}
+              onChange={e=>setToDate(e.target.value?(hourly?e.target.value+"T23":e.target.value.slice(0,7)):null)}/>
+            <button className="range-win-arrow" onClick={()=>shiftWindow(1)} title="Shift window later">&#8594;</button>
+          </div>
+          <div className="quick-btns">
+            {quickList.map(q=>(
+              <button key={q.label} className={`qr${activeQ===q.label?" active":""}`} onClick={()=>applyQuick(q)}>{q.label}</button>
+            ))}
+          </div>
+        </div>
+
+        {hourly && (
+          <div className="info-note">
+            ℹ <strong>{region.label}</strong> ({region.id}) · Hourly data from EIA RTO grid monitor · WAT = Hydro, COL = Coal · Battery split into Discharge/Charging (OTH reclassified as storage) · Times shown in {region.tz||"UTC"} · Covers last 7 days · All windows show the most recently published data
+          </div>
+        )}
+        {!hourly && (
+          <div className="info-note">
+            ℹ Monthly data from EIA typically publishes with a 2–3 month lag · Showing all available data by default
+          </div>
+        )}
+        {!hourly && region.type==="region" && (
+          <div className="info-note">
+            ℹ <strong>{region.label}</strong> includes: {region.states.map(s=>STATE_NAMES[s]||s).join(", ")}
+          </div>
+        )}
+
+        {activeTab==="overview" && <OverviewTab pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+        {activeTab==="trend"    && <TrendTab    pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+        {activeTab==="mix"      && <MixTab      pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+      </>}
+    </main>
+
+    <footer className="app-footer">
+      Built by Adam Lawit · Source: U.S. Energy Information Administration (EIA) · API v2 · electric-power-operational-data (national/state monthly) · electricity/rto/fuel-type-data (RTO hourly)
+    </footer>
+  </>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
