@@ -70,7 +70,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:22px}
 .kpi-row-divider{grid-column:1/-1;height:0;border-top:1.5px solid var(--border)}
-.kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
+.kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);opacity:1;transform:translateY(0);transition:opacity .4s,transform .4s}
 .kpi:last-child{border-right:none}
 .kpi.visible{opacity:1;transform:translateY(0)}
 .kpi-label{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
@@ -110,7 +110,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 
 .info-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#7a5500;background:#fffbee;border:1px solid #e8c840;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.55}
 
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;opacity:1;transform:translateY(0);transition:opacity .45s,transform .45s}
 .card.visible{opacity:1;transform:translateY(0)}
 .card-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
 .tag{font-family:'IBM Plex Mono',monospace;font-size:.57rem;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:3px}
@@ -286,18 +286,27 @@ function dateToTzHourStr(date, tz) {
 }
 
 // ─── EIA API ──────────────────────────────────────────────────────────────────
-async function eiaFetch(endpoint, key, params) {
+function getEIAKey() {
+  const el = document.getElementById("eia-key-input");
+  return (el && el.value.trim()) || "DEMO_KEY";
+}
+
+async function eiaFetch(endpoint, params) {
+  const key = getEIAKey();
   const url = `https://api.eia.gov/v2${endpoint}?api_key=${encodeURIComponent(key)}&${params.join("&")}`;
   const r = await fetch(url);
   const j = await r.json();
-  if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status} — check your API key`);
+  if (!r.ok || j.error) {
+    const msg = (j.error && j.error.message) ? j.error.message : (typeof j.error === "string" ? j.error : ("HTTP " + r.status));
+    throw new Error(msg);
+  }
   if (!j?.response?.data) throw new Error("Unexpected EIA API response.");
   return j.response.data;
 }
 
-async function fetchMonthlyRegion(key, locationId) {
+async function fetchMonthlyRegion(locationId) {
   const start = toMonthStr(monthsBack(36));
-  const rows = await eiaFetch("/electricity/electric-power-operational-data/data/", key, [
+  const rows = await eiaFetch("/electricity/electric-power-operational-data/data/", [
     "frequency=monthly","data[0]=generation",
     `facets[location][]=${locationId}`,
     "facets[sectorid][]=99",  // 99 = all sectors combined, avoids duplicate periods
@@ -310,18 +319,18 @@ async function fetchMonthlyRegion(key, locationId) {
   return rows;
 }
 
-async function fetchMonthlyMulti(key, stateIds) {
+async function fetchMonthlyMulti(stateIds) {
   // Fetch all states in parallel and merge rows
-  const results = await Promise.all(stateIds.map(id => fetchMonthlyRegion(key, id)));
+  const results = await Promise.all(stateIds.map(id => fetchMonthlyRegion(id)));
   return results.flat();
 }
 
-async function fetchHourlyRTO(key, respondentId) {
+async function fetchHourlyRTO(respondentId) {
   // Start 8 days back (UTC) to ensure we capture the full 7-day window regardless of timezone offset.
   // End = tomorrow UTC so today's hours are never cut off.
   const start = toHourStr(daysBack(8));
   const end   = toHourStr(new Date(Date.now() + 24*3600000)); // tomorrow UTC
-  const rows = await eiaFetch("/electricity/rto/fuel-type-data/data/", key, [
+  const rows = await eiaFetch("/electricity/rto/fuel-type-data/data/", [
     "frequency=hourly","data[0]=value",
     `facets[respondent][]=${respondentId}`,
     `start=${start}`,`end=${end}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
@@ -777,7 +786,6 @@ function RegionBar({selected, onChange, hasData}) {
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 function App() {
-  const [apiKey,    setApiKey   ] = useState("");
   const [loading,   setLoading  ] = useState(false);
   const [loadMsg,   setLoadMsg  ] = useState("Fetching data…");
   const [error,     setError    ] = useState("");
@@ -789,8 +797,8 @@ function App() {
   const [fromDate,  setFromDate ] = useState(null);
   const [toDate,    setToDate   ] = useState(null);
   const [activeQ,   setActiveQ  ] = useState("1Y");
-  const [kpiVis,    setKpiVis   ] = useState(false);
-  const [tabVis,    setTabVis   ] = useState(false);
+  const [kpiVis,    setKpiVis   ] = useState(true);
+  const [tabVis,    setTabVis   ] = useState(true);
 
   const hourly = region.type === "rto";
   const freqLabel = hourly ? "Hourly" : "Monthly";
@@ -824,7 +832,12 @@ function App() {
     return all[Math.max(0, all.length - hours)];
   }, [data.periods]);
 
-  // Reset date range when region / data changes
+  // Auto-load once on mount after full paint
+  useEffect(() => {
+    const t = setTimeout(() => loadRegion(NATIONAL[0]), 0);
+    return () => clearTimeout(t);
+  }, []); // eslint-disable-line
+
   useEffect(() => {
     if (!data.periods.length) return;
     if (hourly) {
@@ -884,38 +897,36 @@ function App() {
     setActiveQ("");
   }, [data.periods, fromDate, toDate]);
 
-  const loadRegion = useCallback(async (key, r) => {
+  const loadRegion = useCallback(async (r) => {
     const rto = r.type === "rto";
     setLoadMsg(`Fetching ${rto?"hourly":"monthly"} data for ${r.label}…`);
     setLoading(true); setError("");
     try {
       let rows, grouped;
-      if (rto) { rows = await fetchHourlyRTO(key, r.id); grouped = groupHourly(rows, r.tz || "UTC"); grouped.tz = r.tz || "UTC"; }
-      else if (r.type==="region") { rows = await fetchMonthlyMulti(key, r.states); grouped = groupMonthly(rows); grouped.tz = null; }
-      else      { rows = await fetchMonthlyRegion(key, r.id); grouped = groupMonthly(rows); grouped.tz = null; }
-      if (!rows.length) throw new Error(`No data returned for ${r.label}. This region may not report this data type, or your key may still be activating.`);
+      if (rto) { rows = await fetchHourlyRTO(r.id); grouped = groupHourly(rows, r.tz || "UTC"); grouped.tz = r.tz || "UTC"; }
+      else if (r.type==="region") { rows = await fetchMonthlyMulti(r.states); grouped = groupMonthly(rows); grouped.tz = null; }
+      else      { rows = await fetchMonthlyRegion(r.id); grouped = groupMonthly(rows); grouped.tz = null; }
+      if (!rows.length) throw new Error(`No data returned for ${r.label}. If using DEMO_KEY, try entering a free personal key from eia.gov/opendata — DEMO_KEY has strict rate limits.`);
       setData(grouped);
       setHasData(true);
       setKpiVis(false);
       setTimeout(() => setKpiVis(true), 100);
     } catch(e) {
-      setError("❌ "+e.message+"\n\nTip: New EIA keys can take 5–10 minutes to activate.");
+      const msg = (e && e.message) ? e.message : (typeof e === "string" ? e : JSON.stringify(e));
+      const is429 = msg.includes("429") || msg.includes("rate limit") || msg.includes("Too Many");
+      const tip = is429 ? "\n\nDEMO_KEY rate limit reached. Paste a free personal key above and click Reload." : "\n\nTip: New EIA keys can take 5-10 minutes to activate.";
+      setError("❌ " + msg + tip);
     } finally { setLoading(false); }
   }, []);
 
   const run = useCallback(async () => {
-    const key = apiKey.trim();
-    if (!key) { setError("⚠ Please paste your EIA API key first.\nGet a free key at: https://www.eia.gov/opendata/register.php"); return; }
-    await loadRegion(key, region);
-  }, [apiKey, region, loadRegion]);
+    await loadRegion(region);
+  }, [region, loadRegion]);
 
   const handleRegionChange = useCallback((r) => {
     setRegion(r);
-    if (!hasData) return;
-    const key = apiKey.trim();
-    if (!key) return;
-    loadRegion(key, r);
-  }, [hasData, apiKey, loadRegion]);
+    loadRegion(r);
+  }, [loadRegion]);
 
   // KPI values — summed over the filtered date range
   const RENEW_KEYS = hourly ? ["SUN","WND","WAT","BAT_DIS"] : ["SUN","WND","HYC"];
@@ -968,12 +979,12 @@ function App() {
 
     <div className="api-bar">
       <label>EIA API KEY</label>
-      <input type="text" placeholder="Paste your free key here…" value={apiKey}
-        onChange={e=>setApiKey(e.target.value)} onKeyDown={e=>e.key==="Enter"&&run()}/>
+      <input id="eia-key-input" type="text" placeholder="Paste your EIA key for higher rate limits…" defaultValue=""
+        onKeyDown={e=>e.key==="Enter"&&run()}/>
       <button className="load-btn" onClick={run} disabled={loading}>
-        {loading?"LOADING…":"LOAD DASHBOARD"}
+        {loading?"LOADING…":"RELOAD"}
       </button>
-      <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key →</a>
+      <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key ↗</a>
     </div>
 
     <RegionBar selected={region} onChange={handleRegionChange} hasData={hasData}/>
@@ -981,13 +992,9 @@ function App() {
     <main className="app-main">
       {error && <div className="error-box">{error}</div>}
 
-      {!hasData ? (
-        <div className="placeholder">
-          <span className="icon">🌿</span>
-          <h2>Select a region, then load your data</h2>
-          <p>Pick <strong>United States</strong>, a state (monthly), or a grid operator (hourly) above — then paste your EIA key and click <strong>Load Dashboard</strong>.</p>
-        </div>
-      ) : <>
+      {loading && <div className="loading-bar" style={{textAlign:"center",padding:"12px",fontSize:".78rem",color:"var(--muted)",letterSpacing:".05em"}}>⟳ &nbsp;Fetching data…</div>}
+
+      <>
         {/* KPIs */}
         <div className="kpi-row">
           {[
@@ -1077,7 +1084,7 @@ function App() {
         {activeTab==="overview" && <OverviewTab pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
         {activeTab==="trend"    && <TrendTab    pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
         {activeTab==="mix"      && <MixTab      pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
-      </>}
+      </>
     </main>
 
     <footer className="app-footer">
