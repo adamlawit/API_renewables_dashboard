@@ -17,7 +17,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-weight:300;min-height:100vh}
-
 .app-header{background:var(--ink);color:#fff;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .app-header h1{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;line-height:1}
 .app-header h1 span{color:var(--wind)}
@@ -25,7 +24,6 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .live-badge{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:#aaa}
 .dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
 .api-bar{background:#fff;border-bottom:2px solid var(--ink);padding:10px 48px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .api-bar label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--muted);font-weight:600;white-space:nowrap}
 .api-bar input{flex:1;min-width:200px;max-width:340px;border:1.5px solid var(--border);border-radius:4px;padding:6px 10px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink);outline:none;transition:border-color .2s}
@@ -35,15 +33,12 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .load-btn:disabled{opacity:.4;cursor:not-allowed}
 .api-bar a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);text-decoration:none}
 .api-bar a:hover{text-decoration:underline}
-
-/* REGION SELECTOR */
 .region-bar{background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 48px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
 .region-group{display:flex;flex-direction:column;gap:5px;min-width:0}
 .region-group-label{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
 .region-pills{display:flex;flex-wrap:wrap;gap:4px}
 .region-pills.scrollable{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .region-pills.scrollable::-webkit-scrollbar{height:3px}
-.region-pills.scrollable::-webkit-scrollbar-track{background:transparent}
 .region-pills.scrollable::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .rpill{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 11px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap;flex-shrink:0}
 .rpill:hover:not(.active){border-color:var(--ink);color:var(--ink);background:var(--bg)}
@@ -51,34 +46,18 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .rpill.active.t-state{background:#1a6bb0;color:#fff;border-color:#1a6bb0}
 .rpill.active.t-rto{background:#7030b0;color:#fff;border-color:#7030b0}
 .rpill.active.t-region{background:#2a7d4f;color:#fff;border-color:#2a7d4f}
-.region-info-icon{font-size:.65rem;color:var(--muted);cursor:default;position:relative;line-height:1;padding:2px;user-select:none}
-.region-info-icon:hover{color:var(--ink)}
-.region-info-popup{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.6rem;white-space:nowrap;padding:6px 10px;border-radius:5px;z-index:100;pointer-events:none;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,.18)}
-.region-info-popup::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
-.region-info-icon:hover .region-info-popup{display:block}
 .region-vdiv{width:1px;background:var(--border);align-self:stretch;margin:0 2px}
-.region-note{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);padding:5px 10px;background:var(--bg);border-radius:4px;border:1px solid var(--border);align-self:center;white-space:nowrap}
-
 .app-main{max-width:1300px;margin:0 auto;padding:28px 48px 60px}
-
-.placeholder{text-align:center;padding:80px 20px}
-.placeholder .icon{font-size:2.6rem;display:block;margin-bottom:14px}
-.placeholder h2{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:8px}
-.placeholder p{color:var(--muted);font-size:.86rem;max-width:400px;margin:0 auto;line-height:1.65}
-
 .error-box{background:#fff3f3;border:1.5px solid #f0a0a0;border-radius:6px;padding:12px 16px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:.71rem;color:#c04040;line-height:1.6;white-space:pre-wrap}
-
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:22px}
 .kpi-row-divider{grid-column:1/-1;height:0;border-top:1.5px solid var(--border)}
-.kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);opacity:1;transform:translateY(0);transition:opacity .4s,transform .4s}
+.kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);transition:opacity .4s,transform .4s}
 .kpi:last-child{border-right:none}
-.kpi.visible{opacity:1;transform:translateY(0)}
 .kpi-label{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
 .kpi-val{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;line-height:1;margin-bottom:3px;display:flex;align-items:baseline;gap:5px}
 .kpi-unit{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;color:inherit;opacity:0.75}
-.kpi-val.solar{color:var(--solar)} .kpi-val.wind{color:var(--wind)} .kpi-val.hydro{color:var(--hydro)}
+.kpi-val.solar{color:var(--solar)}.kpi-val.wind{color:var(--wind)}.kpi-val.hydro{color:var(--hydro)}
 .kpi-sub{font-size:.75rem;color:var(--muted)}
-
 .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
 .tabs{display:flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
 .tab-btn{font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.03em;padding:7px 16px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:background .15s,color .15s;white-space:nowrap}
@@ -90,10 +69,8 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .pill:hover:not(.active){border-color:var(--ink);color:var(--ink)}
 .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
-.freq-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);white-space:nowrap;text-align:right}
-
+.freq-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);white-space:nowrap}
 .range-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.range-bar span{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);white-space:nowrap}
 .range-win{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;background:var(--surface)}
 .range-win-arrow{font-size:.85rem;padding:4px 9px;background:none;border:none;border-right:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:'IBM Plex Mono',monospace;transition:background .12s,color .12s;line-height:1}
 .range-win-arrow:last-child{border-right:none;border-left:1.5px solid var(--border)}
@@ -101,31 +78,120 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .range-win-sep{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);padding:0 6px;white-space:nowrap;border-right:1.5px solid var(--border)}
 .range-win input[type=date]{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 8px;border:none;color:var(--ink);outline:none;background:transparent;min-width:0}
 .range-win input[type=date]:focus{background:#f0ece0}
-.apply-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 12px;border:1.5px solid var(--ink);border-radius:4px;background:var(--ink);color:#fff;cursor:pointer}
-.apply-btn:hover{opacity:.8}
-.quick-btns{display:flex;gap:4px}.qr-arrow{min-width:28px;font-size:.85rem;padding:3px 8px!important}
+.quick-btns{display:flex;gap:4px}
 .qr{font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:3px 9px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
 .qr.active{background:var(--solar);color:#fff;border-color:var(--solar)}
 .qr:hover:not(.active){border-color:var(--ink);color:var(--ink)}
-
 .info-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#7a5500;background:#fffbee;border:1px solid #e8c840;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.55}
-
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;opacity:1;transform:translateY(0);transition:opacity .45s,transform .45s}
-.card.visible{opacity:1;transform:translateY(0)}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;transition:opacity .45s,transform .45s}
 .card-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
 .tag{font-family:'IBM Plex Mono',monospace;font-size:.57rem;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:3px}
-.cbox{position:relative;height:270px} .cbox.sm{height:220px} .cbox.tall{height:320px}
+.cbox{position:relative;height:270px}.cbox.sm{height:220px}.cbox.tall{height:320px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .mb{margin-bottom:16px}
+
+/* LEADERS */
+.leaders-card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.leaders-header{padding:16px 20px 0;border-bottom:1.5px solid var(--border)}
+.leaders-header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.leaders-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.leaders-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.leaders-fetch-btn{background:var(--ink);color:#fff;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.67rem;letter-spacing:.04em;padding:6px 14px;border-radius:4px;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.leaders-fetch-btn:hover:not(:disabled){background:var(--accent)}
+.leaders-fetch-btn:disabled{opacity:.4;cursor:not-allowed}
+.mini-ring{width:11px;height:11px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+.source-toggles{display:flex;flex-wrap:wrap;gap:5px;padding-bottom:12px}
+.src-toggle{font-family:'IBM Plex Mono',monospace;font-size:.61rem;padding:4px 11px;border-radius:4px;cursor:pointer;border-width:1.5px;border-style:solid;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.leaders-search{padding:10px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.leaders-search input{font-family:'IBM Plex Mono',monospace;font-size:.65rem;border:1.5px solid var(--border);border-radius:4px;padding:5px 10px;color:var(--ink);outline:none;width:200px;background:var(--bg);transition:border-color .2s}
+.leaders-search input:focus{border-color:var(--accent);background:#fff}
+.leaders-search-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+.top-n-group{display:flex;align-items:center;gap:5px;margin-left:auto}
+.top-n-group span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+.top-n-btn{font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:3px 8px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
+.top-n-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.top-n-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.leaders-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.leaders-table-wrap::-webkit-scrollbar{width:5px;height:5px}
+.leaders-table-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.leaders-table{width:100%;border-collapse:collapse}
+.leaders-table th{position:sticky;top:0;background:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left;white-space:nowrap;z-index:2;cursor:pointer;user-select:none}
+.leaders-table th:hover{color:var(--ink)}
+.leaders-table th .sort-arrow{margin-left:3px;opacity:.35}
+.leaders-table th.sort-active .sort-arrow{opacity:1;color:var(--accent)}
+.leaders-table td{font-family:'IBM Plex Mono',monospace;font-size:.65rem;padding:7px 12px;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:middle}
+.leaders-table tr:last-child td{border-bottom:none}
+.leaders-table tr:hover td{background:#f8f5ee}
+.rank-cell{font-weight:600;color:var(--muted);width:28px}
+.rank-cell.top1{color:#c8900a}.rank-cell.top2{color:#707070}.rank-cell.top3{color:#8a5028}
+.name-cell{font-weight:600;color:var(--ink)}
+.bar-wrap{display:flex;align-items:center;gap:6px}
+.bar-track{flex:1;min-width:70px;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.bar-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.val-text{font-size:.6rem;color:var(--muted);min-width:54px;text-align:right}
+.pct-badge{font-size:.58rem;padding:1px 5px;border-radius:3px;background:var(--bg);border:1px solid var(--border);color:var(--muted);margin-left:3px}
+.leaders-empty{text-align:center;padding:52px 20px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--muted);line-height:2}
+.leaders-empty .empty-icon{font-size:2rem;display:block;margin-bottom:8px;opacity:.25}
+.leaders-progress{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);border-bottom:1px solid var(--border)}
+.leaders-progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden}
+.leaders-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s ease}
+.tw-group{display:flex;align-items:center;gap:4px}
+.tw-group>span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+
+/* TOP-5 SOURCE SELECTOR */
+.top5-src-selector{padding:12px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--bg)}
+.top5-src-label{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.top5-src-pill{font-family:'IBM Plex Mono',monospace;font-size:.63rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:pointer;border-width:2px;border-style:solid;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.top5-src-pill:hover{filter:brightness(1.08)}
+
+/* SORT MODE TOGGLE */
+.sort-mode-wrap{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+.sort-mode-btn{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;padding:5px 13px;border-radius:4px;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap}
+.sort-mode-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sort-mode-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+
+/* TOP-5 COMPARISON PANEL */
+.top5-panel{background:var(--surface);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.top5-header{padding:14px 20px;border-bottom:2px solid var(--ink);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--ink)}
+.top5-title{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff}
+.top5-subtitle{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#888;margin-top:3px}
+.top5-src-pill{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;padding:4px 12px;border-radius:4px;display:flex;align-items:center;gap:6px}
+.top5-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.top5-col{border-right:1px solid var(--border);display:flex;flex-direction:column}
+.top5-col:last-child{border-right:none}
+.top5-col-header{padding:14px 14px 10px;border-bottom:1px solid var(--border);background:var(--bg)}
+.top5-rank-badge{font-family:'IBM Plex Mono',monospace;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:3px;margin-bottom:6px;display:inline-block;letter-spacing:.04em}
+.top5-rank-badge.r1{background:#fef3dc;color:#c8900a;border:1px solid #f0d080}
+.top5-rank-badge.r2{background:#f0f0f0;color:#606060;border:1px solid #ccc}
+.top5-rank-badge.r3{background:#fdf0e8;color:#8a5028;border:1px solid #d4a880}
+.top5-rank-badge.r4,.top5-rank-badge.r5{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.top5-state-name{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:4px}
+.top5-source-val{font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:600}
+.top5-source-pct{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--muted);display:block;margin-top:1px}
+.top5-donut-area{padding:14px 10px 6px;display:flex;justify-content:center;align-items:center;flex:1}
+.top5-legend{padding:0 12px 10px}
+.top5-legend-row{display:flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);padding:2px 0}
+.top5-legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.top5-legend-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top5-legend-pct{font-weight:600;color:var(--ink);min-width:34px;text-align:right}
+.top5-stats{border-top:1px solid var(--border)}
+.top5-stat{padding:6px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.top5-stat:last-child{border-bottom:none}
+.top5-stat-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted)}
+.top5-stat-val{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;color:var(--ink)}
 
 .spinner-overlay{position:fixed;inset:0;background:rgba(245,242,235,.92);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
 .ring{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner-overlay p{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)}
-
 .app-footer{text-align:center;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);border-top:1px solid var(--border)}
 
-@media(max-width:900px){
+@media(max-width:1000px){
+  .top5-grid{grid-template-columns:repeat(3,1fr)}
+  .top5-col:nth-child(3){border-right:none}
+  .top5-col:nth-child(4),.top5-col:nth-child(5){border-top:1px solid var(--border)}
+}
+@media(max-width:700px){
   .app-header,.api-bar,.region-bar,.app-main{padding-left:16px;padding-right:16px}
   .kpi-row{grid-template-columns:1fr 1fr}
   .kpi:nth-child(2),.kpi:nth-child(4){border-right:none}
@@ -133,6 +199,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
   .grid2{grid-template-columns:1fr}
   .toolbar{flex-direction:column;align-items:flex-start}
   .region-vdiv{display:none}
+  .top5-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -141,958 +208,702 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 <script type="text/babel">
 const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
-// ─── REGION DEFINITIONS ───────────────────────────────────────────────────────
-// National + states  →  monthly,  electric-power-operational-data,  facet: location
-// RTOs               →  hourly,   rto/fuel-type-data,               facet: respondent
-const NATIONAL = [
-  { id:"US", label:"United States", type:"national" },
+const NATIONAL=[{id:"US",label:"United States",type:"national"}];
+const STATES=[
+  {id:"AL",label:"Alabama",type:"state"},{id:"AK",label:"Alaska",type:"state"},
+  {id:"AZ",label:"Arizona",type:"state"},{id:"AR",label:"Arkansas",type:"state"},
+  {id:"CA",label:"California",type:"state"},{id:"CO",label:"Colorado",type:"state"},
+  {id:"CT",label:"Connecticut",type:"state"},{id:"DE",label:"Delaware",type:"state"},
+  {id:"FL",label:"Florida",type:"state"},{id:"GA",label:"Georgia",type:"state"},
+  {id:"HI",label:"Hawaii",type:"state"},{id:"ID",label:"Idaho",type:"state"},
+  {id:"IL",label:"Illinois",type:"state"},{id:"IN",label:"Indiana",type:"state"},
+  {id:"IA",label:"Iowa",type:"state"},{id:"KS",label:"Kansas",type:"state"},
+  {id:"KY",label:"Kentucky",type:"state"},{id:"LA",label:"Louisiana",type:"state"},
+  {id:"ME",label:"Maine",type:"state"},{id:"MD",label:"Maryland",type:"state"},
+  {id:"MA",label:"Massachusetts",type:"state"},{id:"MI",label:"Michigan",type:"state"},
+  {id:"MN",label:"Minnesota",type:"state"},{id:"MS",label:"Mississippi",type:"state"},
+  {id:"MO",label:"Missouri",type:"state"},{id:"MT",label:"Montana",type:"state"},
+  {id:"NE",label:"Nebraska",type:"state"},{id:"NV",label:"Nevada",type:"state"},
+  {id:"NH",label:"New Hampshire",type:"state"},{id:"NJ",label:"New Jersey",type:"state"},
+  {id:"NM",label:"New Mexico",type:"state"},{id:"NY",label:"New York",type:"state"},
+  {id:"NC",label:"N. Carolina",type:"state"},{id:"ND",label:"N. Dakota",type:"state"},
+  {id:"OH",label:"Ohio",type:"state"},{id:"OK",label:"Oklahoma",type:"state"},
+  {id:"OR",label:"Oregon",type:"state"},{id:"PA",label:"Pennsylvania",type:"state"},
+  {id:"RI",label:"Rhode Island",type:"state"},{id:"SC",label:"S. Carolina",type:"state"},
+  {id:"SD",label:"S. Dakota",type:"state"},{id:"TN",label:"Tennessee",type:"state"},
+  {id:"TX",label:"Texas",type:"state"},{id:"UT",label:"Utah",type:"state"},
+  {id:"VT",label:"Vermont",type:"state"},{id:"VA",label:"Virginia",type:"state"},
+  {id:"WA",label:"Washington",type:"state"},{id:"WV",label:"W. Virginia",type:"state"},
+  {id:"WI",label:"Wisconsin",type:"state"},{id:"WY",label:"Wyoming",type:"state"},
 ];
-const STATES = [
-  { id:"AL", label:"Alabama",        type:"state" },
-  { id:"AK", label:"Alaska",         type:"state" },
-  { id:"AZ", label:"Arizona",        type:"state" },
-  { id:"AR", label:"Arkansas",       type:"state" },
-  { id:"CA", label:"California",     type:"state" },
-  { id:"CO", label:"Colorado",       type:"state" },
-  { id:"CT", label:"Connecticut",    type:"state" },
-  { id:"DE", label:"Delaware",       type:"state" },
-  { id:"FL", label:"Florida",        type:"state" },
-  { id:"GA", label:"Georgia",        type:"state" },
-  { id:"HI", label:"Hawaii",         type:"state" },
-  { id:"ID", label:"Idaho",          type:"state" },
-  { id:"IL", label:"Illinois",       type:"state" },
-  { id:"IN", label:"Indiana",        type:"state" },
-  { id:"IA", label:"Iowa",           type:"state" },
-  { id:"KS", label:"Kansas",         type:"state" },
-  { id:"KY", label:"Kentucky",       type:"state" },
-  { id:"LA", label:"Louisiana",      type:"state" },
-  { id:"ME", label:"Maine",          type:"state" },
-  { id:"MD", label:"Maryland",       type:"state" },
-  { id:"MA", label:"Massachusetts",  type:"state" },
-  { id:"MI", label:"Michigan",       type:"state" },
-  { id:"MN", label:"Minnesota",      type:"state" },
-  { id:"MS", label:"Mississippi",    type:"state" },
-  { id:"MO", label:"Missouri",       type:"state" },
-  { id:"MT", label:"Montana",        type:"state" },
-  { id:"NE", label:"Nebraska",       type:"state" },
-  { id:"NV", label:"Nevada",         type:"state" },
-  { id:"NH", label:"New Hampshire",  type:"state" },
-  { id:"NJ", label:"New Jersey",     type:"state" },
-  { id:"NM", label:"New Mexico",     type:"state" },
-  { id:"NY", label:"New York",       type:"state" },
-  { id:"NC", label:"N. Carolina",    type:"state" },
-  { id:"ND", label:"N. Dakota",      type:"state" },
-  { id:"OH", label:"Ohio",           type:"state" },
-  { id:"OK", label:"Oklahoma",       type:"state" },
-  { id:"OR", label:"Oregon",         type:"state" },
-  { id:"PA", label:"Pennsylvania",   type:"state" },
-  { id:"RI", label:"Rhode Island",   type:"state" },
-  { id:"SC", label:"S. Carolina",    type:"state" },
-  { id:"SD", label:"S. Dakota",      type:"state" },
-  { id:"TN", label:"Tennessee",      type:"state" },
-  { id:"TX", label:"Texas",          type:"state" },
-  { id:"UT", label:"Utah",           type:"state" },
-  { id:"VT", label:"Vermont",        type:"state" },
-  { id:"VA", label:"Virginia",       type:"state" },
-  { id:"WA", label:"Washington",     type:"state" },
-  { id:"WV", label:"W. Virginia",    type:"state" },
-  { id:"WI", label:"Wisconsin",      type:"state" },
-  { id:"WY", label:"Wyoming",        type:"state" },
+const RTOS=[
+  {id:"CISO",label:"CAISO",fullName:"California ISO",type:"rto",tz:"America/Los_Angeles"},
+  {id:"NYIS",label:"NYISO",fullName:"New York ISO",type:"rto",tz:"America/New_York"},
+  {id:"MISO",label:"MISO",fullName:"Midcontinent ISO",type:"rto",tz:"America/Chicago"},
+  {id:"PJM",label:"PJM",fullName:"PJM Interconnection",type:"rto",tz:"America/New_York"},
+  {id:"ISNE",label:"ISO-NE",fullName:"ISO New England",type:"rto",tz:"America/New_York"},
+  {id:"SWPP",label:"SPP",fullName:"Southwest Power Pool",type:"rto",tz:"America/Chicago"},
+  {id:"ERCO",label:"ERCOT",fullName:"ERCOT",type:"rto",tz:"America/Chicago"},
+  {id:"NW",label:"NW",fullName:"Northwest",type:"rto",tz:"America/Los_Angeles"},
+  {id:"SE",label:"Southeast",fullName:"Southeast",type:"rto",tz:"America/New_York"},
 ];
-const RTOS = [
-  { id:"CISO", label:"CAISO",     fullName:"California ISO",                        type:"rto", tz:"America/Los_Angeles" },
-  { id:"NYIS", label:"NYISO",     fullName:"New York ISO",                          type:"rto", tz:"America/New_York"    },
-  { id:"MISO", label:"MISO",      fullName:"Midcontinent ISO",                      type:"rto", tz:"America/Chicago"     },
-  { id:"PJM",  label:"PJM",       fullName:"PJM Interconnection",                   type:"rto", tz:"America/New_York"    },
-  { id:"ISNE", label:"ISO-NE",    fullName:"ISO New England",                       type:"rto", tz:"America/New_York"    },
-  { id:"SWPP", label:"SPP",       fullName:"Southwest Power Pool",                  type:"rto", tz:"America/Chicago"     },
-  { id:"ERCO", label:"ERCOT",     fullName:"Electric Reliability Council of Texas", type:"rto", tz:"America/Chicago"     },
-  { id:"NW",   label:"NW",        fullName:"Northwest",                             type:"rto", tz:"America/Los_Angeles" },
-  { id:"SE",   label:"Southeast", fullName:"Southeast",                             type:"rto", tz:"America/New_York"    },
+const US_REGIONS=[
+  {id:"REG_NE",label:"Northeast",type:"region",states:["CT","ME","MA","NH","RI","VT","NJ","NY"],note:"CT, ME, MA, NH, RI, VT, NJ, NY"},
+  {id:"REG_MA",label:"Mid-Atlantic",type:"region",states:["DE","MD","PA","VA","WV","DC"],note:"DE, MD, PA, VA, WV, DC"},
+  {id:"REG_SE",label:"Southeast",type:"region",states:["NC","SC","GA","FL","AL","MS","TN","KY","AR","LA"],note:"NC, SC, GA, FL, AL, MS, TN, KY, AR, LA"},
+  {id:"REG_MW",label:"Midwest",type:"region",states:["IL","IN","MI","OH","WI","IA","KS","MN","MO","NE","ND","SD"],note:"IL, IN, MI, OH, WI, IA, KS, MN, MO, NE, ND, SD"},
+  {id:"REG_SW",label:"Southwest",type:"region",states:["AZ","NM","OK","TX"],note:"AZ, NM, OK, TX"},
+  {id:"REG_W",label:"West",type:"region",states:["AK","CA","CO","HI","ID","MT","NV","OR","UT","WA","WY"],note:"AK, CA, CO, HI, ID, MT, NV, OR, UT, WA, WY"},
 ];
-
-// ─── US CENSUS REGIONS (multi-state monthly aggregates) ──────────────────────
-const STATE_NAMES = {
-  AK:"Alaska", AL:"Alabama", AR:"Arkansas", AZ:"Arizona", CA:"California",
-  CO:"Colorado", CT:"Connecticut", DC:"Washington D.C.", DE:"Delaware", FL:"Florida",
-  GA:"Georgia", HI:"Hawaii", IA:"Iowa", ID:"Idaho", IL:"Illinois",
-  IN:"Indiana", KS:"Kansas", KY:"Kentucky", LA:"Louisiana", MA:"Massachusetts",
-  MD:"Maryland", ME:"Maine", MI:"Michigan", MN:"Minnesota", MO:"Missouri",
-  MS:"Mississippi", MT:"Montana", NC:"North Carolina", ND:"North Dakota", NE:"Nebraska",
-  NH:"New Hampshire", NJ:"New Jersey", NM:"New Mexico", NV:"Nevada", NY:"New York",
-  OH:"Ohio", OK:"Oklahoma", OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island",
-  SC:"South Carolina", SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah",
-  VA:"Virginia", VT:"Vermont", WA:"Washington", WI:"Wisconsin", WV:"West Virginia",
-  WY:"Wyoming",
+const STATE_NAMES={
+  AK:"Alaska",AL:"Alabama",AR:"Arkansas",AZ:"Arizona",CA:"California",CO:"Colorado",
+  CT:"Connecticut",DC:"Washington D.C.",DE:"Delaware",FL:"Florida",GA:"Georgia",
+  HI:"Hawaii",IA:"Iowa",ID:"Idaho",IL:"Illinois",IN:"Indiana",KS:"Kansas",
+  KY:"Kentucky",LA:"Louisiana",MA:"Massachusetts",MD:"Maryland",ME:"Maine",
+  MI:"Michigan",MN:"Minnesota",MO:"Missouri",MS:"Mississippi",MT:"Montana",
+  NC:"North Carolina",ND:"North Dakota",NE:"Nebraska",NH:"New Hampshire",
+  NJ:"New Jersey",NM:"New Mexico",NV:"Nevada",NY:"New York",OH:"Ohio",
+  OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",
+  SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VA:"Virginia",
+  VT:"Vermont",WA:"Washington",WI:"Wisconsin",WV:"West Virginia",WY:"Wyoming",
 };
-const US_REGIONS = [
-  { id:"REG_NE", label:"Northeast",   type:"region",
-    states:["CT","ME","MA","NH","RI","VT","NJ","NY"],
-    note:"CT, ME, MA, NH, RI, VT, NJ, NY" },
-  { id:"REG_MA", label:"Mid-Atlantic", type:"region",
-    states:["DE","MD","PA","VA","WV","DC"],
-    note:"DE, MD, PA, VA, WV, DC" },
-  { id:"REG_SE", label:"Southeast",   type:"region",
-    states:["NC","SC","GA","FL","AL","MS","TN","KY","AR","LA"],
-    note:"NC, SC, GA, FL, AL, MS, TN, KY, AR, LA" },
-  { id:"REG_MW", label:"Midwest",     type:"region",
-    states:["IL","IN","MI","OH","WI","IA","KS","MN","MO","NE","ND","SD"],
-    note:"IL, IN, MI, OH, WI, IA, KS, MN, MO, NE, ND, SD" },
-  { id:"REG_SW", label:"Southwest",   type:"region",
-    states:["AZ","NM","OK","TX"],
-    note:"AZ, NM, OK, TX" },
-  { id:"REG_W",  label:"West",        type:"region",
-    states:["AK","CA","CO","HI","ID","MT","NV","OR","UT","WA","WY"],
-    note:"AK, CA, CO, HI, ID, MT, NV, OR, UT, WA, WY" },
-];
+const MONTHLY_FUELS={SUN:{label:"Solar",color:"#e8a020"},WND:{label:"Wind",color:"#2a7d4f"},HYC:{label:"Hydro",color:"#2060b0"},NG:{label:"Gas",color:"#e05020"},COW:{label:"Coal",color:"#1a1a18"},NUC:{label:"Nuclear",color:"#9040c0"}};
+const HOURLY_FUELS={SUN:{label:"Solar",color:"#e8a020"},WND:{label:"Wind",color:"#2a7d4f"},WAT:{label:"Hydro",color:"#2060b0"},NG:{label:"Gas",color:"#e05020"},COL:{label:"Coal",color:"#1a1a18"},NUC:{label:"Nuclear",color:"#9040c0"},BAT_DIS:{label:"Battery Discharge",color:"#40b0a0"},BAT_CHG:{label:"Battery Charging",color:"#b04080"}};
+const RENEW_M=["SUN","WND","HYC"];
+const RENEW_H=["SUN","WND","WAT","BAT_DIS","BAT_CHG"];
+const UNIT_DIV={MWh:1,GWh:1000,TWh:1000000};
+const LEADERS_FUELS_M=[{key:"SUN",label:"Solar",color:"#e8a020"},{key:"WND",label:"Wind",color:"#2a7d4f"},{key:"HYC",label:"Hydro",color:"#2060b0"},{key:"NG",label:"Gas",color:"#e05020"},{key:"COW",label:"Coal",color:"#1a1a18"},{key:"NUC",label:"Nuclear",color:"#9040c0"}];
+const LEADERS_FUELS_R=[{key:"SUN",label:"Solar",color:"#e8a020"},{key:"WND",label:"Wind",color:"#2a7d4f"},{key:"WAT",label:"Hydro",color:"#2060b0"},{key:"NG",label:"Gas",color:"#e05020"},{key:"COL",label:"Coal",color:"#1a1a18"},{key:"NUC",label:"Nuclear",color:"#9040c0"},{key:"BAT_DIS",label:"Battery",color:"#40b0a0"}];
 
-// ─── FUEL DEFINITIONS ─────────────────────────────────────────────────────────
-const MONTHLY_FUELS = {
-  SUN:{ label:"Solar",   color:"#e8a020" },
-  WND:{ label:"Wind",    color:"#2a7d4f" },
-  HYC:{ label:"Hydro",  color:"#2060b0" },
-  NG: { label:"Gas",    color:"#e05020" },
-  COW:{ label:"Coal",   color:"#1a1a18" },
-  NUC:{ label:"Nuclear",color:"#9040c0" },
-};
-const HOURLY_FUELS = {
-  SUN:    { label:"Solar",             color:"#e8a020" },
-  WND:    { label:"Wind",              color:"#2a7d4f" },
-  WAT:    { label:"Hydro",             color:"#2060b0" },
-  NG:     { label:"Gas",               color:"#e05020" },
-  COL:    { label:"Coal",              color:"#1a1a18" },
-  NUC:    { label:"Nuclear",           color:"#9040c0" },
-  BAT_DIS:{ label:"Battery Discharge", color:"#40b0a0" },
-  BAT_CHG:{ label:"Battery Charging",  color:"#b04080" },
-};
-const RENEW_M = ["SUN","WND","HYC"];
-const RENEW_H = ["SUN","WND","WAT","BAT_DIS","BAT_CHG"];
-const UNIT_DIV = { MWh:1, GWh:1000, TWh:1000000 };
+const toMonthStr=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+const toHourStr=d=>d.toISOString().slice(0,13);
+const daysBack=n=>{const d=new Date();d.setDate(d.getDate()-n);return d;};
+const monthsBack=n=>{const d=new Date();d.setMonth(d.getMonth()-n);return d;};
 
-// ─── DATE HELPERS ─────────────────────────────────────────────────────────────
-const toMonthStr = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
-const toHourStr  = d => d.toISOString().slice(0,13);
-const daysBack   = n => { const d=new Date(); d.setDate(d.getDate()-n); return d; };
-const monthsBack = n => { const d=new Date(); d.setMonth(d.getMonth()-n); return d; };
-// Convert a JS Date to "YYYY-MM-DDTHH" in a given IANA timezone (matches how period keys are stored)
-function dateToTzHourStr(date, tz) {
-  if (!tz) return date.toISOString().slice(0,13);
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: tz, year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", hour12:false,
-  }).formatToParts(date);
-  const get = t => parts.find(p=>p.type===t)?.value ?? "00";
-  const hr = get("hour") === "24" ? "00" : get("hour");
-  return `${get("year")}-${get("month")}-${get("day")}T${hr}`;
-}
-
-// ─── EIA API ──────────────────────────────────────────────────────────────────
-function getEIAKey() {
-  const el = document.getElementById("eia-key-input");
-  return (el && el.value.trim()) || "DEMO_KEY";
-}
-
-async function eiaFetch(endpoint, params) {
-  const key = getEIAKey();
-  const url = `https://api.eia.gov/v2${endpoint}?api_key=${encodeURIComponent(key)}&${params.join("&")}`;
-  const r = await fetch(url);
-  const j = await r.json();
-  if (!r.ok || j.error) {
-    const msg = (j.error && j.error.message) ? j.error.message : (typeof j.error === "string" ? j.error : ("HTTP " + r.status));
-    throw new Error(msg);
-  }
-  if (!j?.response?.data) throw new Error("Unexpected EIA API response.");
+function getEIAKey(){const el=document.getElementById("eia-key-input");return(el&&el.value.trim())||"DEMO_KEY";}
+async function eiaFetch(endpoint,params){
+  const key=getEIAKey();
+  const url=`https://api.eia.gov/v2${endpoint}?api_key=${encodeURIComponent(key)}&${params.join("&")}`;
+  const r=await fetch(url);const j=await r.json();
+  if(!r.ok||j.error){const msg=(j.error&&j.error.message)?j.error.message:(typeof j.error==="string"?j.error:("HTTP "+r.status));throw new Error(msg);}
+  if(!j?.response?.data)throw new Error("Unexpected EIA API response.");
   return j.response.data;
 }
-
-async function fetchMonthlyRegion(locationId) {
-  const start = toMonthStr(monthsBack(36));
-  const rows = await eiaFetch("/electricity/electric-power-operational-data/data/", [
-    "frequency=monthly","data[0]=generation",
-    `facets[location][]=${locationId}`,
-    "facets[sectorid][]=99",  // 99 = all sectors combined, avoids duplicate periods
+async function fetchMonthlyRegion(locationId){
+  const start=toMonthStr(monthsBack(36));
+  return eiaFetch("/electricity/electric-power-operational-data/data/",[
+    "frequency=monthly","data[0]=generation",`facets[location][]=${locationId}`,"facets[sectorid][]=99",
     "facets[fueltypeid][]=SUN","facets[fueltypeid][]=WND","facets[fueltypeid][]=HYC",
     "facets[fueltypeid][]=NG","facets[fueltypeid][]=COW","facets[fueltypeid][]=NUC",
     `start=${start}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
   ]);
-  const periods = [...new Set(rows.map(r => r.period))].sort();
-  console.log(`[EIA] ${locationId} monthly periods (${periods.length}):`, periods[0], "→", periods[periods.length-1]);
-  return rows;
 }
-
-async function fetchMonthlyMulti(stateIds) {
-  // Fetch all states in parallel and merge rows
-  const results = await Promise.all(stateIds.map(id => fetchMonthlyRegion(id)));
-  return results.flat();
-}
-
-async function fetchHourlyRTO(respondentId) {
-  // Start 8 days back (UTC) to ensure we capture the full 7-day window regardless of timezone offset.
-  // End = tomorrow UTC so today's hours are never cut off.
-  const start = toHourStr(daysBack(8));
-  const end   = toHourStr(new Date(Date.now() + 24*3600000)); // tomorrow UTC
-  const rows = await eiaFetch("/electricity/rto/fuel-type-data/data/", [
-    "frequency=hourly","data[0]=value",
-    `facets[respondent][]=${respondentId}`,
+async function fetchMonthlyMulti(stateIds){const results=await Promise.all(stateIds.map(id=>fetchMonthlyRegion(id)));return results.flat();}
+async function fetchHourlyRTO(respondentId){
+  const start=toHourStr(daysBack(8));const end=toHourStr(new Date(Date.now()+24*3600000));
+  return eiaFetch("/electricity/rto/fuel-type-data/data/",[
+    "frequency=hourly","data[0]=value",`facets[respondent][]=${respondentId}`,
     `start=${start}`,`end=${end}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
   ]);
-  // Log raw fueltype keys so we can verify battery handling per RTO
-  const keys = [...new Set(rows.map(r => r.fueltype))].sort();
-  console.log(`[EIA] ${respondentId} raw fueltype keys:`, keys);
-  console.log(`[EIA] ${respondentId} period range: ${rows[0]?.period} → ${rows[rows.length-1]?.period}`);
-  return rows;
 }
-
-// ─── UTC → RTO-timezone conversion ───────────────────────────────────────────
-// EIA hourly periods are "YYYY-MM-DDTHH" in UTC.
-// Convert to the RTO's own local timezone so solar/wind patterns are correct.
-function utcPeriodToTz(p, tz) {
-  const d = new Date((p.length === 13 ? p : p) + ":00:00Z");
-  if (isNaN(d)) return p;
-  // Use Intl to extract the wall-clock time in the target timezone
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: tz,
-    year:"numeric", month:"2-digit", day:"2-digit",
-    hour:"2-digit", hour12:false,
-  }).formatToParts(d);
-  const get = t => parts.find(p=>p.type===t)?.value ?? "00";
-  const hr = get("hour") === "24" ? "00" : get("hour"); // midnight edge case
+async function fetchStateTotal(stateId,months){
+  const start=toMonthStr(monthsBack(months));
+  const rows=await eiaFetch("/electricity/electric-power-operational-data/data/",[
+    "frequency=monthly","data[0]=generation",`facets[location][]=${stateId}`,"facets[sectorid][]=99",
+    "facets[fueltypeid][]=SUN","facets[fueltypeid][]=WND","facets[fueltypeid][]=HYC",
+    "facets[fueltypeid][]=NG","facets[fueltypeid][]=COW","facets[fueltypeid][]=NUC",
+    `start=${start}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
+  ]);
+  const t={id:stateId,SUN:0,WND:0,HYC:0,NG:0,COW:0,NUC:0};
+  rows.forEach(r=>{t[r.fueltypeid]=(t[r.fueltypeid]||0)+(parseFloat(r.generation)||0);});
+  t.total=t.SUN+t.WND+t.HYC+t.NG+t.COW+t.NUC;return t;
+}
+async function fetchRTOTotal(respondentId){
+  const start=toHourStr(daysBack(8));const end=toHourStr(new Date(Date.now()+24*3600000));
+  const rows=await eiaFetch("/electricity/rto/fuel-type-data/data/",[
+    "frequency=hourly","data[0]=value",`facets[respondent][]=${respondentId}`,
+    `start=${start}`,`end=${end}`,"sort[0][column]=period","sort[0][direction]=asc","length=5000",
+  ]);
+  const t={id:respondentId,SUN:0,WND:0,WAT:0,NG:0,COL:0,NUC:0,BAT_DIS:0,BAT_CHG:0};
+  const rawKeys=new Set(rows.map(r=>r.fueltype));const hasBATKey=rawKeys.has("BAT");
+  rows.forEach(r=>{
+    const v=parseFloat(r.value)||0;
+    if(r.fueltype==="BAT"){if(v>0)t.BAT_DIS+=v;else t.BAT_CHG+=Math.abs(v);}
+    else if(!hasBATKey&&r.fueltype==="OTH"){if(v>0)t.BAT_DIS+=v;else t.BAT_CHG+=Math.abs(v);}
+    else if(t[r.fueltype]!==undefined)t[r.fueltype]+=v;
+  });
+  t.SUN=Math.max(0,t.SUN);t.WND=Math.max(0,t.WND);
+  t.total=Object.entries(t).filter(([k])=>k!=="id").reduce((s,[,v])=>s+Math.max(0,v),0);
+  return t;
+}
+function utcPeriodToTz(p,tz){
+  const d=new Date(p+":00:00Z");if(isNaN(d))return p;
+  const parts=new Intl.DateTimeFormat("en-CA",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hour12:false}).formatToParts(d);
+  const get=t=>parts.find(p=>p.type===t)?.value??"00";const hr=get("hour")==="24"?"00":get("hour");
   return `${get("year")}-${get("month")}-${get("day")}T${hr}`;
 }
-function fmtTzPeriod(p, tz) {
-  // p is already in the RTO's local time as "YYYY-MM-DDTHH"
-  // Parse it as a naive local datetime for display (no re-conversion needed)
-  const [datePart, hrPart] = p.split("T");
-  if (!hrPart) return p;
-  const [yr, mo, dy] = datePart.split("-");
-  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  return `${monthNames[parseInt(mo,10)-1]} ${parseInt(dy,10)}, ${hrPart}:00`;
+function fmtTzPeriod(p,tz){
+  const[datePart,hrPart]=p.split("T");if(!hrPart)return p;
+  const[yr,mo,dy]=datePart.split("-");
+  const mn=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${mn[parseInt(mo,10)-1]} ${parseInt(dy,10)}, ${hrPart}:00`;
 }
-
-// ─── DATA GROUPING ────────────────────────────────────────────────────────────
-function groupMonthly(rows) {
-  const byP = {};
-  rows.forEach(r => {
-    if (!byP[r.period]) byP[r.period] = {};
-    byP[r.period][r.fueltypeid] = parseFloat(r.generation)||0;
+function groupMonthly(rows){
+  const byP={};rows.forEach(r=>{if(!byP[r.period])byP[r.period]={};byP[r.period][r.fueltypeid]=parseFloat(r.generation)||0;});
+  return{byP,periods:Object.keys(byP).sort()};
+}
+function groupHourly(rows,tz){
+  const byP={};const rawKeys=new Set();
+  rows.forEach(r=>{const k=utcPeriodToTz(r.period,tz);if(!byP[k])byP[k]={};rawKeys.add(r.fueltype);byP[k][r.fueltype]=(byP[k][r.fueltype]||0)+(parseFloat(r.value)||0);});
+  const hasBATKey=rawKeys.has("BAT");
+  Object.values(byP).forEach(d=>{
+    if(hasBATKey){const rb=d.BAT||0;d.BAT_DIS=rb>0?rb:0;d.BAT_CHG=rb<0?Math.abs(rb):0;delete d.BAT;}
+    else{const ro=d.OTH||0;if(ro>0){d.BAT_DIS=(d.BAT_DIS||0)+ro;d.OTH=0;}else if(ro<0){d.BAT_CHG=(d.BAT_CHG||0)+Math.abs(ro);d.OTH=0;}d.BAT_DIS=d.BAT_DIS||0;d.BAT_CHG=d.BAT_CHG||0;}
+    if(d.SUN)d.SUN=Math.max(0,d.SUN);if(d.WND)d.WND=Math.max(0,d.WND);
   });
-  return { byP, periods: Object.keys(byP).sort() };
+  return{byP,periods:Object.keys(byP).sort(),hasBATKey};
 }
-function groupHourly(rows, tz) {
-  const byP = {};
-  // Track which fuel keys this RTO actually returned
-  const rawKeys = new Set();
-  rows.forEach(r => {
-    const tzKey = utcPeriodToTz(r.period, tz);
-    if (!byP[tzKey]) byP[tzKey] = {};
-    const v = parseFloat(r.value)||0;
-    const k = r.fueltype;
-    rawKeys.add(k);
-    byP[tzKey][k] = (byP[tzKey][k]||0) + v;
-  });
-
-  // Determine if this RTO has a dedicated BAT key or uses OTH for storage
-  const hasBATKey = rawKeys.has("BAT");
-
-  Object.values(byP).forEach(d => {
-    if (hasBATKey) {
-      // RTO reports battery separately — split BAT into discharge / charge
-      const rawBat = d.BAT || 0;
-      d.BAT_DIS = rawBat > 0 ? rawBat : 0;
-      d.BAT_CHG = rawBat < 0 ? Math.abs(rawBat) : 0;
-      delete d.BAT;
-      // OTH is true other generation here
-    } else {
-      // No BAT key — OTH contains battery storage mixed with true other.
-      // EIA CAISO convention: OTH can be positive (battery discharging or true other)
-      // or negative (battery charging). We cannot separate battery from true other
-      // when both are positive, so we reclassify OTH entirely as BAT_DIS/BAT_CHG/OTH:
-      const rawOth = d.OTH || 0;
-      if (rawOth > 0) {
-        // Positive OTH for CAISO is battery discharge; keep as BAT_DIS
-        d.BAT_DIS = (d.BAT_DIS || 0) + rawOth;
-        d.OTH = 0;
-      } else if (rawOth < 0) {
-        // Negative OTH = battery charging
-        d.BAT_CHG = (d.BAT_CHG || 0) + Math.abs(rawOth);
-        d.OTH = 0;
-      }
-      d.BAT_DIS = d.BAT_DIS || 0;
-      d.BAT_CHG = d.BAT_CHG || 0;
-    }
-    if (d.SUN) d.SUN = Math.max(0, d.SUN);
-    if (d.WND) d.WND = Math.max(0, d.WND);
-  });
-  return { byP, periods: Object.keys(byP).sort(), hasBATKey };
+function toU(mwh,unit){return mwh/UNIT_DIV[unit];}
+function fmtKPI(mwh,unit){const v=toU(mwh,unit);return v>=1000?v.toLocaleString(undefined,{maximumFractionDigits:1}):v.toFixed(2);}
+function fmtKPIUnit(_,unit){return unit;}
+function fmtVal(mwh,unit){const v=toU(mwh,unit);if(v>=10000)return v.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});if(v>=1)return v.toFixed(1);if(v>0)return v.toFixed(3);return "0.0";}
+const CD={font:{family:"'IBM Plex Mono',monospace",size:9},grid:"#e8e3da",tick:"#8a857a",tip:{backgroundColor:"#1a1a18",titleColor:"#fff",bodyColor:"#aaa",borderColor:"#333",borderWidth:1}};
+const mkX=(tz=null)=>({ticks:{color:CD.tick,font:CD.font,maxTicksLimit:14,callback:tz?function(val){return fmtTzPeriod(this.getLabelForValue(val),tz);}:undefined},grid:{color:CD.grid}});
+function useChart(ref,config){
+  const chartRef=useRef(null);
+  useEffect(()=>{if(!ref.current||!config)return;if(chartRef.current)chartRef.current.destroy();chartRef.current=new Chart(ref.current.getContext("2d"),config);return()=>{chartRef.current?.destroy();chartRef.current=null;};},[config]);
 }
-
-// ─── UNIT HELPERS ─────────────────────────────────────────────────────────────
-function toU(mwh, unit) { return mwh / UNIT_DIV[unit]; }
-function fmtKPI(mwh, unit) {
-  const v = toU(mwh, unit);
-  // Never re-scale — just format the number in the selected unit
-  return v >= 1000 ? v.toLocaleString(undefined,{maximumFractionDigits:1}) : v.toFixed(2);
-}
-function fmtKPIUnit(_mwh, unit) {
-  // Always return exactly what the user selected — no silent promotion
-  return unit;
-}
-
-// ─── CHART DEFAULTS ───────────────────────────────────────────────────────────
-const CD = {
-  font:{ family:"'IBM Plex Mono',monospace", size:9 },
-  grid:"#e8e3da", tick:"#8a857a",
-  tip:{ backgroundColor:"#1a1a18", titleColor:"#fff", bodyColor:"#aaa", borderColor:"#333", borderWidth:1 },
-};
-const mkY = (unit, stacked=false) => ({
-  min:0, stacked:stacked||undefined,
-  ticks:{ color:CD.tick, font:CD.font, callback:v=>`${v<10?v.toFixed(2):v.toFixed(1)} ${unit}` },
-  grid:{ color:CD.grid },
-});
-const mkX = (tz=null) => ({
-  ticks:{color:CD.tick,font:CD.font,maxTicksLimit:14,
-    callback: tz ? function(val){ return fmtTzPeriod(this.getLabelForValue(val), tz); } : undefined
-  },
-  grid:{color:CD.grid}
-});
-
-// ─── useChart ────────────────────────────────────────────────────────────────
-function useChart(canvasRef, config) {
-  const chartRef = useRef(null);
-  useEffect(() => {
-    if (!canvasRef.current || !config) return;
-    if (chartRef.current) chartRef.current.destroy();
-    chartRef.current = new Chart(canvasRef.current.getContext("2d"), config);
-    return () => { chartRef.current?.destroy(); chartRef.current = null; };
-  }, [config]);
-}
-
-// ─── InteractiveChartCard — clickable legend to show/hide series ──────────────
-function InteractiveChartCard({ title, tag, config, height="270px", delay=0, visible }) {
-  const canvasRef = useRef(null);
-  const chartRef  = useRef(null);
-  const [hidden, setHidden] = useState({});
-
-  // Build or rebuild chart whenever config changes
-  useEffect(() => {
-    if (!canvasRef.current || !config) return;
-    if (chartRef.current) chartRef.current.destroy();
-    // Apply hidden state to datasets
-    const cfg = JSON.parse(JSON.stringify(config));
-    cfg.data.datasets.forEach((ds, i) => { ds.hidden = !!hidden[i]; });
-    cfg.options.plugins.legend = { display: false }; // suppress built-in legend
-    chartRef.current = new Chart(canvasRef.current.getContext("2d"), cfg);
-    return () => { chartRef.current?.destroy(); chartRef.current = null; };
-  }, [config, hidden]);
-
-  const toggle = (i) => {
-    setHidden(h => ({ ...h, [i]: !h[i] }));
-  };
-
-  const datasets = config?.data?.datasets || [];
-
-  return (
+function InteractiveChartCard({title,tag,config,height="270px",delay=0,visible}){
+  const canvasRef=useRef(null);const chartRef=useRef(null);const[hidden,setHidden]=useState({});
+  useEffect(()=>{
+    if(!canvasRef.current||!config)return;if(chartRef.current)chartRef.current.destroy();
+    const cfg=JSON.parse(JSON.stringify(config));cfg.data.datasets.forEach((ds,i)=>{ds.hidden=!!hidden[i];});cfg.options.plugins.legend={display:false};
+    chartRef.current=new Chart(canvasRef.current.getContext("2d"),cfg);return()=>{chartRef.current?.destroy();chartRef.current=null;};
+  },[config,hidden]);
+  const toggle=i=>setHidden(h=>({...h,[i]:!h[i]}));const datasets=config?.data?.datasets||[];
+  return(
     <div className={`card${visible?" visible":""}`} style={{transitionDelay:`${delay}ms`}}>
       <div className="card-title">{title}{tag&&<span className="tag">{tag}</span>}</div>
       <div className="cbox" style={{height}}><canvas ref={canvasRef}/></div>
       <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginTop:"10px"}}>
         {datasets.map((ds,i)=>(
-          <button key={i} onClick={()=>toggle(i)} style={{
-            display:"flex",alignItems:"center",gap:"5px",
-            fontFamily:"'IBM Plex Mono',monospace",fontSize:".6rem",
-            padding:"3px 8px",borderRadius:"3px",cursor:"pointer",
-            border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,
-            background: hidden[i] ? "transparent" : (ds.borderColor||ds.backgroundColor||"#aaa")+"22",
-            color: hidden[i] ? "#aaa" : (ds.borderColor||"#333"),
-            opacity: hidden[i] ? 0.45 : 1,
-            transition:"all .15s",
-          }}>
-            <span style={{
-              width:"8px",height:"8px",borderRadius:"50%",flexShrink:0,
-              background: hidden[i] ? "transparent" : (ds.borderColor||ds.backgroundColor||"#aaa"),
-              border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,
-            }}/>
-            {ds.label}
+          <button key={i} onClick={()=>toggle(i)} style={{display:"flex",alignItems:"center",gap:"5px",fontFamily:"'IBM Plex Mono',monospace",fontSize:".6rem",padding:"3px 8px",borderRadius:"3px",cursor:"pointer",border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,background:hidden[i]?"transparent":(ds.borderColor||ds.backgroundColor||"#aaa")+"22",color:hidden[i]?"#aaa":(ds.borderColor||"#333"),opacity:hidden[i]?0.45:1,transition:"all .15s"}}>
+            <span style={{width:"8px",height:"8px",borderRadius:"50%",flexShrink:0,background:hidden[i]?"transparent":(ds.borderColor||ds.backgroundColor||"#aaa"),border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`}}/>{ds.label}
           </button>
         ))}
       </div>
     </div>
   );
 }
+function ChartCard({title,tag,config,height="270px",delay=0,visible}){
+  const ref=useRef(null);useChart(ref,config);
+  return(<div className={`card${visible?" visible":""}`} style={{transitionDelay:`${delay}ms`}}><div className="card-title">{title}{tag&&<span className="tag">{tag}</span>}</div><div className="cbox" style={{height}}><canvas ref={ref}/></div></div>);
+}
+const tipTitle=(tz)=>tz?(items)=>fmtTzPeriod(items[0].label,tz):undefined;
+// Single decimal formatter for all chart values — always 1dp, thousands-separated
+function fmtTip(v,unit){
+  const abs=Math.abs(v);
+  if(abs>=10000)return v.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1})+" "+unit;
+  if(abs>=0.1)return v.toFixed(1)+" "+unit;
+  return v.toFixed(3)+" "+unit;
+}
+function mkY(unit,stacked){return{min:0,stacked:stacked||undefined,ticks:{color:CD.tick,font:CD.font,callback:v=>fmtTip(v,unit)},grid:{color:CD.grid}};}
+function renewLineConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const rk=hourly?RENEW_H:RENEW_M;return{type:"line",data:{labels:pp,datasets:rk.filter(f=>fm[f]).map(f=>({label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),borderColor:fm[f].color,backgroundColor:fm[f].color+"18",borderWidth:2,tension:0.3,fill:true,pointRadius:pp.length<=72?2:0,pointHoverRadius:5}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:mkX(tz),y:mkY(unit)}}};}
+function allLineConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const rk=new Set(hourly?RENEW_H:RENEW_M);const fds=Object.entries(fm).map(([f,m])=>({label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),borderColor:m.color,backgroundColor:"transparent",borderWidth:2,tension:0.3,fill:false,hidden:!rk.has(f),pointRadius:pp.length<=72?2:0}));const td={label:"Total Generation",data:pp.map(p=>toU(Object.values(byP[p]||{}).filter(v=>v>0).reduce((s,v)=>s+v,0),unit)),borderColor:"#1a1a18",backgroundColor:"transparent",borderWidth:2,borderDash:[6,3],tension:0.3,fill:false,hidden:false,pointRadius:0};return{type:"line",data:{labels:pp,datasets:[...fds,td]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:mkX(tz),y:mkY(unit)}}};}
+function stackedConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;return{type:"bar",data:{labels:pp,datasets:Object.entries(fm).map(([f,m])=>({label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:m.color+"cc",borderColor:m.color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
+function pctConfig(pp,byP,hourly,tz){const rk=hourly?RENEW_H:RENEW_M;const data=pp.map(p=>{const d=byP[p]||{};const tot=Object.values(d).reduce((s,v)=>s+v,0);return tot>0?rk.reduce((s,f)=>s+(d[f]||0),0)/tot*100:0;});return{type:"line",data:{labels:pp,datasets:[{label:"Renewables %",data,borderColor:"#2a7d4f",backgroundColor:"#2a7d4f22",fill:true,tension:0.3,borderWidth:2,pointRadius:pp.length<=72?2:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` Renewables: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:mkX(tz),y:{min:0,max:100,ticks:{color:CD.tick,font:CD.font,callback:v=>v.toFixed(1)+"%"},grid:{color:CD.grid}}}}};}
+function sumPeriods(pp,byP){const t={};pp.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;}
+function donutConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const items=Object.entries(fm).filter(([f])=>(d[f]||0)>0);const total=items.reduce((s,[f])=>s+(d[f]||0),0);return{type:"doughnut",data:{labels:items.map(([,v])=>v.label),datasets:[{data:items.map(([f])=>toU(d[f]||0,unit)),backgroundColor:items.map(([,v])=>v.color),borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:"60%",plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10,generateLabels(chart){const ds=chart.data.datasets[0];return chart.data.labels.map((label,i)=>{const pct=total>0?(d[items[i][0]]||0)/total*100:0;return{text:`${label}  ${pct.toFixed(1)}%`,fillStyle:ds.backgroundColor[i],strokeStyle:"#fff",lineWidth:0,hidden:false,index:i};});}}},tooltip:{...CD.tip,callbacks:{label:c=>{const pct=total>0?(d[items[c.dataIndex][0]]||0)/total*100:0;return ` ${c.label}: ${fmtTip(c.parsed,unit)} (${pct.toFixed(1)}%)`;}}}}}};}
+function rankConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const items=Object.entries(fm).map(([f,m])=>({label:m.label,color:m.color,val:toU(d[f]||0,unit)})).filter(x=>x.val>0).sort((a,b)=>b.val-a.val);return{type:"bar",data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.val),backgroundColor:items.map(x=>x.color+"cc"),borderColor:items.map(x=>x.color),borderWidth:1.5,borderRadius:3}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${fmtTip(c.parsed.x,unit)}`}}},scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>fmtTip(v,unit)},grid:{color:CD.grid}},y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};}
+function renewBarConfig(pp,byP,hourly,unit,tz){if(!pp.length)return null;const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS,rk=hourly?RENEW_H:RENEW_M;return{type:"bar",data:{labels:pp,datasets:rk.map(f=>({label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:fm[f].color+"bb",borderColor:fm[f].color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
+function groupPieConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const rk=hourly?RENEW_H:RENEW_M,fossils=hourly?["NG","COL"]:["NG","COW"];const renew=rk.reduce((s,f)=>s+(d[f]||0),0);const fossil=fossils.reduce((s,f)=>s+(d[f]||0),0);const nuc=d.NUC||0;return{type:"pie",data:{labels:["Renewables","Fossil Fuels","Nuclear"],datasets:[{data:[toU(renew,unit),toU(fossil,unit),toU(nuc,unit)],backgroundColor:["#2a7d4f","#e05020","#9040c0"],borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10}},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.label}: ${fmtTip(c.parsed,unit)}`}}}}};}
+function genChangeConfig(pp,byP,hourly,unit){if(pp.length<2)return null;const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const mid=Math.floor(pp.length/2);const sumH=ps=>{const t={};ps.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;};const s1=sumH(pp.slice(0,mid)),s2=sumH(pp.slice(mid));const ORDER=hourly?["SUN","WND","WAT","NUC","COL","NG"]:["SUN","WND","HYC","NUC","COW","NG"];const items=ORDER.map(f=>{const m=fm[f];if(!m)return null;const v1=s1[f]||0,v2=s2[f]||0;const pct=v1>0?((v2-v1)/v1*100):null;return pct!==null?{label:m.label,color:m.color,pct}:null;}).filter(Boolean);return{type:"bar",data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.pct),backgroundColor:items.map(x=>x.pct>=0?"#2a7d4f44":"#e0502044"),borderColor:items.map(x=>x.pct>=0?"#2a7d4f":"#e05020"),borderWidth:1.5,borderRadius:3}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x>0?"+":""}${c.parsed.x.toFixed(1)}%`}}},scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>(v>0?"+":"")+v.toFixed(1)+"%"},grid:{color:CD.grid}},y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};}
 
-// ─── ChartCard — standard non-interactive ─────────────────────────────────────
-function ChartCard({ title, tag, config, height="270px", delay=0, visible }) {
-  const ref = useRef(null);
-  useChart(ref, config);
-  return (
-    <div className={`card${visible?" visible":""}`} style={{transitionDelay:`${delay}ms`}}>
-      <div className="card-title">{title}{tag&&<span className="tag">{tag}</span>}</div>
-      <div className="cbox" style={{height}}><canvas ref={ref}/></div>
+function OverviewTab({pp,byP,hourly,unit,visible,freqLabel,tz}){return<div><div className="mb"><InteractiveChartCard title="Renewables — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={renewLineConfig(pp,byP,hourly,unit,tz)} height="270px" delay={0} visible={visible}/></div><div className="grid2"><ChartCard title="Renewables vs Fossil vs Nuclear" tag="% Share" config={groupPieConfig(pp,byP,hourly,unit)} height="230px" delay={80} visible={visible}/><ChartCard title="Renewable Generation by Source" tag={`${freqLabel} · ${unit}`} config={renewBarConfig(pp,byP,hourly,unit,tz)} height="230px" delay={160} visible={visible}/></div></div>;}
+function TrendTab({pp,byP,hourly,unit,visible,freqLabel,tz}){return<div><div className="mb"><InteractiveChartCard title="All Fuels — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={allLineConfig(pp,byP,hourly,unit,tz)} height="320px" delay={0} visible={visible}/></div><div className="grid2"><ChartCard title="Renewables % of Total" tag="% Share" config={pctConfig(pp,byP,hourly,tz)} height="220px" delay={80} visible={visible}/><ChartCard title="Fuel Source Ranking" tag={`Total · ${unit}`} config={rankConfig(pp,byP,hourly,unit)} height="220px" delay={160} visible={visible}/></div></div>;}
+function MixTab({pp,byP,hourly,unit,visible,freqLabel,tz}){return<div><div className="grid2"><ChartCard title="Energy Mix" tag="Selected Range" config={donutConfig(pp,byP,hourly,unit)} height="260px" delay={0} visible={visible}/><ChartCard title="Generation Change" tag="First vs Second Half of Window" config={genChangeConfig(pp,byP,hourly,unit)} height="260px" delay={80} visible={visible}/></div><div className="mb" style={{marginTop:"16px"}}><ChartCard title="Stacked Generation Mix" tag={`${freqLabel} · ${unit}`} config={stackedConfig(pp,byP,hourly,unit,tz)} height="270px" delay={160} visible={visible}/></div></div>;}
+
+// ── Inline SVG donut wheel (no Chart.js, avoids canvas reuse issues in a grid) ──
+function DonutWheel({data,fuels,size=140}){
+  const valid=fuels.filter(f=>Math.max(0,data[f.key]||0)>0);
+  const total=valid.reduce((s,f)=>s+Math.max(0,data[f.key]||0),0);
+  if(total===0)return<div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'IBM Plex Mono',monospace",fontSize:".55rem",color:"var(--muted)"}}>No data</div>;
+  const cx=size/2,cy=size/2,R=size/2-6,r=R*0.56;
+  const slices=[];let angle=-Math.PI/2;
+  valid.forEach(f=>{
+    const pct=Math.max(0,data[f.key]||0)/total;
+    const sweep=pct*2*Math.PI-0.02; // small gap
+    const x1=cx+R*Math.cos(angle),y1=cy+R*Math.sin(angle);
+    const x2=cx+R*Math.cos(angle+sweep),y2=cy+R*Math.sin(angle+sweep);
+    const xi1=cx+r*Math.cos(angle),yi1=cy+r*Math.sin(angle);
+    const xi2=cx+r*Math.cos(angle+sweep),yi2=cy+r*Math.sin(angle+sweep);
+    const large=sweep>Math.PI?1:0;
+    const path=`M${xi1.toFixed(2)} ${yi1.toFixed(2)} L${x1.toFixed(2)} ${y1.toFixed(2)} A${R} ${R} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} L${xi2.toFixed(2)} ${yi2.toFixed(2)} A${r} ${r} 0 ${large} 0 ${xi1.toFixed(2)} ${yi1.toFixed(2)} Z`;
+    slices.push({path,color:f.color,key:f.key});
+    angle+=pct*2*Math.PI;
+  });
+  return(
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{display:"block"}}>
+      {slices.map((s,i)=><path key={i} d={s.path} fill={s.color} stroke="#fff" strokeWidth="1.5"/>)}
+      <circle cx={cx} cy={cy} r={r-1} fill="white"/>
+    </svg>
+  );
+}
+
+// ── Top-5 Comparison Panel ──────────────────────────────────────────────────
+const RANK_BADGES=["r1","r2","r3","r4","r5"];
+const RANK_MEDALS=["1st","2nd","3rd","4th","5th"];
+
+function Top5Panel({top5,wheelKey,onWheelKey,sortKey,fuels,unit,isRTO}){
+  if(!top5||top5.length===0)return null;
+  const wheelFuel=fuels.find(f=>f.key===wheelKey)||fuels[0];
+  return(
+    <div className="top5-panel">
+      <div className="top5-header">
+        <div>
+          <div className="top5-title">Top 5 {isRTO?"Grid Operators":"States"} — {wheelFuel.label} Leaders</div>
+          <div className="top5-subtitle">Full energy mix · select a source below to re-rank and update wheels · units: {unit}</div>
+        </div>
+      </div>
+
+      {/* Source selector — clicking re-sorts the table AND updates wheels */}
+      <div className="top5-src-selector">
+        <span className="top5-src-label">Source:</span>
+        {fuels.map(f=>{
+          const on=wheelKey===f.key;
+          return(
+            <button key={f.key} className="top5-src-pill"
+              onClick={()=>onWheelKey(f.key)}
+              style={{borderColor:f.color,background:on?f.color:f.color+"18",color:on?"#fff":f.color,boxShadow:on?`0 2px 8px ${f.color}44`:"none"}}>
+              <span style={{width:"7px",height:"7px",borderRadius:"50%",background:on?"rgba(255,255,255,.8)":f.color,flexShrink:0}}/>
+              {f.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="top5-grid">
+        {top5.map((d,i)=>{
+          const allFuels=fuels.filter(f=>Math.max(0,d[f.key]||0)>0);
+          const total=allFuels.reduce((s,f)=>s+Math.max(0,d[f.key]||0),0);
+          const srcVal=Math.max(0,d[wheelKey]||0);
+          const srcPct=total>0?(srcVal/total*100):0;
+          const renewKeys=isRTO?["SUN","WND","WAT","BAT_DIS"]:["SUN","WND","HYC"];
+          const renewTotal=renewKeys.reduce((s,k)=>s+Math.max(0,d[k]||0),0);
+          const renewPct=total>0?(renewTotal/total*100):0;
+          const topFuels=[...allFuels].sort((a,b)=>Math.max(0,d[b.key]||0)-Math.max(0,d[a.key]||0)).slice(0,6);
+
+          return(
+            <div key={d.id} className="top5-col">
+              <div className="top5-col-header">
+                <div className={`top5-rank-badge ${RANK_BADGES[i]}`}>{RANK_MEDALS[i]}</div>
+                <div className="top5-state-name">{d.name||d.shortName}</div>
+                {d.name!==d.shortName&&<div style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".56rem",color:"var(--muted)",marginBottom:"4px"}}>{d.shortName}</div>}
+                <div style={{marginTop:"2px"}}>
+                  <span className="top5-source-val" style={{color:wheelFuel.color}}>
+                    {fmtVal(srcVal,unit)} <span style={{fontSize:".55rem",opacity:.7}}>{unit}</span>
+                  </span>
+                  <span className="top5-source-pct">{wheelFuel.label}: {srcPct.toFixed(1)}% of mix</span>
+                </div>
+              </div>
+
+              <div className="top5-donut-area">
+                <DonutWheel data={d} fuels={fuels} size={148}/>
+              </div>
+
+              <div className="top5-legend">
+                {topFuels.map(f=>{
+                  const val=Math.max(0,d[f.key]||0);
+                  const pct=total>0?(val/total*100):0;
+                  if(pct<0.5)return null;
+                  return(
+                    <div key={f.key} className="top5-legend-row">
+                      <span className="top5-legend-dot" style={{background:f.color}}/>
+                      <span className="top5-legend-name" style={{color:f.key===wheelKey?f.color:"var(--muted)",fontWeight:f.key===wheelKey?600:400}}>{f.label}</span>
+                      <span className="top5-legend-pct" style={{color:f.key===wheelKey?f.color:"var(--ink)"}}>{pct.toFixed(1)}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="top5-stats">
+                <div className="top5-stat">
+                  <span className="top5-stat-label">Total generation</span>
+                  <span className="top5-stat-val">{fmtVal(total,unit)} {unit}</span>
+                </div>
+                <div className="top5-stat">
+                  <span className="top5-stat-label">Renewables share</span>
+                  <span className="top5-stat-val" style={{color:"var(--wind)"}}>{renewPct.toFixed(1)}%</span>
+                </div>
+                <div className="top5-stat">
+                  <span className="top5-stat-label" style={{color:wheelFuel.color}}>{wheelFuel.label}</span>
+                  <span className="top5-stat-val" style={{color:wheelFuel.color}}>{fmtVal(srcVal,unit)} {unit}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-// ─── Chart config builders ────────────────────────────────────────────────────
-const tipTitle = (tz) => tz
-  ? (items) => fmtTzPeriod(items[0].label, tz)
-  : undefined;
+// ── Leaders Tab ──────────────────────────────────────────────────────────────
+function LeadersTab({unit,currentRegionType}){
+  const isRTO=currentRegionType==="rto";
+  const FUELS=isRTO?LEADERS_FUELS_R:LEADERS_FUELS_M;
+  const[leaderData, setLeaderData]=useState([]);
+  const[loading,    setLoading   ]=useState(false);
+  const[progress,   setProgress  ]=useState(0);
+  const[progressMsg,setProgressMsg]=useState("");
+  const[error,      setError     ]=useState("");
+  const[visibleSrcs,setVisibleSrcs]=useState(()=>new Set(LEADERS_FUELS_M.map(f=>f.key)));
+  const[sortKey,    setSortKey   ]=useState(()=>LEADERS_FUELS_M[0].key);
+  const[sortDir,    setSortDir   ]=useState("desc");
+  const[sortMode,   setSortMode  ]=useState("qty"); // "qty" | "pct"
+  const[search,     setSearch    ]=useState("");
+  const[topN,       setTopN      ]=useState(20);
+  const[timeWindow, setTimeWindow]=useState(12);
+  const[loadedWindow,setLoadedWindow]=useState(null);
 
-// renewLineConfig shows only the clean-energy sources (solar, wind, hydro, battery)
-function renewLineConfig(pp,byP,hourly,unit,tz) {
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  const rk=hourly?RENEW_H:RENEW_M;
-  return {type:"line",data:{labels:pp,datasets:rk.filter(f=>fm[f]).map(f=>({
-    label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
-    borderColor:fm[f].color,backgroundColor:fm[f].color+"18",
-    borderWidth:2,tension:0.3,fill:true,
-    pointRadius:pp.length<=72?2:0,pointHoverRadius:5,
-  }))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{display:false},
-      tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
-    scales:{x:mkX(tz),y:mkY(unit)}}};
-}
-function allLineConfig(pp,byP,hourly,unit,tz) {
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  const rk=new Set(hourly?RENEW_H:RENEW_M);
-  const fuelDatasets = Object.entries(fm).map(([f,m])=>({
-    label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
-    borderColor:m.color,backgroundColor:"transparent",
-    borderWidth:2,tension:0.3,fill:false,
-    hidden:!rk.has(f),
-    pointRadius:pp.length<=72?2:0,
-  }));
-  const totalDataset = {
-    label:"Total Generation",
-    data:pp.map(p=>toU(Object.values(byP[p]||{}).filter(v=>v>0).reduce((s,v)=>s+v,0),unit)),
-    borderColor:"#1a1a18",backgroundColor:"transparent",
-    borderWidth:2,borderDash:[6,3],tension:0.3,fill:false,
-    hidden:false,
-    pointRadius:0,
-  };
-  return {type:"line",data:{labels:pp,datasets:[...fuelDatasets, totalDataset]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-      plugins:{legend:{display:false},
-        tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
-      scales:{x:mkX(tz),y:mkY(unit)}}};
-}
-function stackedConfig(pp,byP,hourly,unit,tz) {
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  return {type:"bar",data:{labels:pp,datasets:Object.entries(fm).map(([f,m])=>({
-    label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
-    backgroundColor:m.color+"cc",borderColor:m.color,borderWidth:0,stack:"s",
-  }))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},
-      tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
-    scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};
-}
-function pctConfig(pp,byP,hourly,tz) {
-  const rk=hourly?RENEW_H:RENEW_M;
-  const data=pp.map(p=>{const d=byP[p]||{};const tot=Object.values(d).reduce((s,v)=>s+v,0);return tot>0?rk.reduce((s,f)=>s+(d[f]||0),0)/tot*100:0;});
-  return {type:"line",data:{labels:pp,datasets:[{label:"Renewables %",data,borderColor:"#2a7d4f",backgroundColor:"#2a7d4f22",fill:true,tension:0.3,borderWidth:2,pointRadius:pp.length<=72?2:0}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` Renewables: ${c.parsed.y.toFixed(1)}%`}}},
-      scales:{x:mkX(tz),y:{min:0,max:100,ticks:{color:CD.tick,font:CD.font,callback:v=>v+"%"},grid:{color:CD.grid}}}}};
-}
-// Sum all filtered periods so pie/donut reflect the selected date range
-function sumPeriods(pp,byP) {
-  const totals={};
-  pp.forEach(p=>{ const d=byP[p]||{}; Object.entries(d).forEach(([k,v])=>{ totals[k]=(totals[k]||0)+v; }); });
-  return totals;
-}
-function donutConfig(pp,byP,hourly,unit) {
-  if(!pp.length)return null;
-  const d=sumPeriods(pp,byP);
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  const items=Object.entries(fm).filter(([f])=>(d[f]||0)>0);
-  const total=items.reduce((s,[f])=>s+(d[f]||0),0);
-  return {type:"doughnut",data:{labels:items.map(([,v])=>v.label),datasets:[{data:items.map(([f])=>toU(d[f]||0,unit)),backgroundColor:items.map(([,v])=>v.color),borderColor:"#fff",borderWidth:3}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:"60%",
-      plugins:{
-        legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10,
-          generateLabels(chart) {
-            const ds=chart.data.datasets[0];
-            return chart.data.labels.map((label,i)=>{
-              const val=ds.data[i];
-              const pct=total>0?(d[items[i][0]]||0)/total*100:0;
-              return {text:`${label}  ${pct.toFixed(1)}%`,fillStyle:ds.backgroundColor[i],strokeStyle:"#fff",lineWidth:0,hidden:false,index:i};
-            });
-          }
-        }},
-        tooltip:{...CD.tip,callbacks:{label:c=>{
-          const pct=total>0?(d[items[c.dataIndex][0]]||0)/total*100:0;
-          return ` ${c.label}: ${c.parsed.toFixed(2)} ${unit} (${pct.toFixed(1)}%)`;
-        }}}}}};
-}
+  useEffect(()=>{
+    setLeaderData([]);setError("");setLoadedWindow(null);
+    const nf=isRTO?LEADERS_FUELS_R:LEADERS_FUELS_M;
+    setVisibleSrcs(new Set(nf.map(f=>f.key)));
+    setSortKey(nf[0].key);
+  },[isRTO]);
 
-// ─── Fuel source rank (horizontal bar) ────────────────────────────────────
-function rankConfig(pp,byP,hourly,unit) {
-  if(!pp.length)return null;
-  const d=sumPeriods(pp,byP);
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  const items=Object.entries(fm)
-    .map(([f,m])=>({label:m.label,color:m.color,val:toU(d[f]||0,unit)}))
-    .filter(x=>x.val>0)
-    .sort((a,b)=>b.val-a.val);
-  return {type:"bar",
-    data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.val),backgroundColor:items.map(x=>x.color+"cc"),borderColor:items.map(x=>x.color),borderWidth:1.5,borderRadius:3}]},
-    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x.toFixed(2)} ${unit}`}}},
-      scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>`${v.toFixed(1)} ${unit}`},grid:{color:CD.grid}},
-        y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};
-}
+  const load=useCallback(async()=>{
+    setLoading(true);setError("");setLeaderData([]);setProgress(0);
+    try{
+      if(isRTO){
+        // 9 operators — fully parallel
+        setProgressMsg("Fetching all grid operators…");
+        const results=await Promise.all(
+          RTOS.map(async r=>{
+            const tot=await fetchRTOTotal(r.id);
+            return{...tot,name:r.fullName,shortName:r.label};
+          })
+        );
+        setLeaderData(results);setLoadedWindow("last 7 days");
+      } else {
+        // 50 states — fully parallel, stream results in as each arrives
+        setProgressMsg("Fetching states...");
+        let done=0;
+        const resultsMap=new Map();
+        await Promise.all(
+          STATES.map(async s=>{
+            const tot=await fetchStateTotal(s.id,timeWindow);
+            resultsMap.set(s.id,{...tot,name:STATE_NAMES[s.id]||s.label,shortName:s.id});
+            done++;
+            const pct=Math.round((done/STATES.length)*100);
+            setProgress(pct);
+            setProgressMsg(`${done}/${STATES.length} states loaded…`);
+            // stream results in as they arrive so top5 updates live
+            setLeaderData(STATES.map(st=>resultsMap.get(st.id)).filter(Boolean));
+          })
+        );
+        setLoadedWindow(`last ${timeWindow} months`);
+      }
+      setProgress(100);
+    }catch(e){const msg=(e&&e.message)?e.message:String(e);setError("❌ "+msg+(msg.includes("429")?"\n\nRate limit hit — paste your free EIA key above and retry.":""));}
+    finally{setLoading(false);}
+  },[isRTO,timeWindow]);
 
-// ─── Renewable generation by source (stacked bar) ────────────────────────
-function renewBarConfig(pp,byP,hourly,unit,tz) {
-  if(!pp.length)return null;
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS, rk=hourly?RENEW_H:RENEW_M;
-  return {type:"bar",
-    data:{labels:pp,datasets:rk.map(f=>({
-      label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),
-      backgroundColor:fm[f].color+"bb",borderColor:fm[f].color,borderWidth:0,stack:"s",
-    }))},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-      plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},
-        tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)} ${unit}`}}},
-      scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};
-}
+  const handleSort=useCallback(key=>{setSortKey(prev=>{if(prev===key){setSortDir(d=>d==="desc"?"asc":"desc");return prev;}setSortDir("desc");return key;});},[]);
+  const toggleSrc=useCallback(key=>{setVisibleSrcs(prev=>{const n=new Set(prev);if(n.has(key)&&n.size>1)n.delete(key);else n.add(key);return n;});},[]);
 
-function groupPieConfig(pp,byP,hourly,unit) {
-  if(!pp.length)return null;
-  const d=sumPeriods(pp,byP);
-  const rk=hourly?RENEW_H:RENEW_M, fossils=hourly?["NG","COL"]:["NG","COW"];
-  const renew=rk.reduce((s,f)=>s+(d[f]||0),0);
-  const fossil=fossils.reduce((s,f)=>s+(d[f]||0),0);
-  const nuc=d.NUC||0;
-  return {type:"pie",data:{labels:["Renewables","Fossil Fuels","Nuclear"],
-    datasets:[{data:[toU(renew,unit),toU(fossil,unit),toU(nuc,unit)],
-      backgroundColor:["#2a7d4f","#e05020","#9040c0"],borderColor:"#fff",borderWidth:3}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10}},
-        tooltip:{...CD.tip,callbacks:{label:c=>` ${c.label}: ${c.parsed.toFixed(2)} ${unit}`}}}}};
-}
+  const visibleFuels=FUELS.filter(f=>visibleSrcs.has(f.key));
+  // precompute row totals for % mode
+  const rowTotals=useMemo(()=>{const m={};leaderData.forEach(d=>{m[d.id]=FUELS.reduce((s,f)=>s+Math.max(0,d[f.key]||0),0);});return m;},[leaderData,isRTO]);
+  const getSortVal=useCallback((d,key)=>{
+    if(key==="name")return d.name;
+    if(key==="total")return FUELS.reduce((s,f)=>s+Math.max(0,d[f.key]||0),0);
+    const raw=Math.max(0,d[key]||0);
+    if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t;}
+    return raw;
+  },[sortMode,rowTotals,isRTO]);
+  const colMax=useMemo(()=>{const mx={};FUELS.forEach(f=>{const vals=leaderData.map(d=>{const raw=Math.max(0,d[f.key]||0);if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t;}return raw;});mx[f.key]=Math.max(...vals,0.0001);});return mx;},[leaderData,sortMode,rowTotals,isRTO]);
+  const allSorted=useMemo(()=>[...leaderData].sort((a,b)=>{const av=getSortVal(a,sortKey);const bv=getSortVal(b,sortKey);if(sortKey==="name")return sortDir==="asc"?av.localeCompare(bv):bv.localeCompare(av);return sortDir==="desc"?bv-av:av-bv;}),[leaderData,sortKey,sortDir,getSortVal]);
+  const top5=useMemo(()=>allSorted.slice(0,5),[allSorted]);
+  const filtered=useMemo(()=>{let rows=allSorted.filter(d=>!search||d.name.toLowerCase().includes(search.toLowerCase())||d.shortName.toLowerCase().includes(search.toLowerCase()));return topN?rows.slice(0,topN):rows;},[allSorted,search,topN]);
 
-// ─── Generation change indicator (MoM or HoH % change per fuel) ───────────────
-function genChangeConfig(pp,byP,hourly,unit) {
-  if(pp.length<2)return null;
-  const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;
-  // Compare first half vs second half of the selected window
-  const mid=Math.floor(pp.length/2);
-  const firstHalf=pp.slice(0,mid), secondHalf=pp.slice(mid);
-  const sumH=(periods)=>{const t={};periods.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;};
-  const s1=sumH(firstHalf), s2=sumH(secondHalf);
-  const ORDER_M = ["SUN","WND","HYC","NUC","COW","NG"];
-  const ORDER_H = ["SUN","WND","WAT","NUC","COL","NG"];
-  const ORDER = hourly ? ORDER_H : ORDER_M;
-  const items = ORDER.map(f => {
-    const m = fm[f]; if (!m) return null;
-    const v1=s1[f]||0, v2=s2[f]||0;
-    const pct = v1>0 ? ((v2-v1)/v1*100) : null;
-    return pct !== null ? {label:m.label, color:m.color, pct} : null;
-  }).filter(Boolean);
-  const label=hourly?"vs prior half-window":"vs prior half-window";
-  return {type:"bar",
-    data:{labels:items.map(x=>x.label),
-      datasets:[{data:items.map(x=>x.pct),
-        backgroundColor:items.map(x=>x.pct>=0?"#2a7d4f44":"#e0502044"),
-        borderColor:items.map(x=>x.pct>=0?"#2a7d4f":"#e05020"),
-        borderWidth:1.5,borderRadius:3}]},
-    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},
-        tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x>0?"+":""}${c.parsed.x.toFixed(1)}%`}}},
-      scales:{
-        x:{ticks:{color:CD.tick,font:CD.font,callback:v=>(v>0?"+":"")+v.toFixed(0)+"%"},
-           grid:{color:CD.grid}},
-        y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};
-}
+  const timeWindows=[{label:"3M",months:3},{label:"6M",months:6},{label:"1Y",months:12},{label:"2Y",months:24},{label:"3Y",months:36}];
+  const sortFuelMeta=FUELS.find(f=>f.key===sortKey)||FUELS[0];
 
-// ─── Tab panels ───────────────────────────────────────────────────────────────
-function OverviewTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
-  return <div>
-    <div className="mb"><InteractiveChartCard title="Renewables — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={renewLineConfig(pp,byP,hourly,unit,tz)} height="270px" delay={0} visible={visible}/></div>
-    <div className="grid2">
-      <ChartCard title="Renewables vs Fossil vs Nuclear" tag="% Share" config={groupPieConfig(pp,byP,hourly,unit)} height="230px" delay={80} visible={visible}/>
-      <ChartCard title="Renewable Generation by Source" tag={`${freqLabel} · ${unit}`} config={renewBarConfig(pp,byP,hourly,unit,tz)} height="230px" delay={160} visible={visible}/>
+  return(
+    <div>
+      <div className="info-note">
+        ℹ <strong>{isRTO?"Grid Operator":"State"} Leaders</strong> fetches all {isRTO?"9 grid operators":"50 states"} from EIA
+        ({isRTO?"9":"~50"} API calls). A <strong>free personal EIA key</strong> is strongly recommended.
+        {!isRTO&&" Select time window then Load States."}
+      </div>
+
+      {/* Top-5 Comparison */}
+      {leaderData.length>0&&<Top5Panel top5={top5} wheelKey={sortKey} onWheelKey={handleSort} sortKey={sortKey} fuels={FUELS} unit={unit} isRTO={isRTO}/>}
+
+      {/* Rankings table */}
+      <div className="leaders-card">
+        <div className="leaders-header">
+          <div className="leaders-header-top">
+            <div>
+              <div className="leaders-title">{isRTO?"Grid Operator":"State"} Rankings — All Sources</div>
+              {loadedWindow&&<div style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".58rem",color:"var(--muted)",marginTop:"4px"}}>
+                {leaderData.length} {isRTO?"operators":"states"} · {loadedWindow} · sorting by {sortMode==="pct"?"% of total mix":"absolute generation"} · click header to change source
+              </div>}
+            </div>
+            <div className="leaders-controls">
+              {!isRTO&&(
+                <div className="tw-group">
+                  <span>Window:</span>
+                  {timeWindows.map(w=><button key={w.label} className={`top-n-btn${timeWindow===w.months?" active":""}`} onClick={()=>setTimeWindow(w.months)}>{w.label}</button>)}
+                </div>
+              )}
+              <div className="sort-mode-wrap">
+                <span>Sort by:</span>
+                <button className={`sort-mode-btn${sortMode==="qty"?" active":""}`} onClick={()=>setSortMode("qty")}>Quantity</button>
+                <button className={`sort-mode-btn${sortMode==="pct"?" active":""}`} onClick={()=>setSortMode("pct")}>% of mix</button>
+              </div>
+              <button className="leaders-fetch-btn" onClick={load} disabled={loading}>
+                {loading&&<span className="mini-ring"/>}
+                {loading?progressMsg||"Loading…":loadedWindow?"↻ Refresh":`Load ${isRTO?"Operators":"States"}`}
+              </button>
+            </div>
+          </div>
+
+          {/* Column toggles */}
+          <div style={{marginBottom:"4px"}}>
+            <div style={{display:"flex",alignItems:"center",gap:"8px",marginBottom:"6px"}}>
+              <span style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",color:"var(--muted)",textTransform:"uppercase",letterSpacing:".07em"}}>Columns:</span>
+              <button onClick={()=>setVisibleSrcs(new Set(FUELS.map(f=>f.key)))} style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>All</button>
+              <button onClick={()=>setVisibleSrcs(new Set(isRTO?["SUN","WND","WAT","BAT_DIS"]:["SUN","WND","HYC"]))} style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>Renewables</button>
+            </div>
+            <div className="source-toggles">
+              {FUELS.map(f=>{const on=visibleSrcs.has(f.key);const active=sortKey===f.key;return(
+                <button key={f.key} className="src-toggle" onClick={()=>toggleSrc(f.key)}
+                  style={{borderColor:active?f.color:on?f.color+"77":"var(--border)",background:on?f.color+"18":"transparent",color:on?f.color:"var(--muted)",fontWeight:active?700:on?500:400,boxShadow:active?`0 0 0 2px ${f.color}33`:"none"}}>
+                  <span style={{width:"7px",height:"7px",borderRadius:"50%",background:on?f.color:"transparent",border:`1.5px solid ${f.color}`,flexShrink:0}}/>
+                  {f.label}{active&&" ↓"}
+                </button>
+              );})}
+            </div>
+          </div>
+        </div>
+
+        {loading&&<div className="leaders-progress"><span>{progressMsg}</span><div className="leaders-progress-bar"><div className="leaders-progress-fill" style={{width:`${progress}%`}}/></div></div>}
+        {error&&<div className="error-box" style={{margin:"12px 20px"}}>{error}</div>}
+
+        {leaderData.length>0&&(
+          <div className="leaders-search">
+            <span className="leaders-search-label">Filter:</span>
+            <input type="text" placeholder={isRTO?"Search operator…":"Search state…"} value={search} onChange={e=>setSearch(e.target.value)}/>
+            <div className="top-n-group">
+              <span>Show:</span>
+              {[10,20,50,0].map(n=><button key={n} className={`top-n-btn${topN===n?" active":""}`} onClick={()=>setTopN(n)}>{n===0?"All":n}</button>)}
+            </div>
+          </div>
+        )}
+
+        {leaderData.length===0&&!loading&&(
+          <div className="leaders-empty">
+            <span className="empty-icon"></span>
+            Click <strong>Load {isRTO?"Operators":"States"}</strong> to rank all {isRTO?"9 grid operators":"50 US states"} by energy source.
+          </div>
+        )}
+
+        {leaderData.length>0&&(
+          <div className="leaders-table-wrap">
+            <table className="leaders-table">
+              <thead>
+                <tr>
+                  <th style={{width:"32px"}}>#</th>
+                  <th className={sortKey==="name"?"sort-active":""} onClick={()=>handleSort("name")}>{isRTO?"Operator":"State"}<span className="sort-arrow">{sortKey==="name"?(sortDir==="desc"?"↓":"↑"):"↕"}</span></th>
+                  {visibleFuels.map(f=>(
+                    <th key={f.key} className={sortKey===f.key?"sort-active":""} onClick={()=>handleSort(f.key)} style={{color:sortKey===f.key?f.color:"var(--muted)"}}>
+                      <div style={{display:"flex",alignItems:"center",gap:"4px"}}>
+                        <span style={{width:"7px",height:"7px",borderRadius:"50%",background:f.color,flexShrink:0,display:"inline-block"}}/>
+                        {f.label}<span className="sort-arrow">{sortKey===f.key?(sortDir==="desc"?"↓":"↑"):"↕"}</span>
+                      </div>
+                    </th>
+                  ))}
+                  <th className={sortKey==="total"?"sort-active":""} onClick={()=>handleSort("total")}>Total<span className="sort-arrow">{sortKey==="total"?(sortDir==="desc"?"↓":"↑"):"↕"}</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((d)=>{
+                  const globalRank=allSorted.findIndex(x=>x.id===d.id);
+                  const rankCls=globalRank===0?"rank-cell top1":globalRank===1?"rank-cell top2":globalRank===2?"rank-cell top3":"rank-cell";
+                  const inTop5=globalRank<5;
+                  const rowTotal=rowTotals[d.id]||0;
+                  return(
+                    <tr key={d.id} style={{background:inTop5?"#f8f5ee":""}}>
+                      <td className={rankCls}>{globalRank+1}</td>
+                      <td className="name-cell">
+                        {d.name}
+                        {d.name!==d.shortName&&<span style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".55rem",color:"var(--muted)",marginLeft:"5px"}}>{d.shortName}</span>}
+                      </td>
+                      {visibleFuels.map(f=>{
+                        const raw=Math.max(0,d[f.key]||0);
+                        const mixPct=rowTotal>0?(raw/rowTotal*100):0;
+                        const displayVal=sortMode==="pct"?mixPct:raw;
+                        const barPct=colMax[f.key]>0?(displayVal/colMax[f.key])*100:0;
+                        return(
+                          <td key={f.key}>
+                            <div className="bar-wrap">
+                              <div className="bar-track"><div className="bar-fill" style={{width:`${Math.min(100,barPct)}%`,background:f.color+(sortKey===f.key?"":"99")}}/></div>
+                              {sortMode==="pct"
+                                ? <span className="val-text">{mixPct.toFixed(1)}%</span>
+                                : <><span className="val-text">{fmtVal(raw,unit)}</span><span className="pct-badge">{mixPct.toFixed(0)}%</span></>
+                              }
+                            </div>
+                          </td>
+                        );
+                      })}
+                      <td style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".65rem",color:"var(--muted)"}}>{sortMode==="pct"?"100.0%":fmtVal(rowTotal,unit)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
-  </div>;
-}
-function TrendTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
-  return <div>
-    <div className="mb"><InteractiveChartCard title="All Fuels — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={allLineConfig(pp,byP,hourly,unit,tz)} height="320px" delay={0} visible={visible}/></div>
-    <div className="grid2">
-      <ChartCard title="Renewables % of Total" tag="% Share" config={pctConfig(pp,byP,hourly,tz)} height="220px" delay={80} visible={visible}/>
-      <ChartCard title="Fuel Source Ranking" tag={`Total · ${unit}`} config={rankConfig(pp,byP,hourly,unit)} height="220px" delay={160} visible={visible}/>
-    </div>
-  </div>;
-}
-function MixTab({pp,byP,hourly,unit,visible,freqLabel,tz}) {
-  return <div>
-    <div className="grid2">
-      <ChartCard title="Energy Mix" tag="Selected Range" config={donutConfig(pp,byP,hourly,unit)} height="260px" delay={0} visible={visible}/>
-      <ChartCard title="Generation Change" tag="First vs Second Half of Window" config={genChangeConfig(pp,byP,hourly,unit)} height="260px" delay={80} visible={visible}/>
-    </div>
-    <div className="mb" style={{marginTop:"16px"}}>
-      <ChartCard title="Stacked Generation Mix" tag={`${freqLabel} · ${unit}`} config={stackedConfig(pp,byP,hourly,unit,tz)} height="270px" delay={160} visible={visible}/>
-    </div>
-  </div>;
+  );
 }
 
-// ─── Region Selector ─────────────────────────────────────────────────────────
-function RegionBar({selected, onChange, hasData}) {
-  const note = selected.type==="rto"
-    ? `${selected.fullName} · Hourly`
-    : selected.type==="region" ? `${selected.label} · Monthly · ${selected.note}`
-    : selected.type==="state" ? `${selected.label} · Monthly`
-    : "United States · Monthly";
-  return (
+function RegionBar({selected,onChange}){
+  return(
     <div className="region-bar">
-      <div className="region-group">
-        <div className="region-group-label">National</div>
-        <div className="region-pills">
-          {NATIONAL.map(r=>(
-            <button key={r.id} className={`rpill t-national${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
-          ))}
-        </div>
-      </div>
+      <div className="region-group"><div className="region-group-label">National</div><div className="region-pills">{NATIONAL.map(r=><button key={r.id} className={`rpill t-national${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>)}</div></div>
       <div className="region-vdiv"/>
-      <div className="region-group" style={{width:"350px",flexShrink:0}}>
-        <div className="region-group-label">US Regions · Monthly</div>
-        <div className="region-pills scrollable">
-          {US_REGIONS.map(r=>(
-            <button key={r.id} className={`rpill t-region${selected.id===r.id?" active":""}`}
-              onClick={()=>onChange(r)}>{r.label}</button>
-          ))}
-        </div>
-      </div>
+      <div className="region-group" style={{width:"350px",flexShrink:0}}><div className="region-group-label">US Regions · Monthly</div><div className="region-pills scrollable">{US_REGIONS.map(r=><button key={r.id} className={`rpill t-region${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>)}</div></div>
       <div className="region-vdiv"/>
-      <div className="region-group" style={{flex:1,minWidth:0}}>
-        <div className="region-group-label">States · Monthly</div>
-        <div className="region-pills scrollable">
-          {STATES.map(r=>(
-            <button key={r.id} className={`rpill t-state${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
-          ))}
-        </div>
-      </div>
+      <div className="region-group" style={{flex:1,minWidth:0}}><div className="region-group-label">States · Monthly</div><div className="region-pills scrollable">{STATES.map(r=><button key={r.id} className={`rpill t-state${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>)}</div></div>
       <div className="region-vdiv"/>
-      <div className="region-group" style={{width:"350px",flexShrink:0}}>
-        <div className="region-group-label">Grid Operators · Hourly</div>
-        <div className="region-pills scrollable">
-          {RTOS.map(r=>(
-            <button key={r.id} className={`rpill t-rto${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>
-          ))}
-        </div>
-      </div>
+      <div className="region-group" style={{width:"350px",flexShrink:0}}><div className="region-group-label">Grid Operators · Hourly</div><div className="region-pills scrollable">{RTOS.map(r=><button key={r.id} className={`rpill t-rto${selected.id===r.id?" active":""}`} onClick={()=>onChange(r)}>{r.label}</button>)}</div></div>
     </div>
   );
 }
 
-// ─── App ──────────────────────────────────────────────────────────────────────
-function App() {
-  const [loading,   setLoading  ] = useState(false);
-  const [loadMsg,   setLoadMsg  ] = useState("Fetching data…");
-  const [error,     setError    ] = useState("");
-  const [hasData,   setHasData  ] = useState(false);
-  const [region,    setRegion   ] = useState(NATIONAL[0]);
-  const [data,      setData     ] = useState({byP:{},periods:[]});
-  const [activeTab, setActiveTab] = useState("overview");
-  const [unit,      setUnit     ] = useState("MWh");
-  const [fromDate,  setFromDate ] = useState(null);
-  const [toDate,    setToDate   ] = useState(null);
-  const [activeQ,   setActiveQ  ] = useState("1Y");
-  const [kpiVis,    setKpiVis   ] = useState(true);
-  const [tabVis,    setTabVis   ] = useState(true);
+function App(){
+  const[loading,  setLoading ]=useState(false);
+  const[loadMsg,  setLoadMsg ]=useState("Fetching data…");
+  const[error,    setError   ]=useState("");
+  const[hasData,  setHasData ]=useState(false);
+  const[region,   setRegion  ]=useState(NATIONAL[0]);
+  const[data,     setData    ]=useState({byP:{},periods:[]});
+  const[activeTab,setActiveTab]=useState("overview");
+  const[unit,     setUnit    ]=useState("MWh");
+  const[fromDate, setFromDate]=useState(null);
+  const[toDate,   setToDate  ]=useState(null);
+  const[activeQ,  setActiveQ ]=useState("1Y");
+  const[kpiVis,   setKpiVis  ]=useState(true);
+  const[tabVis,   setTabVis  ]=useState(true);
 
-  const hourly = region.type === "rto";
-  const freqLabel = hourly ? "Hourly" : "Monthly";
-  const quickList = hourly
-    ? [{label:"6H",hours:6},{label:"12H",hours:12},{label:"24H",hours:24},{label:"3D",hours:72},{label:"7D",hours:168}]
-    : [{label:"1M",same:true},{label:"2M",months:2},{label:"3M",months:3},{label:"6M",months:6},{label:"1Y",months:12},{label:"2Y",months:24},{label:"All",months:0}];
+  const hourly=region.type==="rto";
+  const freqLabel=hourly?"Hourly":"Monthly";
+  const quickList=hourly
+    ?[{label:"6H",hours:6},{label:"12H",hours:12},{label:"24H",hours:24},{label:"3D",hours:72},{label:"7D",hours:168}]
+    :[{label:"1M",same:true},{label:"2M",months:2},{label:"3M",months:3},{label:"6M",months:6},{label:"1Y",months:12},{label:"2Y",months:24},{label:"All",months:0}];
 
-  const filteredPeriods = useMemo(() => {
-    let pp = data.periods;
-    if (fromDate) pp = pp.filter(p => p >= fromDate);
-    if (toDate)   pp = pp.filter(p => p <= toDate);
-    return pp;
-  }, [data.periods, fromDate, toDate]);
+  const filteredPeriods=useMemo(()=>{let pp=data.periods;if(fromDate)pp=pp.filter(p=>p>=fromDate);if(toDate)pp=pp.filter(p=>p<=toDate);return pp;},[data.periods,fromDate,toDate]);
+  const anchorFrom=useCallback(months=>{const all=data.periods;if(!all.length)return null;return all[Math.max(0,all.length-months)];},[data.periods]);
+  const anchorHourly=useCallback(hours=>{const all=data.periods;if(!all.length)return null;return all[Math.max(0,all.length-hours)];},[data.periods]);
 
-  // Anchor monthly range by indexing directly into the periods array — no date math, no off-by-one.
-  // periods[last - (N-1)] gives exactly N periods inclusive through the last available.
-  const anchorFrom = useCallback((months) => {
-    const all = data.periods;
-    if (!all.length) return null;
-    const idx = Math.max(0, all.length - months);
-    return all[idx];
-  }, [data.periods]);
+  useEffect(()=>{const t=setTimeout(()=>loadRegion(NATIONAL[0]),0);return()=>clearTimeout(t);},[]);
+  useEffect(()=>{if(!data.periods.length)return;if(hourly){setFromDate(anchorHourly(72));setToDate(null);setActiveQ("3D");}else{setFromDate(null);setToDate(null);setActiveQ("All");};},[data]);
+  useEffect(()=>{setTabVis(false);const t=setTimeout(()=>setTabVis(true),60);return()=>clearTimeout(t);},[activeTab,unit,filteredPeriods.length,region.id]);
 
-  // For hourly: anchor from the last available period in the fetched data.
-  // EIA lags real-time by 1-3h so "now" is always ahead of data — anchoring from
-  // the last period ensures all buttons show the most current available data.
-  // periods[last - (N-1)] gives exactly N periods ending at the latest available.
-  const anchorHourly = useCallback((hours) => {
-    const all = data.periods;
-    if (!all.length) return null;
-    return all[Math.max(0, all.length - hours)];
-  }, [data.periods]);
+  const applyQuick=useCallback(q=>{setActiveQ(q.label);if(hourly){setFromDate(q.hours?anchorHourly(q.hours):null);setToDate(null);}else if(q.same){setFromDate(data.periods[data.periods.length-1]||null);setToDate(null);}else{setFromDate(q.months?anchorFrom(q.months):null);setToDate(null);};},[hourly,anchorFrom,anchorHourly,data.periods]);
+  const shiftWindow=useCallback(dir=>{const all=data.periods;if(!all.length)return;const vs=fromDate?all.findIndex(p=>p>=fromDate):0;const ve=toDate?all.findIndex(p=>p>toDate):all.length;const end=ve===-1?all.length:ve;const ws=end-vs;if(ws<=0)return;if(dir===-1){const ns=Math.max(0,vs-ws);const ne=ns+ws;setFromDate(all[ns]);setToDate(all[Math.min(ne-1,all.length-1)]);}else{const ne=Math.min(all.length,end+ws);const ns=ne-ws;setFromDate(all[Math.max(ns,0)]);setToDate(all[ne-1]);}setActiveQ("");},[data.periods,fromDate,toDate]);
 
-  // Auto-load once on mount after full paint
-  useEffect(() => {
-    const t = setTimeout(() => loadRegion(NATIONAL[0]), 0);
-    return () => clearTimeout(t);
-  }, []); // eslint-disable-line
+  const loadRegion=useCallback(async r=>{
+    const rto=r.type==="rto";setLoadMsg(`Fetching ${rto?"hourly":"monthly"} data for ${r.label}…`);setLoading(true);setError("");
+    try{
+      let rows,grouped;
+      if(rto){rows=await fetchHourlyRTO(r.id);grouped=groupHourly(rows,r.tz||"UTC");grouped.tz=r.tz||"UTC";}
+      else if(r.type==="region"){rows=await fetchMonthlyMulti(r.states);grouped=groupMonthly(rows);grouped.tz=null;}
+      else{rows=await fetchMonthlyRegion(r.id);grouped=groupMonthly(rows);grouped.tz=null;}
+      if(!rows.length)throw new Error(`No data returned for ${r.label}. DEMO_KEY has strict rate limits — try a free personal key.`);
+      setData(grouped);setHasData(true);setKpiVis(false);setTimeout(()=>setKpiVis(true),100);
+    }catch(e){const msg=(e&&e.message)?e.message:(typeof e==="string"?e:JSON.stringify(e));const is429=msg.includes("429")||msg.includes("rate limit")||msg.includes("Too Many");setError("❌ "+msg+(is429?"\n\nDEMO_KEY rate limit reached. Paste a free personal key above and click Reload.":"\n\nTip: New EIA keys can take 5-10 minutes to activate."));}
+    finally{setLoading(false);}
+  },[]);
 
-  useEffect(() => {
-    if (!data.periods.length) return;
-    if (hourly) {
-      setFromDate(anchorHourly(72));
-      setToDate(null);
-      setActiveQ("3D");
-    } else {
-      setFromDate(null);
-      setToDate(null);
-      setActiveQ("All");
-    }
-  }, [data]);
+  const run=useCallback(async()=>{await loadRegion(region);},[region,loadRegion]);
+  const handleRegionChange=useCallback(r=>{setRegion(r);loadRegion(r);},[loadRegion]);
 
-  // Tab animation
-  useEffect(() => {
-    setTabVis(false);
-    const t = setTimeout(() => setTabVis(true), 60);
-    return () => clearTimeout(t);
-  }, [activeTab, unit, filteredPeriods.length, region.id]);
+  const kpiTotals=useMemo(()=>{const t={solar:0,wind:0,hydro:0,coal:0,gas:0,nuclear:0,total:0};filteredPeriods.forEach(p=>{const d=data.byP[p]||{};t.solar+=d["SUN"]||0;t.wind+=d["WND"]||0;t.hydro+=d[hourly?"WAT":"HYC"]||0;t.coal+=d[hourly?"COL":"COW"]||0;t.gas+=d["NG"]||0;t.nuclear+=d["NUC"]||0;t.total+=Object.values(d).filter(v=>v>0).reduce((s,v)=>s+v,0);});return t;},[filteredPeriods,data.byP,hourly]);
+  const share=kpiTotals.total>0?((kpiTotals.solar+kpiTotals.wind+kpiTotals.hydro)/kpiTotals.total*100).toFixed(1):"—";
+  const rangeLabel=filteredPeriods.length>1?`${filteredPeriods[0]} – ${filteredPeriods[filteredPeriods.length-1]}`:(filteredPeriods[0]||"");
+  const fromInput=(()=>{const p=filteredPeriods[0]||"";if(!p)return"";return p.length===7?p+"-01":p.slice(0,10);})();
+  const toInput=(()=>{const p=filteredPeriods[filteredPeriods.length-1]||"";if(!p)return"";return p.length===7?p+"-01":p.slice(0,10);})();
 
-  const applyQuick = useCallback((q) => {
-    setActiveQ(q.label);
-    if (hourly) {
-      setFromDate(q.hours ? anchorHourly(q.hours) : null);
-      setToDate(null);
-    } else if (q.same) {
-      setFromDate(data.periods[data.periods.length-1] || null);
-      setToDate(null);
-    } else {
-      setFromDate(q.months ? anchorFrom(q.months) : null);
-      setToDate(null);
-    }
-  }, [hourly, anchorFrom, anchorHourly, data.periods]);
-
-  // Shift the visible window left/right by its current width
-  const shiftWindow = useCallback((dir) => {
-    const all = data.periods;
-    if (!all.length) return;
-    const visStart = fromDate ? all.findIndex(p => p >= fromDate) : 0;
-    const visEnd   = toDate   ? all.findIndex(p => p >  toDate)  : all.length;
-    const end      = visEnd === -1 ? all.length : visEnd;
-    const windowSize = end - visStart;
-    if (windowSize <= 0) return;
-    if (dir === -1) {
-      // shift left
-      const newStart = Math.max(0, visStart - windowSize);
-      const newEnd   = newStart + windowSize;
-      setFromDate(all[newStart]);
-      setToDate(all[Math.min(newEnd - 1, all.length - 1)]);
-    } else {
-      // shift right
-      const newEnd   = Math.min(all.length, end + windowSize);
-      const newStart = newEnd - windowSize;
-      setFromDate(all[Math.max(newStart, 0)]);
-      setToDate(all[newEnd - 1]);
-    }
-    setActiveQ("");
-  }, [data.periods, fromDate, toDate]);
-
-  const loadRegion = useCallback(async (r) => {
-    const rto = r.type === "rto";
-    setLoadMsg(`Fetching ${rto?"hourly":"monthly"} data for ${r.label}…`);
-    setLoading(true); setError("");
-    try {
-      let rows, grouped;
-      if (rto) { rows = await fetchHourlyRTO(r.id); grouped = groupHourly(rows, r.tz || "UTC"); grouped.tz = r.tz || "UTC"; }
-      else if (r.type==="region") { rows = await fetchMonthlyMulti(r.states); grouped = groupMonthly(rows); grouped.tz = null; }
-      else      { rows = await fetchMonthlyRegion(r.id); grouped = groupMonthly(rows); grouped.tz = null; }
-      if (!rows.length) throw new Error(`No data returned for ${r.label}. If using DEMO_KEY, try entering a free personal key from eia.gov/opendata — DEMO_KEY has strict rate limits.`);
-      setData(grouped);
-      setHasData(true);
-      setKpiVis(false);
-      setTimeout(() => setKpiVis(true), 100);
-    } catch(e) {
-      const msg = (e && e.message) ? e.message : (typeof e === "string" ? e : JSON.stringify(e));
-      const is429 = msg.includes("429") || msg.includes("rate limit") || msg.includes("Too Many");
-      const tip = is429 ? "\n\nDEMO_KEY rate limit reached. Paste a free personal key above and click Reload." : "\n\nTip: New EIA keys can take 5-10 minutes to activate.";
-      setError("❌ " + msg + tip);
-    } finally { setLoading(false); }
-  }, []);
-
-  const run = useCallback(async () => {
-    await loadRegion(region);
-  }, [region, loadRegion]);
-
-  const handleRegionChange = useCallback((r) => {
-    setRegion(r);
-    loadRegion(r);
-  }, [loadRegion]);
-
-  // KPI values — summed over the filtered date range
-  const RENEW_KEYS = hourly ? ["SUN","WND","WAT","BAT_DIS"] : ["SUN","WND","HYC"];
-  const kpiTotals = useMemo(() => {
-    const t = { solar:0, wind:0, hydro:0, coal:0, gas:0, nuclear:0, total:0 };
-    filteredPeriods.forEach(p => {
-      const d = data.byP[p] || {};
-      t.solar   += d["SUN"] || 0;
-      t.wind    += d["WND"] || 0;
-      t.hydro   += d[hourly?"WAT":"HYC"] || 0;
-      t.coal    += d[hourly?"COL":"COW"] || 0;
-      t.gas     += d["NG"] || 0;
-      t.nuclear += d["NUC"] || 0;
-      t.total   += Object.values(d).filter(v=>v>0).reduce((s,v)=>s+v, 0);
-    });
-    return t;
-  }, [filteredPeriods, data.byP, hourly]);
-  const solar = kpiTotals.solar;
-  const wind  = kpiTotals.wind;
-  const hydro = kpiTotals.hydro;
-  const share = kpiTotals.total > 0 ? ((solar+wind+hydro)/kpiTotals.total*100).toFixed(1) : "—";
-  const rangeLabel = filteredPeriods.length > 1
-    ? `${filteredPeriods[0]} – ${filteredPeriods[filteredPeriods.length-1]}`
-    : (filteredPeriods[0] || "");
-
-  const fromInput = (() => {
-    const p = filteredPeriods[0] || "";
-    if (!p) return "";
-    return p.length === 7 ? p + "-01" : p.slice(0,10);
-  })();
-  const toInput = (() => {
-    const p = filteredPeriods[filteredPeriods.length-1] || "";
-    if (!p) return "";
-    return p.length === 7 ? p + "-01" : p.slice(0,10);
-  })();
-
-  return <>
-    {loading && <div className="spinner-overlay"><div className="ring"/><p>{loadMsg}</p></div>}
-
+  return<>
+    {loading&&<div className="spinner-overlay"><div className="ring"/><p>{loadMsg}</p></div>}
     <header className="app-header">
-      <div>
-        <h1>EIA <span>Renewables</span> Dashboard</h1>
-        <p>Live data · U.S. Energy Information Administration (EIA) · API v2</p>
-      </div>
-      <div className="live-badge">
-        <div className="dot"/>
-        <span>{hasData?`${region.label} · ${freqLabel} · ${filteredPeriods[filteredPeriods.length-1]||""}`:"Awaiting data"}</span>
-      </div>
+      <div><h1>EIA <span>Renewables</span> Dashboard</h1><p>Live data · U.S. Energy Information Administration (EIA) · API v2</p></div>
+      <div className="live-badge"><div className="dot"/><span>{hasData?`${region.label} · ${freqLabel} · ${filteredPeriods[filteredPeriods.length-1]||""}`:"Awaiting data"}</span></div>
     </header>
-
     <div className="api-bar">
       <label>EIA API KEY</label>
-      <input id="eia-key-input" type="text" placeholder="Paste your EIA key for higher rate limits…" defaultValue=""
-        onKeyDown={e=>e.key==="Enter"&&run()}/>
-      <button className="load-btn" onClick={run} disabled={loading}>
-        {loading?"LOADING…":"RELOAD"}
-      </button>
+      <input id="eia-key-input" type="text" placeholder="Paste your EIA key for higher rate limits…" defaultValue="" onKeyDown={e=>e.key==="Enter"&&run()}/>
+      <button className="load-btn" onClick={run} disabled={loading}>{loading?"LOADING…":"RELOAD"}</button>
       <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key ↗</a>
     </div>
-
-    <RegionBar selected={region} onChange={handleRegionChange} hasData={hasData}/>
-
+    <RegionBar selected={region} onChange={handleRegionChange}/>
     <main className="app-main">
-      {error && <div className="error-box">{error}</div>}
-
-      {loading && <div className="loading-bar" style={{textAlign:"center",padding:"12px",fontSize:".78rem",color:"var(--muted)",letterSpacing:".05em"}}>⟳ &nbsp;Fetching data…</div>}
-
-      <>
-        {/* KPIs */}
-        <div className="kpi-row">
-          {[
-            {label:"Solar Generation",   value:fmtKPI(kpiTotals.solar,  unit), unit:fmtKPIUnit(kpiTotals.solar,  unit), cls:"solar", sub:rangeLabel},
-            {label:"Wind Generation",    value:fmtKPI(kpiTotals.wind,   unit), unit:fmtKPIUnit(kpiTotals.wind,   unit), cls:"wind",  sub:rangeLabel},
-            {label:"Hydro Generation",   value:fmtKPI(kpiTotals.hydro,  unit), unit:fmtKPIUnit(kpiTotals.hydro,  unit), cls:"hydro", sub:rangeLabel},
-            {label:"Renewables Share",   value:share,                          unit:share!=="—"?"%":null,               cls:"",      sub:"of total generation"},
-          ].map((k,i)=>(
-            <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${i*70}ms`}}>
-              <div className="kpi-label">{k.label}</div>
-              <div className={`kpi-val${k.cls?" "+k.cls:""}`}>
-                {k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}
-              </div>
-              <div className="kpi-sub">{k.sub}</div>
-            </div>
-          ))}
-          <div className="kpi-row-divider"/>
-          {[
-            {label:"Coal Generation",    value:fmtKPI(kpiTotals.coal,   unit), unit:fmtKPIUnit(kpiTotals.coal,   unit), cls:"", sub:rangeLabel},
-            {label:"Gas Generation",     value:fmtKPI(kpiTotals.gas,    unit), unit:fmtKPIUnit(kpiTotals.gas,    unit), cls:"", sub:rangeLabel},
-            {label:"Nuclear Generation", value:fmtKPI(kpiTotals.nuclear,unit), unit:fmtKPIUnit(kpiTotals.nuclear,unit), cls:"", sub:rangeLabel},
-            {label:"Total Generation",   value:fmtKPI(kpiTotals.total,  unit), unit:fmtKPIUnit(kpiTotals.total,  unit), cls:"", sub:rangeLabel},
-          ].map((k,i)=>(
-            <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${(i+4)*70}ms`}}>
-              <div className="kpi-label">{k.label}</div>
-              <div className={`kpi-val${k.cls?" "+k.cls:""}`}>
-                {k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}
-              </div>
-              <div className="kpi-sub">{k.sub}</div>
-            </div>
+      {error&&<div className="error-box">{error}</div>}
+      <div className="kpi-row">
+        {[{label:"Solar Generation",value:fmtKPI(kpiTotals.solar,unit),unit:fmtKPIUnit(kpiTotals.solar,unit),cls:"solar",sub:rangeLabel},{label:"Wind Generation",value:fmtKPI(kpiTotals.wind,unit),unit:fmtKPIUnit(kpiTotals.wind,unit),cls:"wind",sub:rangeLabel},{label:"Hydro Generation",value:fmtKPI(kpiTotals.hydro,unit),unit:fmtKPIUnit(kpiTotals.hydro,unit),cls:"hydro",sub:rangeLabel},{label:"Renewables Share",value:share,unit:share!=="—"?"%":null,cls:"",sub:"of total generation"}].map((k,i)=>(
+          <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${i*70}ms`}}>
+            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div><div className="kpi-sub">{k.sub}</div>
+          </div>
+        ))}
+        <div className="kpi-row-divider"/>
+        {[{label:"Coal Generation",value:fmtKPI(kpiTotals.coal,unit),unit:fmtKPIUnit(kpiTotals.coal,unit),cls:"",sub:rangeLabel},{label:"Gas Generation",value:fmtKPI(kpiTotals.gas,unit),unit:fmtKPIUnit(kpiTotals.gas,unit),cls:"",sub:rangeLabel},{label:"Nuclear Generation",value:fmtKPI(kpiTotals.nuclear,unit),unit:fmtKPIUnit(kpiTotals.nuclear,unit),cls:"",sub:rangeLabel},{label:"Total Generation",value:fmtKPI(kpiTotals.total,unit),unit:fmtKPIUnit(kpiTotals.total,unit),cls:"",sub:rangeLabel}].map((k,i)=>(
+          <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${(i+4)*70}ms`}}>
+            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div><div className="kpi-sub">{k.sub}</div>
+          </div>
+        ))}
+      </div>
+      <div className="toolbar">
+        <div className="tabs">
+          {[["overview","Overview"],["trend","Trend"],["mix","Energy Mix"],["leaders","Leaders"]].map(([t,l])=>(
+            <button key={t} className={`tab-btn${activeTab===t?" active":""}`} onClick={()=>setActiveTab(t)}>{l}</button>
           ))}
         </div>
-
-        {/* Toolbar */}
-        <div className="toolbar">
-          <div className="tabs">
-            {[["overview","Overview"],["trend","Trend"],["mix","Energy Mix"]].map(([t,l])=>(
-              <button key={t} className={`tab-btn${activeTab===t?" active":""}`} onClick={()=>setActiveTab(t)}>{l}</button>
-            ))}
-          </div>
-          <div style={{display:"flex",alignItems:"center",gap:"10px",flexWrap:"wrap"}}>
-            <span className="freq-badge">{region.label} · {hourly?"Hourly":"Monthly"}</span>
-            <div className="sep"/>
-            <div className="ctrl-group">
-              <span>Units:</span>
-              {["MWh","GWh","TWh"].map(u=>(
-                <button key={u} className={`pill${unit===u?" active":""}`} onClick={()=>setUnit(u)}>{u}</button>
-              ))}
-            </div>
-          </div>
+        <div style={{display:"flex",alignItems:"center",gap:"10px",flexWrap:"wrap"}}>
+          <span className="freq-badge">{region.label} · {hourly?"Hourly":"Monthly"}</span>
+          <div className="sep"/>
+          <div className="ctrl-group"><span>Units:</span>{["MWh","GWh","TWh"].map(u=><button key={u} className={`pill${unit===u?" active":""}`} onClick={()=>setUnit(u)}>{u}</button>)}</div>
         </div>
-
-        {/* Date range */}
+      </div>
+      {activeTab!=="leaders"&&(
         <div className="range-bar">
           <div className="range-win">
-            <button className="range-win-arrow" onClick={()=>shiftWindow(-1)} title="Shift window earlier">&#8592;</button>
-            <input type="date" value={fromInput}
-              onChange={e=>setFromDate(e.target.value?(hourly?e.target.value+"T00":e.target.value.slice(0,7)):null)}/>
+            <button className="range-win-arrow" onClick={()=>shiftWindow(-1)}>&#8592;</button>
+            <input type="date" value={fromInput} onChange={e=>setFromDate(e.target.value?(hourly?e.target.value+"T00":e.target.value.slice(0,7)):null)}/>
             <span className="range-win-sep">to</span>
-            <input type="date" value={toInput}
-              onChange={e=>setToDate(e.target.value?(hourly?e.target.value+"T23":e.target.value.slice(0,7)):null)}/>
-            <button className="range-win-arrow" onClick={()=>shiftWindow(1)} title="Shift window later">&#8594;</button>
+            <input type="date" value={toInput} onChange={e=>setToDate(e.target.value?(hourly?e.target.value+"T23":e.target.value.slice(0,7)):null)}/>
+            <button className="range-win-arrow" onClick={()=>shiftWindow(1)}>&#8594;</button>
           </div>
-          <div className="quick-btns">
-            {quickList.map(q=>(
-              <button key={q.label} className={`qr${activeQ===q.label?" active":""}`} onClick={()=>applyQuick(q)}>{q.label}</button>
-            ))}
-          </div>
+          <div className="quick-btns">{quickList.map(q=><button key={q.label} className={`qr${activeQ===q.label?" active":""}`} onClick={()=>applyQuick(q)}>{q.label}</button>)}</div>
         </div>
-
-        {hourly && (
-          <div className="info-note">
-            ℹ <strong>{region.label}</strong> ({region.id}) · Hourly data from EIA RTO grid monitor · WAT = Hydro, COL = Coal · Battery split into Discharge/Charging (OTH reclassified as storage) · Times shown in {region.tz||"UTC"} · Covers last 7 days · All windows show the most recently published data
-          </div>
-        )}
-        {!hourly && (
-          <div className="info-note">
-            ℹ Monthly data from EIA typically publishes with a 2–3 month lag · Showing all available data by default
-          </div>
-        )}
-        {!hourly && region.type==="region" && (
-          <div className="info-note">
-            ℹ <strong>{region.label}</strong> includes: {region.states.map(s=>STATE_NAMES[s]||s).join(", ")}
-          </div>
-        )}
-
-        {activeTab==="overview" && <OverviewTab pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
-        {activeTab==="trend"    && <TrendTab    pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
-        {activeTab==="mix"      && <MixTab      pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
-      </>
+      )}
+      {activeTab!=="leaders"&&hourly&&<div className="info-note">ℹ <strong>{region.label}</strong> ({region.id}) · Hourly RTO data · WAT=Hydro, COL=Coal · Times in {region.tz||"UTC"} · Last 7 days</div>}
+      {activeTab!=="leaders"&&!hourly&&<div className="info-note">ℹ Monthly EIA data typically publishes with a 2–3 month lag · Showing all available data by default</div>}
+      {activeTab==="overview"&&<OverviewTab pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+      {activeTab==="trend"   &&<TrendTab    pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+      {activeTab==="mix"     &&<MixTab      pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
+      {activeTab==="leaders" &&<LeadersTab  unit={unit} currentRegionType={region.type}/>}
     </main>
-
     <footer className="app-footer">
       Built by Adam Lawit · Source: U.S. Energy Information Administration (EIA) · API v2 · electric-power-operational-data (national/state monthly) · electricity/rto/fuel-type-data (RTO hourly)
     </footer>
   </>;
 }
-
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
