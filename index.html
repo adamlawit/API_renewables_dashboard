@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 :root {
   --bg:#f5f2eb; --surface:#fff; --border:#e0d9cc; --ink:#1a1a18;
@@ -16,31 +16,31 @@
   --gas:#e05020; --coal:#1a1a18; --nuclear:#9040c0; --accent:#2a7d4f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-weight:300;min-height:100vh}
+body{background:var(--bg);color:var(--ink);font-family:'Source Sans 3',sans-serif;font-weight:400;min-height:100vh}
 .app-header{background:var(--ink);color:#fff;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .app-header h1{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;line-height:1}
 .app-header h1 span{color:var(--wind)}
-.app-header p{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#888;margin-top:4px}
-.live-badge{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:#aaa}
+.app-header p{font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:#888;margin-top:4px}
+.live-badge{display:flex;align-items:center;gap:7px;font-family:'Source Sans 3',sans-serif;font-size:.75rem;color:#aaa}
 .dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 .api-bar{background:#fff;border-bottom:2px solid var(--ink);padding:10px 48px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.api-bar label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--muted);font-weight:600;white-space:nowrap}
-.api-bar input{flex:1;min-width:200px;max-width:340px;border:1.5px solid var(--border);border-radius:4px;padding:6px 10px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink);outline:none;transition:border-color .2s}
+.api-bar label{font-family:'Source Sans 3',sans-serif;font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.api-bar input{flex:1;min-width:200px;max-width:340px;border:1.5px solid var(--border);border-radius:4px;padding:6px 10px;font-family:'Source Sans 3',sans-serif;font-size:.79rem;color:var(--ink);outline:none;transition:border-color .2s}
 .api-bar input:focus{border-color:var(--accent)}
-.load-btn{background:var(--ink);color:#fff;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.73rem;letter-spacing:.04em;padding:7px 18px;border-radius:4px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.load-btn{background:var(--ink);color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.73rem;letter-spacing:.04em;padding:7px 18px;border-radius:4px;cursor:pointer;transition:background .2s;white-space:nowrap}
 .load-btn:hover{background:var(--accent)}
 .load-btn:disabled{opacity:.4;cursor:not-allowed}
-.api-bar a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);text-decoration:none}
+.api-bar a{font-family:'Source Sans 3',sans-serif;font-size:.74rem;color:var(--accent);text-decoration:none}
 .api-bar a:hover{text-decoration:underline}
 .region-bar{background:var(--surface);border-bottom:1.5px solid var(--border);padding:12px 48px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
 .region-group{display:flex;flex-direction:column;gap:5px;min-width:0}
-.region-group-label{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.region-group-label{font-family:'Source Sans 3',sans-serif;font-size:.71rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
 .region-pills{display:flex;flex-wrap:wrap;gap:4px}
 .region-pills.scrollable{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .region-pills.scrollable::-webkit-scrollbar{height:3px}
 .region-pills.scrollable::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.rpill{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 11px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap;flex-shrink:0}
+.rpill{font-family:'Source Sans 3',sans-serif;font-size:.75rem;padding:4px 11px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap;flex-shrink:0}
 .rpill:hover:not(.active){border-color:var(--ink);color:var(--ink);background:var(--bg)}
 .rpill.active.t-national{background:var(--ink);color:#fff;border-color:var(--ink)}
 .rpill.active.t-state{background:#1a6bb0;color:#fff;border-color:#1a6bb0}
@@ -48,44 +48,48 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .rpill.active.t-region{background:#2a7d4f;color:#fff;border-color:#2a7d4f}
 .region-vdiv{width:1px;background:var(--border);align-self:stretch;margin:0 2px}
 .app-main{max-width:1300px;margin:0 auto;padding:28px 48px 60px}
-.error-box{background:#fff3f3;border:1.5px solid #f0a0a0;border-radius:6px;padding:12px 16px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:.71rem;color:#c04040;line-height:1.6;white-space:pre-wrap}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.error-box{background:#fff3f3;border:1.5px solid #f0a0a0;border-radius:6px;padding:12px 16px;margin-bottom:22px;font-family:'Source Sans 3',sans-serif;font-size:.71rem;color:#c04040;line-height:1.6;white-space:pre-wrap}
+/* GENERATION SUMMARY HEADER */
+.gen-summary-header{background:var(--ink);color:#fff;padding:12px 20px;border-radius:8px 8px 0 0;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:0}
+.gen-summary-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#fff}
+.gen-summary-subtitle{font-family:'Source Sans 3',sans-serif;font-size:.9rem;color:#ccc;font-weight:500}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;margin-bottom:22px}
 .kpi-row-divider{grid-column:1/-1;height:0;border-top:1.5px solid var(--border)}
 .kpi{background:var(--surface);padding:16px 20px;border-right:1.5px solid var(--border);transition:opacity .4s,transform .4s}
 .kpi:last-child{border-right:none}
-.kpi-label{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.kpi-val{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;line-height:1;margin-bottom:3px;display:flex;align-items:baseline;gap:5px}
-.kpi-unit{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;color:inherit;opacity:0.75}
+.kpi-label{font-family:'Source Sans 3',sans-serif;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.kpi-val{font-family:'Source Sans 3',sans-serif;font-size:1.1rem;font-weight:600;line-height:1;margin-bottom:3px;display:flex;align-items:baseline;gap:5px}
+.kpi-unit{font-family:'Source Sans 3',sans-serif;font-size:1.1rem;font-weight:600;color:inherit;opacity:0.75}
 .kpi-val.solar{color:var(--solar)}.kpi-val.wind{color:var(--wind)}.kpi-val.hydro{color:var(--hydro)}
 .kpi-sub{font-size:.75rem;color:var(--muted)}
 .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
 .tabs{display:flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
-.tab-btn{font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.03em;padding:7px 16px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:background .15s,color .15s;white-space:nowrap}
+.tab-btn{font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.03em;padding:7px 16px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:background .15s,color .15s;white-space:nowrap}
 .tab-btn:not(:last-child){border-right:1px solid var(--border)}
 .tab-btn.active{background:var(--ink);color:#fff}
 .tab-btn:hover:not(.active){background:var(--bg);color:var(--ink)}
-.ctrl-group{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--muted)}
-.pill{font-family:'IBM Plex Mono',monospace;font-size:.64rem;padding:5px 12px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s}
+.ctrl-group{display:flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;font-size:.76rem;color:var(--muted)}
+.pill{font-family:'Source Sans 3',sans-serif;font-size:.76rem;padding:5px 12px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .15s}
 .pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .pill:hover:not(.active){border-color:var(--ink);color:var(--ink)}
 .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
-.freq-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);white-space:nowrap}
+.freq-badge{font-family:'Source Sans 3',sans-serif;font-size:.74rem;color:var(--muted);white-space:nowrap}
 .range-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .range-win{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;background:var(--surface)}
-.range-win-arrow{font-size:.85rem;padding:4px 9px;background:none;border:none;border-right:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:'IBM Plex Mono',monospace;transition:background .12s,color .12s;line-height:1}
+.range-win-arrow{font-size:.85rem;padding:4px 9px;background:none;border:none;border-right:1.5px solid var(--border);cursor:pointer;color:var(--muted);font-family:'Source Sans 3',sans-serif;transition:background .12s,color .12s;line-height:1}
 .range-win-arrow:last-child{border-right:none;border-left:1.5px solid var(--border)}
 .range-win-arrow:hover{background:var(--accent);color:#fff}
-.range-win-sep{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);padding:0 6px;white-space:nowrap;border-right:1.5px solid var(--border)}
-.range-win input[type=date]{font-family:'IBM Plex Mono',monospace;font-size:.63rem;padding:4px 8px;border:none;color:var(--ink);outline:none;background:transparent;min-width:0}
+.range-win-sep{font-family:'Source Sans 3',sans-serif;font-size:.75rem;color:var(--muted);padding:0 6px;white-space:nowrap;border-right:1.5px solid var(--border)}
+.range-win input[type=date]{font-family:'Source Sans 3',sans-serif;font-size:.75rem;padding:4px 8px;border:none;color:var(--ink);outline:none;background:transparent;min-width:0}
 .range-win input[type=date]:focus{background:#f0ece0}
 .quick-btns{display:flex;gap:4px}
-.qr{font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:3px 9px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
+.qr{font-family:'Source Sans 3',sans-serif;font-size:.73rem;padding:3px 9px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
 .qr.active{background:var(--solar);color:#fff;border-color:var(--solar)}
 .qr:hover:not(.active){border-color:var(--ink);color:var(--ink)}
-.info-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#7a5500;background:#fffbee;border:1px solid #e8c840;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.55}
+.info-note{font-family:'Source Sans 3',sans-serif;font-size:.74rem;color:#7a5500;background:#fffbee;border:1px solid #e8c840;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.55}
 .card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:20px;transition:opacity .45s,transform .45s}
-.card-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:.57rem;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:3px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.tag{font-family:'Source Sans 3',sans-serif;font-size:.71rem;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:3px}
 .cbox{position:relative;height:270px}.cbox.sm{height:220px}.cbox.tall{height:320px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .mb{margin-bottom:16px}
@@ -94,32 +98,32 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .leaders-card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px}
 .leaders-header{padding:16px 20px 0;border-bottom:1.5px solid var(--border)}
 .leaders-header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.leaders-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.leaders-title{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .leaders-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.leaders-fetch-btn{background:var(--ink);color:#fff;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.67rem;letter-spacing:.04em;padding:6px 14px;border-radius:4px;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.leaders-fetch-btn{background:var(--ink);color:#fff;border:none;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;padding:6px 14px;border-radius:4px;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .leaders-fetch-btn:hover:not(:disabled){background:var(--accent)}
 .leaders-fetch-btn:disabled{opacity:.4;cursor:not-allowed}
 .mini-ring{width:11px;height:11px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 .source-toggles{display:flex;flex-wrap:wrap;gap:5px;padding-bottom:12px}
-.src-toggle{font-family:'IBM Plex Mono',monospace;font-size:.61rem;padding:4px 11px;border-radius:4px;cursor:pointer;border-width:1.5px;border-style:solid;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.src-toggle{font-family:'Source Sans 3',sans-serif;font-size:.73rem;padding:4px 11px;border-radius:4px;cursor:pointer;border-width:1.5px;border-style:solid;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
 .leaders-search{padding:10px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.leaders-search input{font-family:'IBM Plex Mono',monospace;font-size:.65rem;border:1.5px solid var(--border);border-radius:4px;padding:5px 10px;color:var(--ink);outline:none;width:200px;background:var(--bg);transition:border-color .2s}
+.leaders-search input{font-family:'Source Sans 3',sans-serif;font-size:.77rem;border:1.5px solid var(--border);border-radius:4px;padding:5px 10px;color:var(--ink);outline:none;width:200px;background:var(--bg);transition:border-color .2s}
 .leaders-search input:focus{border-color:var(--accent);background:#fff}
-.leaders-search-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+.leaders-search-label{font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:var(--muted)}
 .top-n-group{display:flex;align-items:center;gap:5px;margin-left:auto}
-.top-n-group span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
-.top-n-btn{font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:3px 8px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
+.top-n-group span{font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:var(--muted)}
+.top-n-btn{font-family:'Source Sans 3',sans-serif;font-size:.73rem;padding:3px 8px;border-radius:3px;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
 .top-n-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .top-n-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
 .leaders-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .leaders-table-wrap::-webkit-scrollbar{width:5px;height:5px}
 .leaders-table-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .leaders-table{width:100%;border-collapse:collapse}
-.leaders-table th{position:sticky;top:0;background:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left;white-space:nowrap;z-index:2;cursor:pointer;user-select:none}
+.leaders-table th{position:sticky;top:0;background:var(--bg);font-family:'Source Sans 3',sans-serif;font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left;white-space:nowrap;z-index:2;cursor:pointer;user-select:none}
 .leaders-table th:hover{color:var(--ink)}
 .leaders-table th .sort-arrow{margin-left:3px;opacity:.35}
 .leaders-table th.sort-active .sort-arrow{opacity:1;color:var(--accent)}
-.leaders-table td{font-family:'IBM Plex Mono',monospace;font-size:.65rem;padding:7px 12px;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:middle}
+.leaders-table td{font-family:'Source Sans 3',sans-serif;font-size:.77rem;padding:7px 12px;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:middle}
 .leaders-table tr:last-child td{border-bottom:none}
 .leaders-table tr:hover td{background:#f8f5ee}
 .rank-cell{font-weight:600;color:var(--muted);width:28px}
@@ -128,63 +132,63 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 .bar-wrap{display:flex;align-items:center;gap:6px}
 .bar-track{flex:1;min-width:70px;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
 .bar-fill{height:100%;border-radius:3px;transition:width .5s ease}
-.val-text{font-size:.6rem;color:var(--muted);min-width:54px;text-align:right}
-.pct-badge{font-size:.58rem;padding:1px 5px;border-radius:3px;background:var(--bg);border:1px solid var(--border);color:var(--muted);margin-left:3px}
-.leaders-empty{text-align:center;padding:52px 20px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--muted);line-height:2}
+.val-text{font-size:.73rem;color:var(--muted);min-width:54px;text-align:right}
+.pct-badge{font-size:.72rem;padding:1px 5px;border-radius:3px;background:var(--bg);border:1px solid var(--border);color:var(--muted);margin-left:3px}
+.leaders-empty{text-align:center;padding:52px 20px;font-family:'Source Sans 3',sans-serif;font-size:.72rem;color:var(--muted);line-height:2}
 .leaders-empty .empty-icon{font-size:2rem;display:block;margin-bottom:8px;opacity:.25}
-.leaders-progress{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);border-bottom:1px solid var(--border)}
+.leaders-progress{padding:10px 20px;font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:var(--muted);border-bottom:1px solid var(--border)}
 .leaders-progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden}
 .leaders-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s ease}
 .tw-group{display:flex;align-items:center;gap:4px}
-.tw-group>span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
+.tw-group>span{font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:var(--muted)}
 
 /* TOP-5 SOURCE SELECTOR */
 .top5-src-selector{padding:12px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--bg)}
-.top5-src-label{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
-.top5-src-pill{font-family:'IBM Plex Mono',monospace;font-size:.63rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:pointer;border-width:2px;border-style:solid;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.top5-src-label{font-family:'Source Sans 3',sans-serif;font-size:.71rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.top5-src-pill{font-family:'Source Sans 3',sans-serif;font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:20px;cursor:pointer;border-width:2px;border-style:solid;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .top5-src-pill:hover{filter:brightness(1.08)}
 
 /* SORT MODE TOGGLE */
-.sort-mode-wrap{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted)}
-.sort-mode-btn{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;padding:5px 13px;border-radius:4px;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap}
+.sort-mode-wrap{display:flex;align-items:center;gap:6px;font-family:'Source Sans 3',sans-serif;font-size:.73rem;color:var(--muted)}
+.sort-mode-btn{font-family:'Source Sans 3',sans-serif;font-size:.74rem;font-weight:600;padding:5px 13px;border-radius:4px;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap}
 .sort-mode-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .sort-mode-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
 
 /* TOP-5 COMPARISON PANEL */
 .top5-panel{background:var(--surface);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:20px}
 .top5-header{padding:14px 20px;border-bottom:2px solid var(--ink);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--ink)}
-.top5-title{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff}
-.top5-subtitle{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#888;margin-top:3px}
-.top5-src-pill{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;padding:4px 12px;border-radius:4px;display:flex;align-items:center;gap:6px}
+.top5-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#fff}
+.top5-subtitle{font-family:'Source Sans 3',sans-serif;font-size:.72rem;color:#888;margin-top:3px}
+.top5-src-pill{font-family:'Source Sans 3',sans-serif;font-size:.74rem;font-weight:600;padding:4px 12px;border-radius:4px;display:flex;align-items:center;gap:6px}
 .top5-grid{display:grid;grid-template-columns:repeat(5,1fr)}
 .top5-col{border-right:1px solid var(--border);display:flex;flex-direction:column}
 .top5-col:last-child{border-right:none}
 .top5-col-header{padding:14px 14px 10px;border-bottom:1px solid var(--border);background:var(--bg)}
-.top5-rank-badge{font-family:'IBM Plex Mono',monospace;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:3px;margin-bottom:6px;display:inline-block;letter-spacing:.04em}
+.top5-rank-badge{font-family:'Source Sans 3',sans-serif;font-size:.7rem;font-weight:700;padding:2px 7px;border-radius:3px;margin-bottom:6px;display:inline-block;letter-spacing:.04em}
 .top5-rank-badge.r1{background:#fef3dc;color:#c8900a;border:1px solid #f0d080}
 .top5-rank-badge.r2{background:#f0f0f0;color:#606060;border:1px solid #ccc}
 .top5-rank-badge.r3{background:#fdf0e8;color:#8a5028;border:1px solid #d4a880}
 .top5-rank-badge.r4,.top5-rank-badge.r5{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-.top5-state-name{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:4px}
-.top5-source-val{font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:600}
-.top5-source-pct{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--muted);display:block;margin-top:1px}
+.top5-state-name{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:4px;letter-spacing:.02em}
+.top5-source-val{font-family:'Source Sans 3',sans-serif;font-size:.75rem;font-weight:600}
+.top5-source-pct{font-family:'Source Sans 3',sans-serif;font-size:.7rem;color:var(--muted);display:block;margin-top:1px}
 .top5-donut-area{padding:14px 10px 6px;display:flex;justify-content:center;align-items:center;flex:1}
 .top5-legend{padding:0 12px 10px}
-.top5-legend-row{display:flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);padding:2px 0}
+.top5-legend-row{display:flex;align-items:center;gap:5px;font-family:'Source Sans 3',sans-serif;font-size:.71rem;color:var(--muted);padding:2px 0}
 .top5-legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .top5-legend-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .top5-legend-pct{font-weight:600;color:var(--ink);min-width:34px;text-align:right}
 .top5-stats{border-top:1px solid var(--border)}
 .top5-stat{padding:6px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .top5-stat:last-child{border-bottom:none}
-.top5-stat-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted)}
-.top5-stat-val{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;color:var(--ink)}
+.top5-stat-label{font-family:'Source Sans 3',sans-serif;font-size:.7rem;color:var(--muted)}
+.top5-stat-val{font-family:'Source Sans 3',sans-serif;font-size:.74rem;font-weight:600;color:var(--ink)}
 
 .spinner-overlay{position:fixed;inset:0;background:rgba(245,242,235,.92);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
 .ring{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.spinner-overlay p{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)}
-.app-footer{text-align:center;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);border-top:1px solid var(--border)}
+.spinner-overlay p{font-family:'Source Sans 3',sans-serif;font-size:.7rem;color:var(--muted)}
+.app-footer{text-align:center;padding:16px;font-family:'Source Sans 3',sans-serif;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border)}
 
 @media(max-width:1000px){
   .top5-grid{grid-template-columns:repeat(3,1fr)}
@@ -194,6 +198,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Lato',sans-serif;font-we
 @media(max-width:700px){
   .app-header,.api-bar,.region-bar,.app-main{padding-left:16px;padding-right:16px}
   .kpi-row{grid-template-columns:1fr 1fr}
+  .gen-summary-header{border-radius:6px 6px 0 0}
   .kpi:nth-child(2),.kpi:nth-child(4){border-right:none}
   .kpi:nth-child(1),.kpi:nth-child(2){border-bottom:1.5px solid var(--border)}
   .grid2{grid-template-columns:1fr}
@@ -364,10 +369,11 @@ function groupHourly(rows,tz){
   return{byP,periods:Object.keys(byP).sort(),hasBATKey};
 }
 function toU(mwh,unit){return mwh/UNIT_DIV[unit];}
-function fmtKPI(mwh,unit){const v=toU(mwh,unit);return v>=1000?v.toLocaleString(undefined,{maximumFractionDigits:1}):v.toFixed(2);}
+const KPI_DP={MWh:0,GWh:1,TWh:2};
+function fmtKPI(mwh,unit){const v=toU(mwh,unit);const dp=KPI_DP[unit]??1;return v.toLocaleString(undefined,{minimumFractionDigits:dp,maximumFractionDigits:dp});}
 function fmtKPIUnit(_,unit){return unit;}
 function fmtVal(mwh,unit){const v=toU(mwh,unit);if(v>=10000)return v.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});if(v>=1)return v.toFixed(1);if(v>0)return v.toFixed(3);return "0.0";}
-const CD={font:{family:"'IBM Plex Mono',monospace",size:9},grid:"#e8e3da",tick:"#8a857a",tip:{backgroundColor:"#1a1a18",titleColor:"#fff",bodyColor:"#aaa",borderColor:"#333",borderWidth:1}};
+const CD={font:{family:"'Source Sans 3',sans-serif",size:9},grid:"#e8e3da",tick:"#8a857a",tip:{backgroundColor:"#1a1a18",titleColor:"#fff",bodyColor:"#aaa",borderColor:"#333",borderWidth:1}};
 const mkX=(tz=null)=>({ticks:{color:CD.tick,font:CD.font,maxTicksLimit:14,callback:tz?function(val){return fmtTzPeriod(this.getLabelForValue(val),tz);}:undefined},grid:{color:CD.grid}});
 function useChart(ref,config){
   const chartRef=useRef(null);
@@ -387,7 +393,7 @@ function InteractiveChartCard({title,tag,config,height="270px",delay=0,visible})
       <div className="cbox" style={{height}}><canvas ref={canvasRef}/></div>
       <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginTop:"10px"}}>
         {datasets.map((ds,i)=>(
-          <button key={i} onClick={()=>toggle(i)} style={{display:"flex",alignItems:"center",gap:"5px",fontFamily:"'IBM Plex Mono',monospace",fontSize:".6rem",padding:"3px 8px",borderRadius:"3px",cursor:"pointer",border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,background:hidden[i]?"transparent":(ds.borderColor||ds.backgroundColor||"#aaa")+"22",color:hidden[i]?"#aaa":(ds.borderColor||"#333"),opacity:hidden[i]?0.45:1,transition:"all .15s"}}>
+          <button key={i} onClick={()=>toggle(i)} style={{display:"flex",alignItems:"center",gap:"5px",fontFamily:"'Source Sans 3',sans-serif",fontSize:".73rem",padding:"3px 8px",borderRadius:"3px",cursor:"pointer",border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`,background:hidden[i]?"transparent":(ds.borderColor||ds.backgroundColor||"#aaa")+"22",color:hidden[i]?"#aaa":(ds.borderColor||"#333"),opacity:hidden[i]?0.45:1,transition:"all .15s"}}>
             <span style={{width:"8px",height:"8px",borderRadius:"50%",flexShrink:0,background:hidden[i]?"transparent":(ds.borderColor||ds.backgroundColor||"#aaa"),border:`1.5px solid ${ds.borderColor||ds.backgroundColor||"#aaa"}`}}/>{ds.label}
           </button>
         ))}
@@ -410,13 +416,13 @@ function fmtTip(v,unit){
 function mkY(unit,stacked){return{min:0,stacked:stacked||undefined,ticks:{color:CD.tick,font:CD.font,callback:v=>fmtTip(v,unit)},grid:{color:CD.grid}};}
 function renewLineConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const rk=hourly?RENEW_H:RENEW_M;return{type:"line",data:{labels:pp,datasets:rk.filter(f=>fm[f]).map(f=>({label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),borderColor:fm[f].color,backgroundColor:fm[f].color+"18",borderWidth:2,tension:0.3,fill:true,pointRadius:pp.length<=72?2:0,pointHoverRadius:5}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:mkX(tz),y:mkY(unit)}}};}
 function allLineConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const rk=new Set(hourly?RENEW_H:RENEW_M);const fds=Object.entries(fm).map(([f,m])=>({label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),borderColor:m.color,backgroundColor:"transparent",borderWidth:2,tension:0.3,fill:false,hidden:!rk.has(f),pointRadius:pp.length<=72?2:0}));const td={label:"Total Generation",data:pp.map(p=>toU(Object.values(byP[p]||{}).filter(v=>v>0).reduce((s,v)=>s+v,0),unit)),borderColor:"#1a1a18",backgroundColor:"transparent",borderWidth:2,borderDash:[6,3],tension:0.3,fill:false,hidden:false,pointRadius:0};return{type:"line",data:{labels:pp,datasets:[...fds,td]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:mkX(tz),y:mkY(unit)}}};}
-function stackedConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;return{type:"bar",data:{labels:pp,datasets:Object.entries(fm).map(([f,m])=>({label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:m.color+"cc",borderColor:m.color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
+function stackedConfig(pp,byP,hourly,unit,tz){const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;return{type:"bar",data:{labels:pp,datasets:Object.entries(fm).map(([f,m])=>({label:m.label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:m.color+"cc",borderColor:m.color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'Source Sans 3'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
 function pctConfig(pp,byP,hourly,tz){const rk=hourly?RENEW_H:RENEW_M;const data=pp.map(p=>{const d=byP[p]||{};const tot=Object.values(d).reduce((s,v)=>s+v,0);return tot>0?rk.reduce((s,f)=>s+(d[f]||0),0)/tot*100:0;});return{type:"line",data:{labels:pp,datasets:[{label:"Renewables %",data,borderColor:"#2a7d4f",backgroundColor:"#2a7d4f22",fill:true,tension:0.3,borderWidth:2,pointRadius:pp.length<=72?2:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` Renewables: ${c.parsed.y.toFixed(1)}%`}}},scales:{x:mkX(tz),y:{min:0,max:100,ticks:{color:CD.tick,font:CD.font,callback:v=>v.toFixed(1)+"%"},grid:{color:CD.grid}}}}};}
 function sumPeriods(pp,byP){const t={};pp.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;}
-function donutConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const items=Object.entries(fm).filter(([f])=>(d[f]||0)>0);const total=items.reduce((s,[f])=>s+(d[f]||0),0);return{type:"doughnut",data:{labels:items.map(([,v])=>v.label),datasets:[{data:items.map(([f])=>toU(d[f]||0,unit)),backgroundColor:items.map(([,v])=>v.color),borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:"60%",plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10,generateLabels(chart){const ds=chart.data.datasets[0];return chart.data.labels.map((label,i)=>{const pct=total>0?(d[items[i][0]]||0)/total*100:0;return{text:`${label}  ${pct.toFixed(1)}%`,fillStyle:ds.backgroundColor[i],strokeStyle:"#fff",lineWidth:0,hidden:false,index:i};});}}},tooltip:{...CD.tip,callbacks:{label:c=>{const pct=total>0?(d[items[c.dataIndex][0]]||0)/total*100:0;return ` ${c.label}: ${fmtTip(c.parsed,unit)} (${pct.toFixed(1)}%)`;}}}}}};}
+function donutConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const items=Object.entries(fm).filter(([f])=>(d[f]||0)>0);const total=items.reduce((s,[f])=>s+(d[f]||0),0);return{type:"doughnut",data:{labels:items.map(([,v])=>v.label),datasets:[{data:items.map(([f])=>toU(d[f]||0,unit)),backgroundColor:items.map(([,v])=>v.color),borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:"60%",plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'Source Sans 3'",size:10},padding:10,generateLabels(chart){const ds=chart.data.datasets[0];return chart.data.labels.map((label,i)=>{const pct=total>0?(d[items[i][0]]||0)/total*100:0;return{text:`${label}  ${pct.toFixed(1)}%`,fillStyle:ds.backgroundColor[i],strokeStyle:"#fff",lineWidth:0,hidden:false,index:i};});}}},tooltip:{...CD.tip,callbacks:{label:c=>{const pct=total>0?(d[items[c.dataIndex][0]]||0)/total*100:0;return ` ${c.label}: ${fmtTip(c.parsed,unit)} (${pct.toFixed(1)}%)`;}}}}}};}
 function rankConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const items=Object.entries(fm).map(([f,m])=>({label:m.label,color:m.color,val:toU(d[f]||0,unit)})).filter(x=>x.val>0).sort((a,b)=>b.val-a.val);return{type:"bar",data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.val),backgroundColor:items.map(x=>x.color+"cc"),borderColor:items.map(x=>x.color),borderWidth:1.5,borderRadius:3}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${fmtTip(c.parsed.x,unit)}`}}},scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>fmtTip(v,unit)},grid:{color:CD.grid}},y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};}
-function renewBarConfig(pp,byP,hourly,unit,tz){if(!pp.length)return null;const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS,rk=hourly?RENEW_H:RENEW_M;return{type:"bar",data:{labels:pp,datasets:rk.map(f=>({label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:fm[f].color+"bb",borderColor:fm[f].color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
-function groupPieConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const rk=hourly?RENEW_H:RENEW_M,fossils=hourly?["NG","COL"]:["NG","COW"];const renew=rk.reduce((s,f)=>s+(d[f]||0),0);const fossil=fossils.reduce((s,f)=>s+(d[f]||0),0);const nuc=d.NUC||0;return{type:"pie",data:{labels:["Renewables","Fossil Fuels","Nuclear"],datasets:[{data:[toU(renew,unit),toU(fossil,unit),toU(nuc,unit)],backgroundColor:["#2a7d4f","#e05020","#9040c0"],borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'IBM Plex Mono'",size:10},padding:10}},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.label}: ${fmtTip(c.parsed,unit)}`}}}}};}
+function renewBarConfig(pp,byP,hourly,unit,tz){if(!pp.length)return null;const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS,rk=hourly?RENEW_H:RENEW_M;return{type:"bar",data:{labels:pp,datasets:rk.map(f=>({label:fm[f].label,data:pp.map(p=>toU(byP[p]?.[f]||0,unit)),backgroundColor:fm[f].color+"bb",borderColor:fm[f].color,borderWidth:0,stack:"s"}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{labels:{color:CD.tick,font:{family:"'Source Sans 3'",size:10}}},tooltip:{...CD.tip,callbacks:{title:tipTitle(tz),label:c=>` ${c.dataset.label}: ${fmtTip(c.parsed.y,unit)}`}}},scales:{x:{...mkX(tz),stacked:true},y:mkY(unit,true)}}};}
+function groupPieConfig(pp,byP,hourly,unit){if(!pp.length)return null;const d=sumPeriods(pp,byP);const rk=hourly?RENEW_H:RENEW_M,fossils=hourly?["NG","COL"]:["NG","COW"];const renew=rk.reduce((s,f)=>s+(d[f]||0),0);const fossil=fossils.reduce((s,f)=>s+(d[f]||0),0);const nuc=d.NUC||0;return{type:"pie",data:{labels:["Renewables","Fossil Fuels","Nuclear"],datasets:[{data:[toU(renew,unit),toU(fossil,unit),toU(nuc,unit)],backgroundColor:["#2a7d4f","#e05020","#9040c0"],borderColor:"#fff",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{color:CD.tick,font:{family:"'Source Sans 3'",size:10},padding:10}},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.label}: ${fmtTip(c.parsed,unit)}`}}}}};}
 function genChangeConfig(pp,byP,hourly,unit){if(pp.length<2)return null;const fm=hourly?HOURLY_FUELS:MONTHLY_FUELS;const mid=Math.floor(pp.length/2);const sumH=ps=>{const t={};ps.forEach(p=>{const d=byP[p]||{};Object.entries(d).forEach(([k,v])=>{t[k]=(t[k]||0)+v;});});return t;};const s1=sumH(pp.slice(0,mid)),s2=sumH(pp.slice(mid));const ORDER=hourly?["SUN","WND","WAT","NUC","COL","NG"]:["SUN","WND","HYC","NUC","COW","NG"];const items=ORDER.map(f=>{const m=fm[f];if(!m)return null;const v1=s1[f]||0,v2=s2[f]||0;const pct=v1>0?((v2-v1)/v1*100):null;return pct!==null?{label:m.label,color:m.color,pct}:null;}).filter(Boolean);return{type:"bar",data:{labels:items.map(x=>x.label),datasets:[{data:items.map(x=>x.pct),backgroundColor:items.map(x=>x.pct>=0?"#2a7d4f44":"#e0502044"),borderColor:items.map(x=>x.pct>=0?"#2a7d4f":"#e05020"),borderWidth:1.5,borderRadius:3}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...CD.tip,callbacks:{label:c=>` ${c.parsed.x>0?"+":""}${c.parsed.x.toFixed(1)}%`}}},scales:{x:{ticks:{color:CD.tick,font:CD.font,callback:v=>(v>0?"+":"")+v.toFixed(1)+"%"},grid:{color:CD.grid}},y:{ticks:{color:CD.tick,font:{...CD.font,size:10}},grid:{display:false}}}}};}
 
 function OverviewTab({pp,byP,hourly,unit,visible,freqLabel,tz}){return<div><div className="mb"><InteractiveChartCard title="Renewables — Generation Trend" tag={`${freqLabel} · ${unit} · click legend to toggle`} config={renewLineConfig(pp,byP,hourly,unit,tz)} height="270px" delay={0} visible={visible}/></div><div className="grid2"><ChartCard title="Renewables vs Fossil vs Nuclear" tag="% Share" config={groupPieConfig(pp,byP,hourly,unit)} height="230px" delay={80} visible={visible}/><ChartCard title="Renewable Generation by Source" tag={`${freqLabel} · ${unit}`} config={renewBarConfig(pp,byP,hourly,unit,tz)} height="230px" delay={160} visible={visible}/></div></div>;}
@@ -427,7 +433,7 @@ function MixTab({pp,byP,hourly,unit,visible,freqLabel,tz}){return<div><div class
 function DonutWheel({data,fuels,size=140}){
   const valid=fuels.filter(f=>Math.max(0,data[f.key]||0)>0);
   const total=valid.reduce((s,f)=>s+Math.max(0,data[f.key]||0),0);
-  if(total===0)return<div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'IBM Plex Mono',monospace",fontSize:".55rem",color:"var(--muted)"}}>No data</div>;
+  if(total===0)return<div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Source Sans 3',sans-serif",fontSize:".7rem",color:"var(--muted)"}}>No data</div>;
   const cx=size/2,cy=size/2,R=size/2-6,r=R*0.56;
   const slices=[];let angle=-Math.PI/2;
   valid.forEach(f=>{
@@ -498,10 +504,10 @@ function Top5Panel({top5,wheelKey,onWheelKey,sortKey,fuels,unit,isRTO}){
               <div className="top5-col-header">
                 <div className={`top5-rank-badge ${RANK_BADGES[i]}`}>{RANK_MEDALS[i]}</div>
                 <div className="top5-state-name">{d.name||d.shortName}</div>
-                {d.name!==d.shortName&&<div style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".56rem",color:"var(--muted)",marginBottom:"4px"}}>{d.shortName}</div>}
+                {d.name!==d.shortName&&<div style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".7rem",color:"var(--muted)",marginBottom:"4px"}}>{d.shortName}</div>}
                 <div style={{marginTop:"2px"}}>
                   <span className="top5-source-val" style={{color:wheelFuel.color}}>
-                    {fmtVal(srcVal,unit)} <span style={{fontSize:".55rem",opacity:.7}}>{unit}</span>
+                    {fmtVal(srcVal,unit)} <span style={{fontSize:".7rem",opacity:.7}}>{unit}</span>
                   </span>
                   <span className="top5-source-pct">{wheelFuel.label}: {srcPct.toFixed(1)}% of mix</span>
                 </div>
@@ -620,10 +626,10 @@ function LeadersTab({unit,currentRegionType}){
     if(key==="name")return d.name;
     if(key==="total")return FUELS.reduce((s,f)=>s+Math.max(0,d[f.key]||0),0);
     const raw=Math.max(0,d[key]||0);
-    if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t;}
+    if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t*100;}
     return raw;
   },[sortMode,rowTotals,isRTO]);
-  const colMax=useMemo(()=>{const mx={};FUELS.forEach(f=>{const vals=leaderData.map(d=>{const raw=Math.max(0,d[f.key]||0);if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t;}return raw;});mx[f.key]=Math.max(...vals,0.0001);});return mx;},[leaderData,sortMode,rowTotals,isRTO]);
+  const colMax=useMemo(()=>{const mx={};FUELS.forEach(f=>{const vals=leaderData.map(d=>{const raw=Math.max(0,d[f.key]||0);if(sortMode==="pct"){const t=rowTotals[d.id]||1;return raw/t*100;}return raw;});mx[f.key]=Math.max(...vals,0.0001);});return mx;},[leaderData,sortMode,rowTotals,isRTO]);
   const allSorted=useMemo(()=>[...leaderData].sort((a,b)=>{const av=getSortVal(a,sortKey);const bv=getSortVal(b,sortKey);if(sortKey==="name")return sortDir==="asc"?av.localeCompare(bv):bv.localeCompare(av);return sortDir==="desc"?bv-av:av-bv;}),[leaderData,sortKey,sortDir,getSortVal]);
   const top5=useMemo(()=>allSorted.slice(0,5),[allSorted]);
   const filtered=useMemo(()=>{let rows=allSorted.filter(d=>!search||d.name.toLowerCase().includes(search.toLowerCase())||d.shortName.toLowerCase().includes(search.toLowerCase()));return topN?rows.slice(0,topN):rows;},[allSorted,search,topN]);
@@ -634,7 +640,7 @@ function LeadersTab({unit,currentRegionType}){
   return(
     <div>
       <div className="info-note">
-        ℹ <strong>{isRTO?"Grid Operator":"State"} Leaders</strong> fetches all {isRTO?"9 grid operators":"50 states"} from EIA
+        <strong>{isRTO?"Grid Operator":"State"} Leaders</strong> fetches all {isRTO?"9 grid operators":"50 states"} from EIA
         ({isRTO?"9":"~50"} API calls). A <strong>free personal EIA key</strong> is strongly recommended.
         {!isRTO&&" Select time window then Load States."}
       </div>
@@ -648,7 +654,7 @@ function LeadersTab({unit,currentRegionType}){
           <div className="leaders-header-top">
             <div>
               <div className="leaders-title">{isRTO?"Grid Operator":"State"} Rankings — All Sources</div>
-              {loadedWindow&&<div style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".58rem",color:"var(--muted)",marginTop:"4px"}}>
+              {loadedWindow&&<div style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".72rem",color:"var(--muted)",marginTop:"4px"}}>
                 {leaderData.length} {isRTO?"operators":"states"} · {loadedWindow} · sorting by {sortMode==="pct"?"% of total mix":"absolute generation"} · click header to change source
               </div>}
             </div>
@@ -674,9 +680,9 @@ function LeadersTab({unit,currentRegionType}){
           {/* Column toggles */}
           <div style={{marginBottom:"4px"}}>
             <div style={{display:"flex",alignItems:"center",gap:"8px",marginBottom:"6px"}}>
-              <span style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",color:"var(--muted)",textTransform:"uppercase",letterSpacing:".07em"}}>Columns:</span>
-              <button onClick={()=>setVisibleSrcs(new Set(FUELS.map(f=>f.key)))} style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>All</button>
-              <button onClick={()=>setVisibleSrcs(new Set(isRTO?["SUN","WND","WAT","BAT_DIS"]:["SUN","WND","HYC"]))} style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".57rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>Renewables</button>
+              <span style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".71rem",color:"var(--muted)",textTransform:"uppercase",letterSpacing:".07em"}}>Columns:</span>
+              <button onClick={()=>setVisibleSrcs(new Set(FUELS.map(f=>f.key)))} style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".71rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>All</button>
+              <button onClick={()=>setVisibleSrcs(new Set(isRTO?["SUN","WND","WAT","BAT_DIS"]:["SUN","WND","HYC"]))} style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".71rem",padding:"2px 8px",border:"1px solid var(--border)",borderRadius:"3px",cursor:"pointer",background:"transparent",color:"var(--muted)"}}>Renewables</button>
             </div>
             <div className="source-toggles">
               {FUELS.map(f=>{const on=visibleSrcs.has(f.key);const active=sortKey===f.key;return(
@@ -734,32 +740,32 @@ function LeadersTab({unit,currentRegionType}){
                   const globalRank=allSorted.findIndex(x=>x.id===d.id);
                   const rankCls=globalRank===0?"rank-cell top1":globalRank===1?"rank-cell top2":globalRank===2?"rank-cell top3":"rank-cell";
                   const inTop5=globalRank<5;
-                  const rowTotal=rowTotals[d.id]||0;
+                  const rowTotal=d.total||0;
                   return(
                     <tr key={d.id} style={{background:inTop5?"#f8f5ee":""}}>
                       <td className={rankCls}>{globalRank+1}</td>
                       <td className="name-cell">
                         {d.name}
-                        {d.name!==d.shortName&&<span style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".55rem",color:"var(--muted)",marginLeft:"5px"}}>{d.shortName}</span>}
+                        {d.name!==d.shortName&&<span style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".7rem",color:"var(--muted)",marginLeft:"5px"}}>{d.shortName}</span>}
                       </td>
                       {visibleFuels.map(f=>{
                         const raw=Math.max(0,d[f.key]||0);
                         const mixPct=rowTotal>0?(raw/rowTotal*100):0;
-                        const displayVal=sortMode==="pct"?mixPct:raw;
-                        const barPct=colMax[f.key]>0?(displayVal/colMax[f.key])*100:0;
+                        // bar always shows share of this state's total mix — matches the badge
+                        const barWidth=Math.min(100,mixPct);
                         return(
                           <td key={f.key}>
                             <div className="bar-wrap">
-                              <div className="bar-track"><div className="bar-fill" style={{width:`${Math.min(100,barPct)}%`,background:f.color+(sortKey===f.key?"":"99")}}/></div>
+                              <div className="bar-track"><div className="bar-fill" style={{width:`${barWidth}%`,background:f.color+(sortKey===f.key?"":"99")}}/></div>
                               {sortMode==="pct"
                                 ? <span className="val-text">{mixPct.toFixed(1)}%</span>
-                                : <><span className="val-text">{fmtVal(raw,unit)}</span><span className="pct-badge">{mixPct.toFixed(0)}%</span></>
+                                : <><span className="val-text">{fmtVal(raw,unit)}</span><span className="pct-badge">{mixPct.toFixed(1)}%</span></>
                               }
                             </div>
                           </td>
                         );
                       })}
-                      <td style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:".65rem",color:"var(--muted)"}}>{sortMode==="pct"?"100.0%":fmtVal(rowTotal,unit)}</td>
+                      <td style={{fontFamily:"'Source Sans 3',sans-serif",fontSize:".77rem",color:"var(--muted)"}}>{sortMode==="pct"?"100.0%":fmtVal(rowTotal,unit)}</td>
                     </tr>
                   );
                 })}
@@ -855,16 +861,20 @@ function App(){
     <RegionBar selected={region} onChange={handleRegionChange}/>
     <main className="app-main">
       {error&&<div className="error-box">{error}</div>}
+      <div className="gen-summary-header">
+        <div className="gen-summary-title">Generation Summary</div>
+        {rangeLabel&&<div className="gen-summary-subtitle">{rangeLabel} · {unit}</div>}
+      </div>
       <div className="kpi-row">
-        {[{label:"Solar Generation",value:fmtKPI(kpiTotals.solar,unit),unit:fmtKPIUnit(kpiTotals.solar,unit),cls:"solar",sub:rangeLabel},{label:"Wind Generation",value:fmtKPI(kpiTotals.wind,unit),unit:fmtKPIUnit(kpiTotals.wind,unit),cls:"wind",sub:rangeLabel},{label:"Hydro Generation",value:fmtKPI(kpiTotals.hydro,unit),unit:fmtKPIUnit(kpiTotals.hydro,unit),cls:"hydro",sub:rangeLabel},{label:"Renewables Share",value:share,unit:share!=="—"?"%":null,cls:"",sub:"of total generation"}].map((k,i)=>(
+        {[{label:"Solar Generation",value:fmtKPI(kpiTotals.solar,unit),unit:fmtKPIUnit(kpiTotals.solar,unit),cls:"solar"},{label:"Wind Generation",value:fmtKPI(kpiTotals.wind,unit),unit:fmtKPIUnit(kpiTotals.wind,unit),cls:"wind"},{label:"Hydro Generation",value:fmtKPI(kpiTotals.hydro,unit),unit:fmtKPIUnit(kpiTotals.hydro,unit),cls:"hydro"},{label:"Renewables Share",value:share,unit:share!=="—"?"%":null,cls:""}].map((k,i)=>(
           <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${i*70}ms`}}>
-            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div><div className="kpi-sub">{k.sub}</div>
+            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div>{k.sub&&<div className="kpi-sub">{k.sub}</div>}
           </div>
         ))}
         <div className="kpi-row-divider"/>
-        {[{label:"Coal Generation",value:fmtKPI(kpiTotals.coal,unit),unit:fmtKPIUnit(kpiTotals.coal,unit),cls:"",sub:rangeLabel},{label:"Gas Generation",value:fmtKPI(kpiTotals.gas,unit),unit:fmtKPIUnit(kpiTotals.gas,unit),cls:"",sub:rangeLabel},{label:"Nuclear Generation",value:fmtKPI(kpiTotals.nuclear,unit),unit:fmtKPIUnit(kpiTotals.nuclear,unit),cls:"",sub:rangeLabel},{label:"Total Generation",value:fmtKPI(kpiTotals.total,unit),unit:fmtKPIUnit(kpiTotals.total,unit),cls:"",sub:rangeLabel}].map((k,i)=>(
+        {[{label:"Coal Generation",value:fmtKPI(kpiTotals.coal,unit),unit:fmtKPIUnit(kpiTotals.coal,unit),cls:""},{label:"Gas Generation",value:fmtKPI(kpiTotals.gas,unit),unit:fmtKPIUnit(kpiTotals.gas,unit),cls:""},{label:"Nuclear Generation",value:fmtKPI(kpiTotals.nuclear,unit),unit:fmtKPIUnit(kpiTotals.nuclear,unit),cls:""},{label:"Total Generation",value:fmtKPI(kpiTotals.total,unit),unit:fmtKPIUnit(kpiTotals.total,unit),cls:""}].map((k,i)=>(
           <div key={k.label} className={`kpi${kpiVis?" visible":""}`} style={{transitionDelay:`${(i+4)*70}ms`}}>
-            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div><div className="kpi-sub">{k.sub}</div>
+            <div className="kpi-label">{k.label}</div><div className={`kpi-val${k.cls?" "+k.cls:""}`}>{k.value}{k.unit&&<span className="kpi-unit">{k.unit}</span>}</div>
           </div>
         ))}
       </div>
@@ -892,8 +902,8 @@ function App(){
           <div className="quick-btns">{quickList.map(q=><button key={q.label} className={`qr${activeQ===q.label?" active":""}`} onClick={()=>applyQuick(q)}>{q.label}</button>)}</div>
         </div>
       )}
-      {activeTab!=="leaders"&&hourly&&<div className="info-note">ℹ <strong>{region.label}</strong> ({region.id}) · Hourly RTO data · WAT=Hydro, COL=Coal · Times in {region.tz||"UTC"} · Last 7 days</div>}
-      {activeTab!=="leaders"&&!hourly&&<div className="info-note">ℹ Monthly EIA data typically publishes with a 2–3 month lag · Showing all available data by default</div>}
+      {activeTab!=="leaders"&&hourly&&<div className="info-note"><strong>{region.label}</strong> ({region.id}) · Hourly RTO data · WAT=Hydro, COL=Coal · Times in {region.tz||"UTC"} · Last 7 days</div>}
+      {activeTab!=="leaders"&&!hourly&&<div className="info-note">Monthly EIA data typically publishes with a 2–3 month lag -- Showing all available data by default</div>}
       {activeTab==="overview"&&<OverviewTab pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
       {activeTab==="trend"   &&<TrendTab    pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
       {activeTab==="mix"     &&<MixTab      pp={filteredPeriods} byP={data.byP} hourly={hourly} unit={unit} visible={tabVis} freqLabel={freqLabel} tz={data.tz||null}/>}
