@@ -856,7 +856,7 @@ function App(){
       <label>EIA API KEY</label>
       <input id="eia-key-input" type="text" placeholder="Paste your EIA key for higher rate limits…" defaultValue="" onKeyDown={e=>e.key==="Enter"&&run()}/>
       <button className="load-btn" onClick={run} disabled={loading}>{loading?"LOADING…":"RELOAD"}</button>
-      <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key&#8599;</a>
+      <a href="https://www.eia.gov/opendata/register.php" target="_blank" rel="noreferrer">Get free key →</a>
     </div>
     <RegionBar selected={region} onChange={handleRegionChange}/>
     <main className="app-main">
